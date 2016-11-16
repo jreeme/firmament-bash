@@ -1,0 +1,42 @@
+{
+  "name": "firmament-bash",
+  "version": "0.0.1",
+  "description": "Firmament module for interpreting commands in JSON files using bash",
+  "main": "js/index.js",
+  "typings": "js/index",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec js/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jreeme/firmament-bash.git"
+  },
+  "keywords": [
+    "firmament",
+    "bash",
+    "cli"
+  ],
+  "author": "John Reeme <john.reeme@gmail.com> (http://blue-dot.com)",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/jreeme/firmament-bash/issues"
+  },
+  "homepage": "https://github.com/jreeme/firmament-bash#readme",
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/lodash": "^4.14.37",
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.45",
+    "@types/reflect-metadata": "0.0.5",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "typescript": "^2.0.3"
+  },
+  "dependencies": {
+    "firmament-yargs": "0.2.14",
+    "inversify": "^3.0.0-beta.1",
+    "jsonfile": "^2.3.1",
+    "lodash": "^4.8.2",
+    "reflect-metadata": "^0.1.3"
+  }
+}

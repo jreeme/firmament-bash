@@ -1,6 +1,6 @@
 {
   "name": "firmament-bash",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Firmament module for interpreting commands in JSON files using bash",
   "main": "js/index.js",
   "typings": "js/index",
@@ -30,13 +30,14 @@
     "@types/reflect-metadata": "0.0.5",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
-    "typescript": "^2.0.3"
+    "typescript": "2.0.8"
   },
   "dependencies": {
     "firmament-yargs": "0.2.14",
     "inversify": "^3.0.0-beta.1",
     "jsonfile": "^2.3.1",
     "lodash": "^4.8.2",
-    "reflect-metadata": "^0.1.3"
+    "reflect-metadata": "^0.1.3",
+    "sudo": "^1.0.3"
   }
 }

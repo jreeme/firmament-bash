@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import kernel from '../inversify.config';
 import {expect} from 'chai';
+/*
 import {
   DockerOde, ImageOrContainer, DockerImage, DockerContainer,
   ImageOrContainerRemoveResults
@@ -17,9 +18,9 @@ describe('DockerUtil', function () {
     dockerUtil = kernel.get<DockerUtil>('DockerUtil');
   });
   //
-  //****************************** DockerUtil.listImagesOrContainers
+  //!****************************** DockerUtil.listImagesOrContainers
   //
-  //***************************** Images *******************************
+  //!***************************** Images *******************************
   describe('DockerUtil.listImagesOrContainers (force error, images)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -63,7 +64,7 @@ describe('DockerUtil', function () {
         });
     });
   });
-  //***************************** Containers *******************************
+  //!***************************** Containers *******************************
   describe('DockerUtil.listImagesOrContainers (force error, containers)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -84,9 +85,9 @@ describe('DockerUtil', function () {
       dockerUtil.listImagesOrContainers(
         new DockerUtilOptionsImpl(ImageOrContainer.Container, true),
         (err, containers: any[])=> {
-          /*        var jsonFile = require('jsonfile');
+          /!*        var jsonFile = require('jsonfile');
            jsonFile.spaces = 2;
-           jsonFile.writeFileSync('/home/jreeme/src/firmament-docker/test-data/docker-container-list.json', imagesOrContainers);*/
+           jsonFile.writeFileSync('/home/jreeme/src/firmament-docker/test-data/docker-container-list.json', imagesOrContainers);*!/
           //Check sorting
           for (let i = 0; i < containers.length - 1; ++i) {
             let refId = containers[i].Names[0];
@@ -111,9 +112,9 @@ describe('DockerUtil', function () {
     });
   });
   //
-  //****************************** DockerUtil.getImageOrContainer
+  //!****************************** DockerUtil.getImageOrContainer
   //
-  //***************************** Images *******************************
+  //!***************************** Images *******************************
   describe('DockerUtil.getImageOrContainer (force error, image)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -157,7 +158,7 @@ describe('DockerUtil', function () {
         });
     });
   });
-  //***************************** Containers *******************************
+  //!***************************** Containers *******************************
   describe('DockerUtil.getImageOrContainer (force error, container)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -201,9 +202,9 @@ describe('DockerUtil', function () {
     });
   });
   //
-  //****************************** DockerUtil.getImagesOrContainers
+  //!****************************** DockerUtil.getImagesOrContainers
   //
-  //***************************** Images *******************************
+  //!***************************** Images *******************************
   describe('DockerUtil.getImagesOrContainers (force error, images)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -240,7 +241,7 @@ describe('DockerUtil', function () {
         });
     });
   });
-  //***************************** Containers *******************************
+  //!***************************** Containers *******************************
   describe('DockerUtil.getImagesOrContainers (force error, images)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -277,9 +278,9 @@ describe('DockerUtil', function () {
     });
   });
   //
-  //****************************** DockerUtil.removeImagesOrContainers
+  //!****************************** DockerUtil.removeImagesOrContainers
   //
-  //***************************** Images *******************************
+  //!***************************** Images *******************************
   describe('DockerUtil.removeImagesOrContainers (force error, images)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -335,7 +336,7 @@ describe('DockerUtil', function () {
         });
     });
   });
-  //***************************** Containers *******************************
+  //!***************************** Containers *******************************
   describe('DockerUtil.removeImagesOrContainers (force error, containers)', function () {
     it('should return non-null Error instance in callback', function (done) {
       expect(dockerUtil).to.not.equal(null);
@@ -392,4 +393,5 @@ describe('DockerUtil', function () {
     });
   });
 });
+*/
 

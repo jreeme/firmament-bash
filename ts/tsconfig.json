@@ -17,10 +17,7 @@
       "dom"
     ],
     "types": [
-      "async",
       "chai",
-      "inversify",
-      "jsnlog",
       "lodash",
       "mocha",
       "node",

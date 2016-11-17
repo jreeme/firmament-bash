@@ -9,7 +9,7 @@ export class BashCommandImpl implements Command {
   commandDesc: string = '';
   //noinspection JSUnusedGlobalSymbols
   //noinspection JSUnusedLocalSymbols
-  handler: (argv: any)=>void = (argv: any)=> {
+  handler: (argv: any)=>void = (argv: any) => {
   };
   options: any = {};
   subCommands: Command[] = [];
@@ -17,7 +17,7 @@ export class BashCommandImpl implements Command {
   private spawn: Spawn;
 
   constructor(@inject('CommandUtil') _commandUtil: CommandUtil,
-              @inject('Spawn') _spawn: Spawn){
+              @inject('Spawn') _spawn: Spawn) {
     this.buildCommandTree();
     this.commandUtil = _commandUtil;
     this.spawn = _spawn;
@@ -36,8 +36,18 @@ export class BashCommandImpl implements Command {
     testCommand.aliases = ['test'];
     testCommand.commandDesc = 'Test Command';
     //noinspection JSUnusedLocalSymbols
-    testCommand.handler = (argv)=> {
-      console.log('Test Success!');
+    testCommand.handler = (argv) => {
+      var sudo = require('sudo');
+      var options = {
+        cachePassword: true,
+        prompt: 'Password, yo? ',
+        spawnOptions: {/* other options for spawn */}
+      };
+      var child = sudo(['ls', '-l', '/tmp'], options);
+      child.stdout.on('data', function (data) {
+        console.log(data.toString());
+      });
+      console.log('Test Hello!!');
     };
     me.subCommands.push(testCommand);
   }

@@ -1,0 +1,21 @@
+{
+  "description":"test description",
+  "asynchronousCommands":{
+    "commands":[
+      {
+        "description":"List files",
+        "command":"ls",
+        "args":["-F","-a","-l"]
+      }
+    ]
+  },
+  "serialSynchronizedCommands":{
+    "commands":[
+      {
+        "description":"Take a look at network",
+        "command":"ifconfig",
+        "args":["-a"]
+      }
+    ]
+  }
+}

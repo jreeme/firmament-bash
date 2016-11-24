@@ -26,8 +26,12 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       if (this.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      cb(null, null);
+      this.execute(executionGraph, cb);
     });
+  }
+
+  private execute(executionGraph:ExecutionGraph, cb: (err: Error, result: string)=>void){
+
   }
 
   private resolveExecutionGraph(jsonOrUri: string, cb: (err: Error, executionGraph: ExecutionGraph)=>void) {
@@ -49,8 +53,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
             if (this.commandUtil.callbackIfError(cb, err)) {
               return;
             }
+            executionGraph.prerequisiteGraph = subExecutionGraph;
+            cb(null, executionGraph);
           });
-        }else if(typeof executionGraph.prerequisiteGraph === 'Object') {
+        } else if (typeof executionGraph.prerequisiteGraph === 'Object') {
           cb(null, executionGraph);
         }
       } else {

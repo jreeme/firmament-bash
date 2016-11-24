@@ -1,20 +1,27 @@
 {
-  "description":"test description",
-  "asynchronousCommands":{
-    "commands":[
+  "description":"test description valid",
+  "prerequisiteGraph": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/valid-01.json",
+  "asynchronousCommands": {
+    "commands": [
       {
-        "description":"List files",
-        "command":"ls",
-        "args":["-F","-a","-l"]
+        "description": "List files",
+        "command": "ls",
+        "args": [
+          "-F",
+          "-a",
+          "-l"
+        ]
       }
     ]
   },
-  "serialSynchronizedCommands":{
-    "commands":[
+  "serialSynchronizedCommands": {
+    "commands": [
       {
-        "description":"Take a look at network",
-        "command":"ifconfig",
-        "args":["-a"]
+        "description": "Take a look at network",
+        "command": "ifconfig",
+        "args": [
+          "-a"
+        ]
       }
     ]
   }

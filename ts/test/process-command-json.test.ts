@@ -54,7 +54,7 @@ describe('Process bash commands from JSON file', function () {
       });
     });
   });*/
-  describe(`processCommandJson (with absolute path to invalid JSON file)`, () => {
+/*  describe(`processCommandJson (with absolute path to invalid JSON file)`, () => {
     it('should process graph successfully', done => {
       expect(processCommandJson).to.not.equal(null);
       processCommandJson.process(pathToTestJson + 'bad', (err, result) => {
@@ -86,7 +86,7 @@ describe('Process bash commands from JSON file', function () {
         done();
       });
     });
-  });
+  });*/
   describe(`processCommandJson (with absolute path to valid JSON file)`, () => {
     it('should process graph successfully', done => {
       expect(processCommandJson).to.not.equal(null);
@@ -97,7 +97,7 @@ describe('Process bash commands from JSON file', function () {
       });
     });
   });
-  describe(`processCommandJson (with cwd relative path to valid JSON file)`, () => {
+/*  describe(`processCommandJson (with cwd relative path to valid JSON file)`, () => {
     it('should process graph successfully', done => {
       expect(processCommandJson).to.not.equal(null);
       processCommandJson.process(relativePathToTestJson, (err, result) => {
@@ -116,6 +116,6 @@ describe('Process bash commands from JSON file', function () {
         done();
       });
     });
-  });
+  });*/
 });
 

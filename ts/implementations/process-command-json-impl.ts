@@ -43,7 +43,19 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         cb(err, null);
         return;
       }
-
+      if (executionGraph.prerequisiteGraph) {
+        if (typeof executionGraph.prerequisiteGraph === 'string') {
+          this.resolveExecutionGraph(executionGraph.prerequisiteGraph, (err: Error, subExecutionGraph: ExecutionGraph) => {
+            if (this.commandUtil.callbackIfError(cb, err)) {
+              return;
+            }
+          });
+        }else if(typeof executionGraph.prerequisiteGraph === 'Object') {
+          cb(null, executionGraph);
+        }
+      } else {
+        cb(null, executionGraph);
+      }
     });
   }
 

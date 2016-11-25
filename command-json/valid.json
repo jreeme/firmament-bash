@@ -1,28 +1,55 @@
 {
-  "description":"test description valid",
-  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/valid-01.json",
-  "asynchronousCommands": {
-    "commands": [
-      {
-        "description": "List files",
-        "command": "ls",
-        "args": [
-          "-F",
-          "-a",
-          "-l"
-        ]
-      }
-    ]
+  "description": "Command Group 0",
+  "prerequisiteGraphUri": "/home/jreeme/src/firmament-bash/command-json/valid-01.json",
+  "options": {
+    "quietSpawn": true
   },
-  "serialSynchronizedCommands": {
-    "commands": [
-      {
-        "description": "Take a look at network",
-        "command": "ifconfig",
-        "args": [
-          "-a"
-        ]
-      }
-    ]
-  }
+  "asynchronousCommands": [
+    {
+      "description": "Async Group 0 Task 1",
+      "suppressOutput": false,
+      "command": "node",
+      "outputColor": "blue",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "10",
+        "Async Group 0 task 1: "
+      ]
+    },
+    {
+      "description": "Async Group 0 Task 2",
+      "command": "node",
+      "suppressOutput": false,
+      "outputColor": "green",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "5",
+        "Async Group 0 task 2: "
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description": "Sync Group 0 Task 1",
+      "suppressOutput": false,
+      "command": "node",
+      "outputColor": "yellow",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "10",
+        "Sync Group 0 task 1: "
+      ]
+    },
+    {
+      "description": "Sync Group 0 Task 2",
+      "command": "node",
+      "suppressOutput": false,
+      "outputColor": "magenta",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "5",
+        "Sync Group 0 task 2: "
+      ]
+    }
+  ]
 }

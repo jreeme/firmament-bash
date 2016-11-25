@@ -7,8 +7,10 @@ function sleep(milliseconds) {
   }
 }
 (function () {
-  for (let i = 0; i < 3; ++i) {
+  let msg = process.argv[3] || 'Unset Me: ';
+  let count = process.argv[2] || 3;
+  for (let i = 0; i < count; ++i) {
     sleep(500);
-    process.stdout.write(`test me: ${i}\n`);
+    process.stdout.write(`${msg} ${i}\n`);
   }
 })();

@@ -1,20 +1,11 @@
 {
-  "description":"test description",
-  "asynchronousCommands":{
-    "commands":[
+  "desxxxxjion":"test description",
+  "asynchrxxxsCommands":{
+    "comdddds":[
       {
-        "description":"List files",
-        "command":"ls",
-        "args":["-F","-a","-l"]
-      }
-    ]
-  },
-  "serialSynchronizedCommands":{
-    "commands":[
-      {
-        "description":"Take a look at network",
-        "command":"ifconfig",
-        "args":["-a"]
+        "jjjjescription":"List files",
+        "comkkkkk":"ls",
+        "arlllll":["-F","-a","-l"]
       }
     ]
   }

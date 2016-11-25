@@ -30,8 +30,23 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     });
   }
 
-  private execute(executionGraph:ExecutionGraph, cb: (err: Error, result: string)=>void){
-
+  private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: string)=>void) {
+    cb = this.checkCallback(cb);
+    /*    if (executionGraph.prerequisiteGraph) {
+     if (typeof executionGraph.prerequisiteGraph === 'string') {
+     this.execute(executionGraph.prerequisiteGraph, (err: Error, result: string) => {
+     if (this.commandUtil.callbackIfError(cb, err)) {
+     return;
+     }
+     executionGraph.prerequisiteGraph = subExecutionGraph;
+     cb(null, executionGraph);
+     });
+     } else if (typeof executionGraph.prerequisiteGraph === 'Object') {
+     cb(null, executionGraph);
+     }
+     } else {
+     cb(null, executionGraph);
+     }*/
   }
 
   private resolveExecutionGraph(jsonOrUri: string, cb: (err: Error, executionGraph: ExecutionGraph)=>void) {
@@ -47,18 +62,13 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         cb(err, null);
         return;
       }
-      if (executionGraph.prerequisiteGraph) {
-        if (typeof executionGraph.prerequisiteGraph === 'string') {
-          this.resolveExecutionGraph(executionGraph.prerequisiteGraph, (err: Error, subExecutionGraph: ExecutionGraph) => {
-            if (this.commandUtil.callbackIfError(cb, err)) {
-              return;
-            }
-            executionGraph.prerequisiteGraph = subExecutionGraph;
-            cb(null, executionGraph);
-          });
-        } else if (typeof executionGraph.prerequisiteGraph === 'Object') {
-          cb(null, executionGraph);
-        }
+      if (executionGraph.prerequisiteGraphUri) {
+        this.resolveExecutionGraph(executionGraph.prerequisiteGraphUri, (err: Error, subExecutionGraph: ExecutionGraph) => {
+          if (this.commandUtil.callbackIfError(cb, err)) {
+            return;
+          }
+          executionGraph.prerequisiteGraph = subExecutionGraph;
+        });
       } else {
         cb(null, executionGraph);
       }

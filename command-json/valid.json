@@ -1,6 +1,6 @@
 {
   "description":"test description valid",
-  "prerequisiteGraph": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/valid-01.json",
+  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/valid-01.json",
   "asynchronousCommands": {
     "commands": [
       {

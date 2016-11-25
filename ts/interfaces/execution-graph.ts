@@ -5,7 +5,8 @@ export interface ShellCommand {
 }
 export interface ExecutionGraph {
   description: string;
-  prerequisiteGraph: string|ExecutionGraph;
-  serialSynchronizedCommands: ShellCommand[],
-  asynchronousCommands: ShellCommand[]
+  prerequisiteGraph: ExecutionGraph;
+  prerequisiteGraphUri: string;
+  serialSynchronizedCommands: ShellCommand[];
+  asynchronousCommands: ShellCommand[];
 }

@@ -25,7 +25,7 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
       "args": [
-        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-error-00.js",
         "5",
         "Async Group 0 task 2: "
       ]

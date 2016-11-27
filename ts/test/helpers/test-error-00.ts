@@ -1,4 +1,4 @@
-function sleep(milliseconds) {
+function sleepError(milliseconds) {
   let start = new Date().getTime();
   for (let i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds) {
@@ -7,10 +7,13 @@ function sleep(milliseconds) {
   }
 }
 (function () {
-  let msg = process.argv[3] || 'Unset Me: ';
+  let msg = process.argv[3] || 'Unset Error Me: ';
   let count = process.argv[2] || 3;
   for (let i = 0; i < count; ++i) {
-    sleep(500);
+    if(i == 2){
+      process.exit(3);
+    }
+    sleepError(500);
     process.stdout.write(`${msg} ${i}\n`);
   }
   process.exit(0);

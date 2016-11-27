@@ -1,0 +1,36 @@
+{
+  "description": "Command Group 0 (sudo)",
+  "options": {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands": [
+    {
+      "description": "Async Group 0 Task 1",
+      "suppressOutput": false,
+      "showDiagnostics": true,
+      "showPreAndPostSpawnMessages": true,
+      "command": "node",
+      "outputColor": "blue",
+      "useSudo": true,
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "10",
+        "Async Group 0 task 1: "
+      ]
+    },
+    {
+      "description": "Async Group 0 Task 2",
+      "suppressOutput": false,
+      "showDiagnostics": true,
+      "showPreAndPostSpawnMessages": true,
+      "command": "node",
+      "outputColor": "blue",
+      "useSudo": true,
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "5",
+        "Async Group 0 task 2: "
+      ]
+    }
+  ]
+}

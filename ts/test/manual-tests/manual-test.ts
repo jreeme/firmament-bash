@@ -3,8 +3,11 @@ import kernel from '../../inversify.config';
 import {ProcessCommandJson} from "../../interfaces/process-command-json";
 let processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
 
-processCommandJson.process("/home/jreeme/src/firmament-bash/command-json/valid.json",(err,result)=>{
-  let e = err;
+const scriptPath = "/home/jreeme/src/firmament-bash/command-json/valid.json"
+const errorScriptPath = "/home/jreeme/src/firmament-bash/command-json/valid-error.json"
+const sudoScriptPath = "/home/jreeme/src/firmament-bash/command-json/valid-sudo.json"
+processCommandJson.process(sudoScriptPath, (err, result) => {
+  process.exit(0);
 });
 
 //noinspection JSUnusedLocalSymbols

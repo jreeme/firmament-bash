@@ -31,34 +31,38 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       if (this.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      this.execute(executionGraph, (err: Error, a: any) => {
-      });
+      //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
+      this.execute(executionGraph, cb);
     });
   }
 
-  private execute(executionGraph: ExecutionGraph, cb: (err: Error, executionGraph: ExecutionGraph)=>void) {
+  private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any)=>void) {
     cb = this.checkCallback(cb);
     let graphCursor = executionGraph;
-    let fnArray = [];
     let executionGraphs: ExecutionGraph[] = [];
     executionGraphs.unshift(graphCursor);
     while (graphCursor = graphCursor.prerequisiteGraph) {
       executionGraphs.unshift(graphCursor);
     }
-    this.preProcessExecutionGraphs(executionGraphs, fnArray);
-    async.series(fnArray, (err, res) => {
-      cb(null, null);
+    this.preProcessExecutionGraphs(executionGraphs, (err: Error, fnArray: any[]) => {
+      if (this.commandUtil.callbackIfError(cb, err)) {
+        return;
+      }
+      async.series(fnArray, cb);
     });
   }
 
-  private preProcessExecutionGraphs(executionGraphs: ExecutionGraph[], fnArray: any[]) {
+  private preProcessExecutionGraphs(executionGraphs: ExecutionGraph[], cb: (err: Error, fnArray: any[])=>void) {
+    cb = this.checkCallback(cb);
     //Give all properties of executionGraph reasonable values so we don't clutter other code up
     //with defaults & checks
     let counter = 0;
+    let useSudo = false;
+    let fnArray = [];
     executionGraphs.forEach(executionGraph => {
       let eg = executionGraph;
       eg.description = eg.description || 'ExecutionGraph +';
-      eg.options = eg.options || {quietSpawn: false};
+      eg.options = eg.options || {displayExecutionGraphDescription: true};
       eg.prerequisiteGraph = eg.prerequisiteGraph || null;
       eg.prerequisiteGraphUri = eg.prerequisiteGraphUri || null;
       eg.asynchronousCommands = eg.asynchronousCommands || [];
@@ -66,10 +70,25 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       [eg.asynchronousCommands, eg.serialSynchronizedCommands].forEach(commands => {
         commands.forEach(command => {
           command.outputColor = command.outputColor || textColors[counter++ % textColors.length];
+          if (command.useSudo) {
+            useSudo = command.useSudo;
+          }
         });
       });
       fnArray.push(async.apply(this.executeSingleGraph.bind(this), executionGraph));
     });
+    if (useSudo) {
+      //Because launching several async processes requiring a password would ask the user multiple times
+      //for a password, we just do it once here to cache the password.
+      this.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error, result: string) => {
+        if (this.commandUtil.callbackIfError(cb, err)) {
+          return;
+        }
+        cb(null, fnArray);
+      });
+    } else {
+      cb(null, fnArray);
+    }
   }
 
   private executeSingleGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any)=>void) {
@@ -79,28 +98,35 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       return;
     }
     let eg = executionGraph;
-    this.spawn.commandUtil.quiet = eg.options.quietSpawn;
+    if (eg.options.displayExecutionGraphDescription) {
+      this.commandUtil.log(chalk['green'](`Starting execution graph '${eg.description}'`));
+    }
     //Use firmament-yargs:spawn services to execute commands
     //1) First do the asynchronous ones
     //2) Then do the synchronous ones (in order)
     let spawnFnArray = [
-      async.apply(this.executeAsynchronousCommands.bind(this), eg.asynchronousCommands, {}),
-      async.apply(this.executeSynchronousCommands.bind(this), eg.serialSynchronizedCommands, {})
+      async.apply(this.executeAsynchronousCommands.bind(this), eg.asynchronousCommands),
+      async.apply(this.executeSynchronousCommands.bind(this), eg.serialSynchronizedCommands)
     ];
 
+    //noinspection JSUnusedLocalSymbols
     async.series(spawnFnArray, (err: Error, results: any) => {
       if (this.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      cb(null, executionGraph.description);
+      let msg = `Execution graph '${eg.description}' completed.`;
+      if (eg.options.displayExecutionGraphDescription) {
+        this.commandUtil.log(chalk['green'](msg));
+      }
+      cb(null, msg);
     });
   }
 
-  private executeAsynchronousCommands(commands: ShellCommand[], options: any, cb: (err: Error, results: string[])=>void) {
+  private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[])=>void) {
     async.parallel(this.createSpawnFnArray(commands), cb);
   }
 
-  private executeSynchronousCommands(commands: ShellCommand[], options: any, cb: (err: Error, results: string[])=>void) {
+  private executeSynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[])=>void) {
     async.series(this.createSpawnFnArray(commands), cb);
   }
 
@@ -109,13 +135,22 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     commands.forEach(command => {
       let cmd = command.args.slice(0);
       cmd.unshift(command.command);
-      spawnFnArray.push(async.apply(this.spawn.spawnShellCommandAsync.bind(this.spawn),
+      let fnSpawn = command.useSudo
+        ? this.spawn.sudoSpawnAsync.bind(this.spawn)
+        : this.spawn.spawnShellCommandAsync.bind(this.spawn);
+      spawnFnArray.push(async.apply(fnSpawn,
         cmd,
-        {},
+        {
+          preSpawnMessage: command.showPreAndPostSpawnMessages
+            ? `Starting task '${command.description}'\n`
+            : null,
+          postSpawnMessage: command.showPreAndPostSpawnMessages
+            ? `Task '${command.description}' completed\n`
+            : null,
+          showDiagnostics: command.showDiagnostics,
+          suppressOutput: command.suppressOutput
+        },
         (err: Error, results: string) => {
-          if (command.suppressOutput) {
-            return;
-          }
           if (err) {
             this.commandUtil.stdoutWrite(chalk['red'](err.message));
             return;

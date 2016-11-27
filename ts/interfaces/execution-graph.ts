@@ -2,11 +2,14 @@ export interface ShellCommand {
   description: string;
   outputColor: string;
   suppressOutput: boolean;
+  showDiagnostics: boolean;
+  showPreAndPostSpawnMessages: boolean;
+  useSudo: boolean,
   command: string;
   args: string[];
 }
 export interface ExecutionGraphOptions {
-  quietSpawn: boolean;
+  displayExecutionGraphDescription: boolean;
 }
 export interface ExecutionGraph {
   description: string;

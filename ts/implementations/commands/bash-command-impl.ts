@@ -44,7 +44,7 @@ export class BashCommandImpl implements Command {
         desc: 'Json file containing the command graph'
       }
     };
-    processCommand.handler = this.processCommandJson.processJson;
+    processCommand.handler = this.processCommandJson.processJson.bind(this.processCommandJson);
     me.subCommands.push(processCommand);
   }
 }

@@ -1,6 +1,7 @@
 import {injectable, inject} from "inversify";
 import kernel from '../../inversify.config';
 import {Command, CommandUtil, Spawn} from 'firmament-yargs';
+import {ProcessCommandJson} from "../../interfaces/process-command-json";
 
 @injectable()
 export class BashCommandImpl implements Command {
@@ -14,13 +15,13 @@ export class BashCommandImpl implements Command {
   options: any = {};
   subCommands: Command[] = [];
   private commandUtil: CommandUtil;
-  private spawn: Spawn;
+  private processCommandJson: ProcessCommandJson;
 
   constructor(@inject('CommandUtil') _commandUtil: CommandUtil,
-              @inject('Spawn') _spawn: Spawn) {
+              @inject('ProcessCommandJson') _processCommandJson: ProcessCommandJson) {
     this.buildCommandTree();
     this.commandUtil = _commandUtil;
-    this.spawn = _spawn;
+    this.processCommandJson = _processCommandJson;
   }
 
   private buildCommandTree() {
@@ -32,24 +33,19 @@ export class BashCommandImpl implements Command {
 
   private pushTestCommand() {
     let me = this;
-    let testCommand = kernel.get<Command>('CommandImpl');
-    testCommand.aliases = ['test'];
-    testCommand.commandDesc = 'Test Command';
+    let processCommand = kernel.get<Command>('CommandImpl');
+    processCommand.aliases = ['process','p'];
+    processCommand.commandDesc = 'Execute bash command graph described in Json file';
     //noinspection JSUnusedLocalSymbols
-    testCommand.handler = (argv) => {
-      var sudo = require('sudo');
-      var options = {
-        cachePassword: true,
-        prompt: 'Password, yo? ',
-        spawnOptions: {/* other options for spawn */}
-      };
-      var child = sudo(['ls', '-l', '/tmp'], options);
-      child.stdout.on('data', function (data) {
-        console.log(data.toString());
-      });
-      console.log('Test Hello!!');
+    processCommand.options = {
+      input: {
+        alias: 'i',
+        type: 'string',
+        desc: 'Json file containing the command graph'
+      }
     };
-    me.subCommands.push(testCommand);
+    processCommand.handler = this.processCommandJson.processJson;
+    me.subCommands.push(processCommand);
   }
 }
 

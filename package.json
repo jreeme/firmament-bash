@@ -1,6 +1,6 @@
 {
   "name": "firmament-bash",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Firmament module for interpreting commands in JSON files using bash",
   "main": "js/index.js",
   "typings": "js/index",

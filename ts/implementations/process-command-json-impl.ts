@@ -22,6 +22,12 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     this.spawn = _spawn;
   }
 
+  processJson(argv: any) {
+    this.process(argv.input,(err:Error,result:string)=>{
+      this.commandUtil.processExitWithError(err);
+    });
+  }
+
   process(jsonOrUri: string, cb: (err: Error, result: string)=>void): void {
     cb = this.checkCallback(cb);
     if (this.checkForceError('ProcessCommandJsonImpl.process', cb)) {

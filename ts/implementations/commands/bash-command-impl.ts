@@ -19,9 +19,9 @@ export class BashCommandImpl implements Command {
 
   constructor(@inject('CommandUtil') _commandUtil: CommandUtil,
               @inject('ProcessCommandJson') _processCommandJson: ProcessCommandJson) {
-    this.buildCommandTree();
     this.commandUtil = _commandUtil;
     this.processCommandJson = _processCommandJson;
+    this.buildCommandTree();
   }
 
   private buildCommandTree() {

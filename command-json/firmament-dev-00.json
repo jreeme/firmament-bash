@@ -50,6 +50,7 @@
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
+      "workingDirectory": "firmament",
       "command": "npm",
       "args": [
         "install",

@@ -1,6 +1,7 @@
 export interface ShellCommand {
   description: string;
   outputColor: string;
+  workingDirectory: string;
   suppressOutput: boolean;
   showDiagnostics: boolean;
   showPreAndPostSpawnMessages: boolean;

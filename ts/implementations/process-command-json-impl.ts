@@ -182,6 +182,14 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
+    let workingDirectory: string;
+    if (command.workingDirectory) {
+      workingDirectory = command.workingDirectory;
+      workingDirectory = path.isAbsolute(workingDirectory)
+        ? workingDirectory
+        : path.resolve(process.cwd(), workingDirectory);
+    }
+
     return {
       preSpawnMessage: command.showPreAndPostSpawnMessages
         ? `Starting task '${command.description}'\n`
@@ -190,7 +198,8 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         ? `Task '${command.description}' completed\n`
         : null,
       showDiagnostics: command.showDiagnostics,
-      suppressOutput: command.suppressOutput
+      suppressOutput: command.suppressOutput,
+      cwd: workingDirectory
     };
   }
 

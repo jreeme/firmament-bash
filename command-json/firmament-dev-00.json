@@ -1,62 +1,60 @@
 {
-  "description": "Command Group 0",
-"prerequisiteGraphUri":"/home/jreeme/src/firmament-bash/command-json/firmament-dev-01.json",
+  "description": "Second, 'npm install' those sons of guns",
+  "prerequisiteGraphUri": "/home/jreeme/src/firmament-bash/command-json/firmament-dev-01.json",
   "options": {
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands": [
     {
-      "description": "Async Group 0 Task 1",
-      "suppressOutput": true,
+      "description": "NPM install firmament-yargs",
+      "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "command": "node",
-      "outputColor": "blue",
+      "outputColor": "cyan",
+      "command": "npm",
       "args": [
-        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
-        "10",
-        "Async Group 0 task 1: "
+        "install",
+        "--prefix",
+        "firmament-yargs"
       ]
     },
     {
-      "description": "Async Group 0 Task 2",
-      "command": "node",
-      "suppressOutput": true,
+      "description": "NPM install firmament-bash",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "yellow",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament-bash"
+      ]
+    },
+    {
+      "description": "NPM install firmament-docker",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "white",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament-docker"
+      ]
+    },
+    {
+      "description": "NPM install firmament",
+      "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
+      "command": "npm",
       "args": [
-        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
-        "5",
-        "Async Group 0 task 2: "
-      ]
-    }
-  ],
-  "serialSynchronizedCommands": [
-    {
-      "description": "Sync Group 0 Task 1",
-      "suppressOutput": true,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "command": "node",
-      "outputColor": "yellow",
-      "args": [
-        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
-        "10",
-        "Sync Group 0 task 1: "
-      ]
-    },
-    {
-      "description": "Sync Group 0 Task 2",
-      "command": "node",
-      "suppressOutput": true,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor": "magenta",
-      "args": [
-        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
-        "5",
-        "Sync Group 0 task 2: "
+        "install",
+        "--prefix",
+        "firmament"
       ]
     }
   ]

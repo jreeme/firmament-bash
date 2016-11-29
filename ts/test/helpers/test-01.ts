@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-if(process.stdin.isTTY){
+/*if(process.stdin.isTTY){
   process.stdout.write('It is tty!');
-}else{
+}else{*/
   let i = 0;
   let msg = process.argv[2] || 'Middle ** ';
   process.stdin.on('data',chunk=>{
@@ -11,5 +11,5 @@ if(process.stdin.isTTY){
   process.stdin.on('end',()=>{
     process.stdout.write(msg + ' end***');
   });
-}
+/*}*/
 

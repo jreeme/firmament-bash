@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-function sleep(milliseconds) {
+process.stdin.on('data',chunk=>{
+  console.log('****' + chunk.toString());
+});
+process.stdin.on('end',()=>{
+  console.log('***end***');
+});
+/*function sleep(milliseconds) {
   let start = new Date().getTime();
   for (let i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds) {
@@ -16,4 +22,4 @@ function sleep(milliseconds) {
     process.stdout.write(`${msg} ${i}\n`);
   }
   process.exit(0);
-})();
+})();*/

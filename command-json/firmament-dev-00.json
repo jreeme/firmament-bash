@@ -45,12 +45,24 @@
       ]
     },
     {
-      "description": "NPM install firmament",
+      "description": "GIT checkout shell",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
       "workingDirectory": "firmament",
+      "command": "git",
+      "args": [
+        "checkout",
+        "shell"
+      ]
+    },
+    {
+      "description": "NPM install firmament",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "blue",
       "command": "npm",
       "args": [
         "install",

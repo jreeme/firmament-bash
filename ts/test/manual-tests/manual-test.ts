@@ -8,7 +8,8 @@ const errorScriptPath = '/home/jreeme/src/firmament-bash/command-json/valid-erro
 const sudoScriptPath = '/home/jreeme/src/firmament-bash/command-json/valid-sudo.json';
 const pipeScriptPath = '/home/jreeme/src/firmament-bash/command-json/pipe-00.json';
 const networkScriptPath = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/firmament-dev-00.json';
-processCommandJson.process(networkScriptPath, (err, result) => {
+const broScriptPath = '/home/jreeme/bro/bro4.json';
+processCommandJson.process(broScriptPath, (err, result) => {
   process.exit(0);
 });
 

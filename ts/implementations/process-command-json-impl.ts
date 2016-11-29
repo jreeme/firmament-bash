@@ -146,14 +146,16 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
           ? this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn)
           : this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn);
         let cmdArray: string[][] = [];
+        let optionsArray: SpawnOptions2[] = [];
         command.commandPipeline.forEach(subCommand => {
           let cmd = subCommand.args.slice(0);
           cmd.unshift(subCommand.command);
           cmdArray.push(cmd);
+          optionsArray.push(this.buildSpawnOptions(subCommand));
         });
         spawnFnArray.push(async.apply(fnSpawn,
           cmdArray,
-          this.buildSpawnOptions(command),
+          optionsArray,
           this.buildSpawnCallback(command)));
       } else {
         //Non-pipelined commands

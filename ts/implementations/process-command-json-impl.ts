@@ -1,6 +1,6 @@
 import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from "../interfaces/process-command-json";
-import {CommandUtil, ForceErrorImpl, Spawn} from "firmament-yargs";
+import {CommandUtil, ForceErrorImpl, Spawn, SpawnOptions2} from "firmament-yargs";
 import {ExecutionGraph, ShellCommand} from "../interfaces/execution-graph";
 import path = require('path');
 import fs = require('fs');
@@ -86,7 +86,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     if (useSudo) {
       //Because launching several async processes requiring a password would ask the user multiple times
       //for a password, we just do it once here to cache the password.
-      this.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error, result: string) => {
+      this.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error) => {
         if (this.commandUtil.callbackIfError(cb, err)) {
           return;
         }
@@ -139,32 +139,59 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   private createSpawnFnArray(commands: ShellCommand[]): any[] {
     let spawnFnArray = [];
     commands.forEach(command => {
-      let cmd = command.args.slice(0);
-      cmd.unshift(command.command);
-      let fnSpawn = command.useSudo
-        ? this.spawn.sudoSpawnAsync.bind(this.spawn)
-        : this.spawn.spawnShellCommandAsync.bind(this.spawn);
-      spawnFnArray.push(async.apply(fnSpawn,
-        cmd,
-        {
-          preSpawnMessage: command.showPreAndPostSpawnMessages
-            ? `Starting task '${command.description}'\n`
-            : null,
-          postSpawnMessage: command.showPreAndPostSpawnMessages
-            ? `Task '${command.description}' completed\n`
-            : null,
-          showDiagnostics: command.showDiagnostics,
-          suppressOutput: command.suppressOutput
-        },
-        (err: Error, results: string) => {
-          if (err) {
-            this.commandUtil.stdoutWrite(chalk['red'](err.message));
-            return;
-          }
-          this.commandUtil.stdoutWrite(chalk[command.outputColor](results));
-        }));
+      //Pipelined commands
+      if (command.commandPipeline) {
+        let fnSpawn = command.useSudo
+          //? this.spawn.sudoSpawnPipelineAsync.bind(this.spawn)
+          ? this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn)
+          : this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn);
+        let cmdArray: string[][] = [];
+        command.commandPipeline.forEach(subCommand => {
+          let cmd = subCommand.args.slice(0);
+          cmd.unshift(subCommand.command);
+          cmdArray.push(cmd);
+        });
+        spawnFnArray.push(async.apply(fnSpawn,
+          cmdArray,
+          this.buildSpawnOptions(command),
+          this.buildSpawnCallback(command)));
+      } else {
+        //Non-pipelined commands
+        let fnSpawn = command.useSudo
+          ? this.spawn.sudoSpawnAsync.bind(this.spawn)
+          : this.spawn.spawnShellCommandAsync.bind(this.spawn);
+        let cmd = command.args.slice(0);
+        cmd.unshift(command.command);
+        spawnFnArray.push(async.apply(fnSpawn,
+          cmd,
+          this.buildSpawnOptions(command),
+          this.buildSpawnCallback(command)));
+      }
     });
     return spawnFnArray;
+  }
+
+  private buildSpawnCallback(command: ShellCommand): (err: Error, results: string)=>void {
+    return (err: Error, results: string) => {
+      if (err) {
+        this.commandUtil.stdoutWrite(chalk['red'](err.message));
+        return;
+      }
+      this.commandUtil.stdoutWrite(chalk[command.outputColor](results));
+    };
+  }
+
+  private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
+    return {
+      preSpawnMessage: command.showPreAndPostSpawnMessages
+        ? `Starting task '${command.description}'\n`
+        : null,
+      postSpawnMessage: command.showPreAndPostSpawnMessages
+        ? `Task '${command.description}' completed\n`
+        : null,
+      showDiagnostics: command.showDiagnostics,
+      suppressOutput: command.suppressOutput
+    };
   }
 
   private resolveExecutionGraph(jsonOrUri: string, cb: (err: Error, executionGraph: ExecutionGraph)=>void) {

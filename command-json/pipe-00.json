@@ -1,0 +1,89 @@
+{
+  "description": "Piping exercise ...",
+  "options": {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands": [
+    {
+      "description": "Async Group 0 Task 0 (piped command)",
+      "commandPipeline": [
+        {
+          "description": "Beginning of pipe 0",
+          "command": "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+          "args": [
+            "10",
+            "Piping exercise (0) -->"
+          ]
+        },
+        {
+          "description": "Middle of pipe 0",
+          "command": "/home/jreeme/src/firmament-bash/js/test/helpers/test-01.js",
+          "args": [
+            "SomeMiddleText"
+          ]
+        },
+        {
+          "description": "End of pipe 0",
+          "command": "/home/jreeme/src/firmament-bash/js/test/helpers/test-02.js",
+          "args": [
+            "SomeEndText"
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Async Group 0 Task 1",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "node",
+      "outputColor": "blue",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "10",
+        "Async Group 0 task 1: "
+      ]
+    },
+    {
+      "description": "Async Group 0 Task 2",
+      "command": "node",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "green",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "5",
+        "Async Group 0 task 2: "
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description": "Sync Group 0 Task 1",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "node",
+      "outputColor": "yellow",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "10",
+        "Sync Group 0 task 1: "
+      ]
+    },
+    {
+      "description": "Sync Group 0 Task 2",
+      "command": "node",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "magenta",
+      "args": [
+        "/home/jreeme/src/firmament-bash/js/test/helpers/test-00.js",
+        "5",
+        "Sync Group 0 task 2: "
+      ]
+    }
+  ]
+}

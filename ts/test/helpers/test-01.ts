@@ -1,25 +1,15 @@
 #!/usr/bin/env node
-
-process.stdin.on('data',chunk=>{
-  console.log('****' + chunk.toString());
-});
-process.stdin.on('end',()=>{
-  console.log('***end***');
-});
-/*function sleep(milliseconds) {
-  let start = new Date().getTime();
-  for (let i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds) {
-      break;
-    }
-  }
+if(process.stdin.isTTY){
+  process.stdout.write('It is tty!');
+}else{
+  let i = 0;
+  let msg = process.argv[2] || 'Middle ** ';
+  process.stdin.on('data',chunk=>{
+    ++i;
+    process.stdout.write(msg + i.toString() + chunk.toString());
+  });
+  process.stdin.on('end',()=>{
+    process.stdout.write(msg + ' end***');
+  });
 }
-(function () {
-  let msg = process.argv[3] || 'Unset Me: ';
-  let count = process.argv[2] || 3;
-  for (let i = 0; i < count; ++i) {
-    sleep(500);
-    process.stdout.write(`${msg} ${i}\n`);
-  }
-  process.exit(0);
-})();*/
+

@@ -4,9 +4,10 @@ export interface ShellCommand {
   suppressOutput: boolean;
   showDiagnostics: boolean;
   showPreAndPostSpawnMessages: boolean;
-  useSudo: boolean,
+  useSudo: boolean;
   command: string;
   args: string[];
+  commandPipeline: ShellCommand[];
 }
 export interface ExecutionGraphOptions {
   displayExecutionGraphDescription: boolean;

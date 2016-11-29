@@ -43,7 +43,9 @@
         "--prefix",
         "firmament-docker"
       ]
-    },
+    }
+  ],
+  "serialSynchronizedCommands": [
     {
       "description": "GIT checkout shell",
       "suppressOutput": false,

@@ -17,6 +17,18 @@
       ]
     },
     {
+      "description": "Git the firmament-vita",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "yellow",
+      "command": "git",
+      "args": [
+        "clone",
+        "https://github.com/jreeme/firmament-vita"
+      ]
+    },
+    {
       "description": "Git the firmament-bash",
       "suppressOutput": false,
       "showDiagnostics": false,

@@ -32,6 +32,19 @@
       ]
     },
     {
+      "description": "NPM install firmament-vita",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "green",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament-vita"
+      ]
+    },
+    {
       "description": "NPM install firmament-docker",
       "suppressOutput": false,
       "showDiagnostics": false,

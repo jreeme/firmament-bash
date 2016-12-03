@@ -1,67 +1,88 @@
 {
-  "description": "First, git the firmament files async, stat!",
+  "description": "Second, 'npm install' those sons of guns",
+  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/firmament-dev-02.json",
   "options": {
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands": [
     {
-      "description": "Git the firmament-yargs",
+      "description": "NPM install firmament-yargs",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "cyan",
-      "command": "git",
+      "command": "npm",
       "args": [
-        "clone",
-        "https://github.com/jreeme/firmament-yargs"
+        "install",
+        "--prefix",
+        "firmament-yargs"
       ]
     },
     {
-      "description": "Git the firmament-vita",
+      "description": "NPM install firmament-bash",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "yellow",
-      "command": "git",
+      "command": "npm",
       "args": [
-        "clone",
-        "https://github.com/jreeme/firmament-vita"
+        "install",
+        "--prefix",
+        "firmament-bash"
       ]
     },
     {
-      "description": "Git the firmament-bash",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor": "yellow",
-      "command": "git",
-      "args": [
-        "clone",
-        "https://github.com/jreeme/firmament-bash"
-      ]
-    },
-    {
-      "description": "Git the firmament-docker",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor": "white",
-      "command": "git",
-      "args": [
-        "clone",
-        "https://github.com/jreeme/firmament-docker"
-      ]
-    },
-    {
-      "description": "Git the firmament",
+      "description": "NPM install firmament-vita",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament-vita"
+      ]
+    },
+    {
+      "description": "NPM install firmament-docker",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "white",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament-docker"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description": "GIT checkout shell",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "green",
+      "workingDirectory": "firmament",
       "command": "git",
       "args": [
-        "clone",
-        "https://github.com/sotera/firmament"
+        "checkout",
+        "shell"
+      ]
+    },
+    {
+      "description": "NPM install firmament",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "blue",
+      "command": "npm",
+      "args": [
+        "install",
+        "--prefix",
+        "firmament"
       ]
     }
   ]

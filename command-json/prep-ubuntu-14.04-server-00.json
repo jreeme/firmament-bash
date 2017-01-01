@@ -34,7 +34,9 @@
         "-g",
         "strongloop"
       ]
-    },
+    }
+  ],
+  "serialSynchronizedCommands": [
     {
       "description": "git config --global 'user.name'",
       "suppressOutput": false,
@@ -62,9 +64,7 @@
         "user.email",
         "nobody@nowhere.com"
       ]
-    }
-  ],
-  "serialSynchronizedCommands": [
+    },
     {
       "description": "usermod -aG docker <me>",
       "suppressOutput": false,

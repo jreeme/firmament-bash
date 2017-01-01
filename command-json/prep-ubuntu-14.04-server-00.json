@@ -75,19 +75,7 @@
       "args": [
         "bash",
         "-c",
-        "export USERNAME=`whoami` && usermod -aG docker $USERNAME"
-      ]
-    },
-    {
-      "description": "service docker start",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "service",
-      "args": [
-        "docker",
-        "start"
+        "export USERNAME=`whoami` && sudo usermod -aG docker $USERNAME"
       ]
     }
   ]

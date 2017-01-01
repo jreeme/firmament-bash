@@ -79,20 +79,6 @@
   ],
   "serialSynchronizedCommands": [
     {
-      "description": "[sudo] apt-get install apt-transport-https ca-certificates",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
-        "install",
-        "-y",
-        "apt-transport-https",
-        "ca-certificates"
-      ]
-    },
-    {
       "description": "[sudo] apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80",
       "suppressOutput": false,
       "showDiagnostics": false,
@@ -108,6 +94,18 @@
       ]
     },
     {
+      "description": "[sudo] apt-cache policy docker-engine",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "apt-cache",
+      "args": [
+        "policy",
+        "docker-engine"
+      ]
+    },
+    {
       "description": "[sudo] apt-get update",
       "suppressOutput": false,
       "showDiagnostics": false,
@@ -116,6 +114,103 @@
       "command": "apt-get",
       "args": [
         "update"
+      ]
+    },
+    {
+      "description": "[sudo] apt-get install ...",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "apt-get",
+      "args": [
+        "install",
+        "-y",
+        "apt-transport-https",
+        "ca-certificates",
+        "build-essential",
+        "git",
+        "apparmor",
+        "docker-engine"
+      ]
+    },
+    {
+      "description": "apt-get install linux-image-extra",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "export UNAME=`uname -r` && apt-get install -y linux-image-extra-$UNAME"
+      ]
+    },
+    {
+      "description": "[sudo] npm install -g strongloop",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "npm",
+      "args": [
+        "install",
+        "-g",
+        "strongloop"
+      ]
+    },
+    {
+      "description": "git config --global 'user.name'",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": false,
+      "command": "git",
+      "args": [
+        "config",
+        "--global",
+        "user.name",
+        "nobody.nobody"
+      ]
+    },
+    {
+      "description": "git config --global 'user.email'",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": false,
+      "command": "git",
+      "args": [
+        "config",
+        "--global",
+        "user.email",
+        "nobody@nowhere.com"
+      ]
+    },
+    {
+      "description": "service docker start",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": false,
+      "command": "service",
+      "args": [
+        "docker",
+        "start"
+      ]
+    },
+    {
+      "description": "usermode -aG docker <me>",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "export USERNAME=`whoami` && usermod -aG docker $USERNAME"
       ]
     }
   ]

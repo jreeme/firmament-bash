@@ -1,0 +1,32 @@
+{
+  "description": "Prepare base Ubuntu 14.04 server for firmament-docker deploys",
+  "options": {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands": [
+    {
+      "description": "Add 'set -o vi' to .bashrc",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "cyan",
+      "command": "/usr/bin/env sh",
+      "args": [
+        "echo \"set -o vi\""
+      ]
+    },
+    {
+      "description": "Add 'alias f='firmament'' to .bashrc",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor": "cyan",
+      "command": "/usr/bin/env sh",
+      "args": [
+        "echo \"alias f='firmament'\""
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+  ]
+}

@@ -58,11 +58,8 @@
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
-      "command": "/usr/bin/env",
+      "command": "apt-get",
       "args": [
-        "bash",
-        "-c",
-        "apt-get",
         "update"
       ]
     }
@@ -74,11 +71,8 @@
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
-      "command": "/usr/bin/env",
+      "command": "apt-get",
       "args": [
-        "bash",
-        "-c",
-        "apt-get",
         "install",
         "-y",
         "apt-transport-https",
@@ -91,11 +85,8 @@
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
-      "command": "/usr/bin/env",
+      "command": "apt-key",
       "args": [
-        "bash",
-        "-c",
-        "apt-key",
         "adv",
         "--keyserver",
         "hkp://p80.pool.sks-keyservers.net:80",

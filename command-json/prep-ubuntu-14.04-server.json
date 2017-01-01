@@ -62,10 +62,46 @@
       "args": [
         "bash",
         "-c",
-        "apt-get update"
+        "apt-get",
+        "update"
       ]
     }
   ],
   "serialSynchronizedCommands": [
+    {
+      "description": "[sudo] apt-get install apt-transport-https ca-certificates",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "apt-get",
+        "install",
+        "-y",
+        "apt-transport-https",
+        "ca-certificates"
+      ]
+    },
+    {
+      "description": "[sudo] apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "apt-key",
+        "adv",
+        "--keyserver",
+        "hkp://p80.pool.sks-keyservers.net:80",
+        "--recv-keys",
+        "58118E89F3A912897C070ADBF76221572C52609D"
+      ]
+    }
   ]
 }

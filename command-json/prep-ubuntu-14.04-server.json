@@ -12,7 +12,7 @@
       "outputColor": "cyan",
       "command": "/usr/bin/env sh",
       "args": [
-        "echo \"set -o vi\""
+        "echo \"set -o vi\" >> ~/.bashrc"
       ]
     },
     {
@@ -23,7 +23,7 @@
       "outputColor": "cyan",
       "command": "/usr/bin/env sh",
       "args": [
-        "echo \"alias f='firmament'\""
+        "echo \"alias f='firmament'\" >> ~/.bashrc"
       ]
     }
   ],

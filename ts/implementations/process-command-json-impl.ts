@@ -200,7 +200,11 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         ? `Task '${command.description}' completed\n`
         : null,
       showDiagnostics: command.showDiagnostics,
-      suppressOutput: command.suppressOutput,
+      cacheStdErr: true,
+      cacheStdOut: false,
+      suppressFinalStats: command.suppressOutput,
+      suppressStdErr: command.suppressOutput,
+      suppressStdOut: command.suppressOutput,
       cwd: workingDirectory
     };
   }

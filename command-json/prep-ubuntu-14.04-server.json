@@ -9,10 +9,23 @@
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor": "cyan",
-      "command": "/usr/bin/env sh",
+      "command": "/usr/bin/env",
       "args": [
-        "echo \"set -o vi\" >> ${HOME}/.bashrc"
+        "bash",
+        "-c",
+        "echo \"set -o vi\" >> ~/.bashrc"
+      ]
+    },
+    {
+      "description": "Add 'alias d='docker'' to .bashrc",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "echo \"alias d='docker'\" >> ~/.bashrc"
       ]
     },
     {
@@ -20,10 +33,36 @@
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor": "cyan",
-      "command": "/usr/bin/env sh",
+      "command": "/usr/bin/env",
       "args": [
-        "echo \"alias f='firmament'\" >> ${HOME}/.bashrc"
+        "bash",
+        "-c",
+        "echo \"alias f='firmament'\" >> ~/.bashrc"
+      ]
+    },
+    {
+      "description": "Add 'set nu' to .vimrc",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "echo \"set nu\" >> ~/.vimrc"
+      ]
+    },
+    {
+      "description": "[sudo] apt-get update",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "apt-get update"
       ]
     }
   ],

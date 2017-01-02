@@ -71,11 +71,12 @@
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
-      "command": "/usr/bin/env",
+      "command": "usermod",
       "args": [
-        "bash",
-        "-c",
-        "export USERNAME=`whoami` && sudo usermod -aG docker $USERNAME"
+        "-a",
+        "-G",
+        "docker",
+        "$USER"
       ]
     }
   ]

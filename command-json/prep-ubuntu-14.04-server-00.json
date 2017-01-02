@@ -70,13 +70,12 @@
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "usermod",
+      "useSudo": false,
+      "command": "/usr/bin/env",
       "args": [
-        "-a",
-        "-G",
-        "docker",
-        "$USER"
+        "bash",
+        "-c",
+        "sudo usermod -aG docker $USER"
       ]
     }
   ]

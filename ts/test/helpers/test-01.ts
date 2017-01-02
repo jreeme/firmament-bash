@@ -2,6 +2,7 @@
 /*if(process.stdin.isTTY){
   process.stdout.write('It is tty!');
 }else{*/
+(()=>{
   let i = 0;
   let msg = process.argv[2] || 'Middle ** ';
   process.stdin.on('data',chunk=>{
@@ -11,5 +12,6 @@
   process.stdin.on('end',()=>{
     process.stdout.write(msg + ' end***');
   });
+})();
 /*}*/
 

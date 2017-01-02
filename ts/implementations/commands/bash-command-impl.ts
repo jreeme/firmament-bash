@@ -1,6 +1,6 @@
 import {injectable, inject} from "inversify";
 import kernel from '../../inversify.config';
-import {Command, CommandUtil, Spawn} from 'firmament-yargs';
+import {Command, CommandUtil} from 'firmament-yargs';
 import {ProcessCommandJson} from "../../interfaces/process-command-json";
 
 @injectable()
@@ -9,9 +9,10 @@ export class BashCommandImpl implements Command {
   command: string = '';
   commandDesc: string = '';
   //noinspection JSUnusedGlobalSymbols
-  //noinspection JSUnusedLocalSymbols
+  //noinspection JSUnusedLocalSymbols,JSUnusedGlobalSymbols
   handler: (argv: any)=>void = (argv: any) => {
   };
+  //noinspection JSUnusedGlobalSymbols
   options: any = {};
   subCommands: Command[] = [];
   private commandUtil: CommandUtil;

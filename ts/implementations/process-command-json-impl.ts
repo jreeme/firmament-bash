@@ -238,8 +238,12 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
 
   //Right now uri can be a web address (http(s)://somewhere.com/some.json) or an absolute path (/tmp/some.json)
   //or a path relative to cwd (subdir/some.json)
-  private resolveJsonString(uri: string, cb: (err: Error, json: string)=>void) {
+  private resolveJsonString(uri: string, cb: (err: Error, json?: string)=>void) {
     cb = this.checkCallback(cb);
+    if(!uri){
+      cb(new Error('No URI specified'));
+      return;
+    }
     try {
       let parsedUri = url.parse(uri);
       if (!parsedUri.protocol) {

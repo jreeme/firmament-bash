@@ -90,7 +90,7 @@ describe('Process bash commands from JSON file', function () {
   describe(`processCommandJson (with absolute path to valid JSON file)`, () => {
     it('should process graph successfully', done => {
       expect(processCommandJson).to.not.equal(null);
-      processCommandJson.process(pathToTestJson, (err, result) => {
+      processCommandJson.processAbsoluteUrl(pathToTestJson, (err, result) => {
         expect(result).to.equal(null);
         expect(err).to.equal(null);
         done();

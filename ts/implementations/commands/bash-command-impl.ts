@@ -8,11 +8,8 @@ export class BashCommandImpl implements Command {
   aliases: string[] = [];
   command: string = '';
   commandDesc: string = '';
-  //noinspection JSUnusedGlobalSymbols
-  //noinspection JSUnusedLocalSymbols,JSUnusedGlobalSymbols
-  handler: (argv: any)=>void = (argv: any) => {
+  handler: (argv: any)=>void = () => {
   };
-  //noinspection JSUnusedGlobalSymbols
   options: any = {};
   subCommands: Command[] = [];
   private commandUtil: CommandUtil;
@@ -37,12 +34,12 @@ export class BashCommandImpl implements Command {
     let processCommand = kernel.get<Command>('CommandImpl');
     processCommand.aliases = ['process','p'];
     processCommand.commandDesc = 'Execute bash command graph described in Json file';
-    //noinspection JSUnusedLocalSymbols
     processCommand.options = {
       input: {
         alias: 'i',
         type: 'string',
-        desc: 'Json file containing the command graph'
+        required: true,
+        desc: 'Url to command graph or list available graphs if none specified'
       }
     };
     processCommand.handler = this.processCommandJson.processJson.bind(this.processCommandJson);

@@ -1,65 +1,120 @@
 import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from "../interfaces/process-command-json";
-import {CommandUtil, ForceErrorImpl, Spawn, SpawnOptions2} from "firmament-yargs";
+import {
+  CommandUtil, ForceErrorImpl, Spawn, SpawnOptions2, RemoteCatalogGetter,
+  RemoteCatalogEntry
+} from "firmament-yargs";
 import {ExecutionGraph, ShellCommand} from "../interfaces/execution-graph";
+import * as _ from 'lodash';
 import path = require('path');
 import fs = require('fs');
 import url = require('url');
 import request = require('request');
 const async = require('async');
 const chalk = require('chalk');
-const fileExists = require('file-exists');
 const textColors = ['green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray'];
+//const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
+const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/commandCatalog.json';
+
 @injectable()
 export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCommandJson {
-  private commandUtil: CommandUtil;
-  private spawn: Spawn;
 
-  constructor(@inject('CommandUtil')_commandUtil: CommandUtil,
-              @inject('Spawn')_spawn: Spawn) {
+  constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
+              @inject('RemoteCatalogGetter') private remoteCatalogGetter: RemoteCatalogGetter,
+              @inject('Spawn') private spawn: Spawn) {
     super();
-    this.commandUtil = _commandUtil;
-    this.spawn = _spawn;
   }
 
   processJson(argv: any) {
-    this.process(argv.input, (err: Error, result: string) => {
-      this.commandUtil.processExitWithError(err);
+    let me = this;
+    //Start by trying to get command catalog. If that fails assume input is absolute location of
+    //command graph resource
+    me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
+      if (err || !commandCatalog) {
+        me.processAbsoluteUrl(argv.input, (err: Error) => {
+          me.commandUtil.processExitWithError(err);
+        });
+        return;
+      }
+      //If we got a command catalog but user didn't specify anything then list entries in catalog
+      if (!argv.input) {
+        me.commandUtil.log('\nAvailable templates:\n');
+        me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
+          commandCatalog.entries.forEach(entry => {
+            me.commandUtil.log('> ' + entry.name);
+          });
+          me.commandUtil.processExit();
+        });
+        return;
+      }
+      //If we got a command catalog and the user specified something check to see if it's a catalog entry
+      let commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
+        return entry.name === argv.input;
+      });
+      //If it is a catalog entry then execute graph from catalog
+      if (commandGraph) {
+        me.processCatalogEntry(commandGraph, (err, result) => {
+          me.commandUtil.processExitWithError(err);
+        });
+        return;
+      }
+      //If it is not a catalog entry assume absolute location
+      me.processAbsoluteUrl(argv.input, (err: Error) => {
+        me.commandUtil.processExitWithError(err);
+      });
     });
   }
 
-  process(jsonOrUri: string, cb: (err: Error, result: string)=>void): void {
-    cb = this.checkCallback(cb);
-    if (this.checkForceError('ProcessCommandJsonImpl.process', cb)) {
+  processCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, result: string) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
+    if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
       return;
     }
-    this.resolveExecutionGraph(jsonOrUri, (err, executionGraph) => {
-      if (this.commandUtil.callbackIfError(cb, err)) {
+    me.resolveExecutionGraphFromCatalogEntry(catalogEntry, (err, executionGraph) => {
+      if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
       //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
-      this.execute(executionGraph, cb);
+      me.execute(executionGraph, cb);
     });
   }
 
-  private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any)=>void) {
-    cb = this.checkCallback(cb);
+  processAbsoluteUrl(jsonOrUri: string, cb: (err: Error, result: string) => void): void {
+    let me = this;
+    cb = me.checkCallback(cb);
+    if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
+      return;
+    }
+    me.resolveExecutionGraph(jsonOrUri, (err, executionGraph) => {
+      if (me.commandUtil.callbackIfError(cb, err)) {
+        return;
+      }
+      //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
+      me.execute(executionGraph, cb);
+    });
+  }
+
+  private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
     let graphCursor = executionGraph;
     let executionGraphs: ExecutionGraph[] = [];
     executionGraphs.unshift(graphCursor);
     while (graphCursor = graphCursor.prerequisiteGraph) {
       executionGraphs.unshift(graphCursor);
     }
-    this.preProcessExecutionGraphs(executionGraphs, (err: Error, fnArray: any[]) => {
-      if (this.commandUtil.callbackIfError(cb, err)) {
+    me.preProcessExecutionGraphs(executionGraphs, (err: Error, fnArray: any[]) => {
+      if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
       async.series(fnArray, cb);
     });
   }
 
-  private preProcessExecutionGraphs(executionGraphs: ExecutionGraph[], cb: (err: Error, fnArray: any[])=>void) {
-    cb = this.checkCallback(cb);
+  private preProcessExecutionGraphs(executionGraphs: ExecutionGraph[], cb: (err: Error, fnArray: any[]) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
     //Give all properties of executionGraph reasonable values so we don't clutter other code up
     //with defaults & checks
     let counter = 0;
@@ -81,13 +136,13 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
           }
         });
       });
-      fnArray.push(async.apply(this.executeSingleGraph.bind(this), executionGraph));
+      fnArray.push(async.apply(me.executeSingleGraph.bind(me), executionGraph));
     });
     if (useSudo) {
       //Because launching several async processes requiring a password would ask the user multiple times
       //for a password, we just do it once here to cache the password.
-      this.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error) => {
-        if (this.commandUtil.callbackIfError(cb, err)) {
+      me.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error) => {
+        if (me.commandUtil.callbackIfError(cb, err)) {
           return;
         }
         cb(null, fnArray);
@@ -97,83 +152,85 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     }
   }
 
-  private executeSingleGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any)=>void) {
-    cb = this.checkCallback(cb);
+  private executeSingleGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
     if (!executionGraph) {
       cb(new Error('Invalid executionGraph'), null);
       return;
     }
     let eg = executionGraph;
     if (eg.options.displayExecutionGraphDescription) {
-      this.commandUtil.log(chalk['green'](`Starting execution graph '${eg.description}'`));
+      me.commandUtil.log(chalk['green'](`Starting execution graph '${eg.description}'`));
     }
     //Use firmament-yargs:spawn services to execute commands
     //1) First do the asynchronous ones
     //2) Then do the synchronous ones (in order)
     let spawnFnArray = [
-      async.apply(this.executeAsynchronousCommands.bind(this), eg.asynchronousCommands),
-      async.apply(this.executeSynchronousCommands.bind(this), eg.serialSynchronizedCommands)
+      async.apply(me.executeAsynchronousCommands.bind(me), eg.asynchronousCommands),
+      async.apply(me.executeSynchronousCommands.bind(me), eg.serialSynchronizedCommands)
     ];
 
     //noinspection JSUnusedLocalSymbols
     async.series(spawnFnArray, (err: Error, results: any) => {
-      if (this.commandUtil.callbackIfError(cb, err)) {
+      if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
       let msg = `Execution graph '${eg.description}' completed.`;
       if (eg.options.displayExecutionGraphDescription) {
-        this.commandUtil.log(chalk['green'](msg));
+        me.commandUtil.log(chalk['green'](msg));
       }
       cb(null, msg);
     });
   }
 
-  private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[])=>void) {
+  private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
     async.parallel(this.createSpawnFnArray(commands), cb);
   }
 
-  private executeSynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[])=>void) {
+  private executeSynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
     async.series(this.createSpawnFnArray(commands), cb);
   }
 
   private createSpawnFnArray(commands: ShellCommand[]): any[] {
+    let me = this;
     let spawnFnArray = [];
     commands.forEach(command => {
       //Pipelined commands
       if (command.commandPipeline) {
         let fnSpawn = command.useSudo
-          //? this.spawn.sudoSpawnPipelineAsync.bind(this.spawn)
-          ? this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn)
-          : this.spawn.spawnShellCommandPipelineAsync.bind(this.spawn);
+          //? me.spawn.sudoSpawnPipelineAsync.bind(me.spawn)
+          ? me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn)
+          : me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn);
         let cmdArray: string[][] = [];
         let optionsArray: SpawnOptions2[] = [];
         command.commandPipeline.forEach(subCommand => {
           let cmd = subCommand.args.slice(0);
           cmd.unshift(subCommand.command);
           cmdArray.push(cmd);
-          optionsArray.push(this.buildSpawnOptions(subCommand));
+          optionsArray.push(me.buildSpawnOptions(subCommand));
         });
         spawnFnArray.push(async.apply(fnSpawn,
           cmdArray,
           optionsArray,
-          this.buildSpawnCallback(command)));
+          me.buildSpawnCallback(command)));
       } else {
         //Non-pipelined commands
         let fnSpawn = command.useSudo
-          ? this.spawn.sudoSpawnAsync.bind(this.spawn)
-          : this.spawn.spawnShellCommandAsync.bind(this.spawn);
+          ? me.spawn.sudoSpawnAsync.bind(me.spawn)
+          : me.spawn.spawnShellCommandAsync.bind(me.spawn);
         let cmd = command.args.slice(0);
         cmd.unshift(command.command);
         spawnFnArray.push(async.apply(fnSpawn,
           cmd,
-          this.buildSpawnOptions(command),
-          this.buildSpawnCallback(command)));
+          me.buildSpawnOptions(command),
+          me.buildSpawnCallback(command)));
       }
     });
     return spawnFnArray;
   }
 
-  private buildSpawnCallback(command: ShellCommand): (err: Error, results: string)=>void {
+  private buildSpawnCallback(command: ShellCommand): (err: Error, results: string) => void {
     return (err: Error, results: string) => {
       if (err) {
         this.commandUtil.stdoutWrite(chalk['red'](err.message));
@@ -209,62 +266,53 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     };
   }
 
-  private resolveExecutionGraph(jsonOrUri: string, cb: (err: Error, executionGraph: ExecutionGraph)=>void) {
-    cb = this.checkCallback(cb);
-    this.resolveJsonString(jsonOrUri, (err: Error, json: string) => {
-      if (this.commandUtil.callbackIfError(cb, err)) {
+  private resolveExecutionGraph(url: string, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
+    me.remoteCatalogGetter.resolveJsonObjectFromUrl(url, (err, jsonObject) => {
+      if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      let executionGraph: ExecutionGraph;
-      try {
-        executionGraph = JSON.parse(json);
-      } catch (err) {
-        cb(err, null);
+      if (!jsonObject) {
+        cb(new Error(`Execution graph at '${url}' not found`));
         return;
       }
+      let executionGraph = <ExecutionGraph>jsonObject;
       if (executionGraph.prerequisiteGraphUri) {
-        this.resolveExecutionGraph(executionGraph.prerequisiteGraphUri, (err: Error, subExecutionGraph: ExecutionGraph) => {
-          if (this.commandUtil.callbackIfError(cb, err)) {
-            return;
-          }
-          executionGraph.prerequisiteGraph = subExecutionGraph;
-          cb(null, executionGraph);
-        });
+        me.resolveExecutionGraph(executionGraph.prerequisiteGraphUri,
+          (err: Error, subExecutionGraph: ExecutionGraph) => {
+            if (me.commandUtil.callbackIfError(cb, err)) {
+              return;
+            }
+            executionGraph.prerequisiteGraph = subExecutionGraph;
+            cb(null, executionGraph);
+          });
       } else {
         cb(null, executionGraph);
       }
     });
   }
 
-  //Right now uri can be a web address (http(s)://somewhere.com/some.json) or an absolute path (/tmp/some.json)
-  //or a path relative to cwd (subdir/some.json)
-  private resolveJsonString(uri: string, cb: (err: Error, json?: string)=>void) {
-    cb = this.checkCallback(cb);
-    if(!uri){
-      cb(new Error('No URI specified'));
-      return;
-    }
-    try {
-      let parsedUri = url.parse(uri);
-      if (!parsedUri.protocol) {
-        //Not a web address, maybe a local file
-        uri = path.isAbsolute(uri) ? uri : path.resolve(process.cwd(), uri);
-        if (!fileExists(uri)) {
-          cb(new Error(`${uri} doesn't exist`), null);
-          return;
-        }
-        cb(null, fs.readFileSync(uri, 'utf8'));
-        return;
+  private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
+    let me = this;
+    cb = me.checkCallback(cb);
+
+    catalogEntry.resources.forEach(resource => {
+      let po = resource.parsedObject;
+      let preReqUri = po.prerequisiteGraphUri;
+      if (preReqUri) {
+        let preReq = _.find(catalogEntry.resources, r => {
+          return r.name === preReqUri;
+        });
+        po.prerequisiteGraph = preReq.parsedObject;
+        preReq.parsedObject.parent = resource;
       }
-      //Let's look on the web
-      request(uri, (err, res, body) => {
-        (res.statusCode != 200)
-          ? cb(new Error('URI not found'), null)
-          : cb(err, body);
-      });
-    }
-    catch (err) {
-      cb(err, null);
-    }
+    });
+    //Find graph with no parent and we know where to start
+    let startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
+      return !resource.parsedObject.parent;
+    })).parsedObject;
+
+    cb(null, startGraph);
   }
 }

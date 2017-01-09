@@ -1,6 +1,6 @@
 {
   "description": "Second, 'npm build', and I'm talkin' TypeScript",
-  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/firmament-dev-01.json",
+  "prerequisiteGraphUri": "firmament-dev-01.json",
   "options": {
     "displayExecutionGraphDescription": true
   },

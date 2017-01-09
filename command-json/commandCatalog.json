@@ -1,0 +1,19 @@
+{
+  "entries":[
+    {
+      "name": "firmament-dev",
+      "urls": [
+        "firmament-dev-00.json",
+        "firmament-dev-01.json",
+        "firmament-dev-02.json"
+      ]
+    },
+    {
+      "name": "prep-ubuntu-14.04",
+      "urls": [
+        "prep-ubuntu-14.04-server-00.json",
+        "prep-ubuntu-14.04-server-01.json"
+      ]
+    }
+  ]
+}

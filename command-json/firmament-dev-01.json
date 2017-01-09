@@ -1,6 +1,6 @@
 {
   "description": "Second, 'npm install' those sons of guns",
-  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/firmament-dev-02.json",
+  "prerequisiteGraphUri": "firmament-dev-02.json",
   "options": {
     "displayExecutionGraphDescription": true
   },

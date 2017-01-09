@@ -1,6 +1,6 @@
 {
   "description": "Prepare base Ubuntu 14.04 server for firmament-docker deploys",
-  "prerequisiteGraphUri": "https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/prep-ubuntu-14.04-server-01.json",
+  "prerequisiteGraphUri": "prep-ubuntu-14.04-server-01.json",
   "options": {
     "displayExecutionGraphDescription": true
   },

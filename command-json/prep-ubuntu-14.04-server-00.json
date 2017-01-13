@@ -19,6 +19,7 @@
         "ca-certificates",
         "git",
         "apparmor",
+        "libkrb5-dev",
         "docker-engine"
       ]
     },

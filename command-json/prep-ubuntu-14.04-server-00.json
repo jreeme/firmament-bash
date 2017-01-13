@@ -35,6 +35,19 @@
         "-g",
         "strongloop"
       ]
+    },
+    {
+      "description": "[sudo] npm install -g bower",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "npm",
+      "args": [
+        "install",
+        "-g",
+        "bower"
+      ]
     }
   ],
   "serialSynchronizedCommands": [

@@ -14,6 +14,13 @@
         "prep-ubuntu-14.04-server-00.json",
         "prep-ubuntu-14.04-server-01.json"
       ]
+    },
+    {
+      "name": "prep-ubuntu-16.04",
+      "urls": [
+        "prep-ubuntu-16.04-server-00.json",
+        "prep-ubuntu-16.04-server-01.json"
+      ]
     }
   ]
 }

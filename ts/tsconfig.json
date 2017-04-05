@@ -16,12 +16,8 @@
       "es6",
       "dom"
     ],
-    "types": [
-      "chai",
-      "lodash",
-      "mocha",
-      "node",
-      "reflect-metadata"
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true

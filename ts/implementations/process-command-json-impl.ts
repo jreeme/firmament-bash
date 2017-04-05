@@ -53,7 +53,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       });
       //If it is a catalog entry then execute graph from catalog
       if (commandGraph) {
-        me.processCatalogEntry(commandGraph, (err, result) => {
+        me.processCatalogEntry(commandGraph, (err) => {
           me.commandUtil.processExitWithError(err);
         });
         return;

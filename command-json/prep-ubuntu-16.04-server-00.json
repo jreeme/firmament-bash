@@ -1,6 +1,6 @@
 {
-  "description": "Prepare base Ubuntu 14.04 server for firmament-docker deploys",
-  "prerequisiteGraphUri": "prep-ubuntu-14.04-server-01.json",
+  "description": "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
+  "prerequisiteGraphUri": "prep-ubuntu-16.04-server-01.json",
   "options": {
     "displayExecutionGraphDescription": true
   },
@@ -17,10 +17,7 @@
         "-y",
         "apt-transport-https",
         "ca-certificates",
-        "git",
-        "apparmor",
-        "libkrb5-dev",
-        "docker-engine"
+        "software-properties-common"
       ]
     },
     {
@@ -35,48 +32,56 @@
         "-g",
         "strongloop"
       ]
-    },
-    {
-      "description": "[sudo] npm install -g bower",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "npm",
-      "args": [
-        "install",
-        "-g",
-        "bower"
-      ]
     }
   ],
   "serialSynchronizedCommands": [
     {
-      "description": "git config --global 'user.name'",
+      "description": "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "git",
+      "useSudo": true,
+      "command": "/usr/bin/env",
       "args": [
-        "config",
-        "--global",
-        "user.name",
-        "nobody.nobody"
+        "bash",
+        "-c",
+        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
       ]
     },
     {
-      "description": "git config --global 'user.email'",
+      "description"                : "keep testing",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+      ]
+    },
+    {
+      "description": "[sudo] apt-get update",
       "suppressOutput": false,
       "showDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "git",
+      "useSudo": true,
+      "command": "apt-get",
       "args": [
-        "config",
-        "--global",
-        "user.email",
-        "nobody@nowhere.com"
+        "update"
+      ]
+    },
+    {
+      "description": "[sudo] apt-get install docker-ce",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": true,
+      "command": "apt-get",
+      "args": [
+        "install",
+        "docker-ce"
       ]
     },
     {

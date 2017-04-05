@@ -53,6 +53,18 @@
       ]
     },
     {
+      "description": "Create '_swapEsc.sh'",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "echo \"#!/usr/bin/env bash\nsetxkbmap -option caps:swapescape\" >> ~/_swapEsc.sh && chmod 755 ~/_swapEsc.sh"
+      ]
+    },
+    {
       "description": "apt-get install curl build-essential",
       "suppressOutput": false,
       "showDiagnostics": false,

@@ -21,6 +21,12 @@
         "prep-ubuntu-16.04-server-00.json",
         "prep-ubuntu-16.04-server-01.json"
       ]
+    },
+    {
+      "name": "install-hadoop-ubuntu",
+      "urls": [
+        "install-hadoop-ubuntu.json"
+      ]
     }
   ]
 }

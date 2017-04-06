@@ -7,16 +7,75 @@
   ],
   "serialSynchronizedCommands": [
     {
+      "description"                : "apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update",
+        "-y"
+      ]
+    },
+    {
       "description"                : "Install JDK",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "blue",
+      "outputColor"                : "",
       "useSudo"                    : true,
       "command"                    : "apt-get",
       "args"                       : [
-        "update"
+        "install",
+        "default-jdk",
+        "-y"
+      ]
+    },
+    {
+      "description"                : "[sudo] addgroup hadoop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "addgroup",
+      "args"                       : [
+        "hadoop"
+      ]
+    },
+    {
+      "description"                : "[sudo] useradd hduser -s /bin/bash -m -g hadoop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "useradd",
+      "args"                       : [
+        "hduser",
+        "-s",
+        "/bin/bash",
+        "-m",
+        "-g",
+        "hadoop"
+      ]
+    },
+    {
+      "description"                : "[sudo] set user 'hduser' password to 'password'",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash hduser"
       ]
     }
   ]
 }
+

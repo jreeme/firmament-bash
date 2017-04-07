@@ -7,7 +7,7 @@
   ],
   "serialSynchronizedCommands": [
     {
-      "description"                : "apt-get update",
+      "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -20,7 +20,7 @@
       ]
     },
     {
-      "description"                : "Install JDK",
+      "description"                : "[sudo] Install JDK",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -52,28 +52,77 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
-      "command"                    : "useradd",
+      "command"                    : "/usr/bin/env",
       "args"                       : [
-        "hduser",
-        "-s",
-        "/bin/bash",
-        "-m",
-        "-g",
-        "hadoop"
+        "bash",
+        "-c",
+        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash hduser -g hadoop"
       ]
     },
     {
-      "description"                : "[sudo] set user 'hduser' password to 'password'",
+      "description"                : "[sudo] apt-get install ssh (probably unnecessary)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "apt-get",
       "args"                       : [
-        "bash",
+        "install",
+        "ssh",
+        "-y"
+      ]
+    },
+    {
+      "description"                : "[sudo] ssh-keygen",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
         "-c",
-        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash hduser"
+        "echo password | sudo -S --user=hduser ssh-keygen -t rsa -N \"\" -f /home/hduser/.ssh/id_rsa"
+      ]
+    },
+    {
+      "description"                : "[sudo] cat id_rsa.pub >> authorized_keys",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser cat /home/hduser/.ssh/id_rsa.pub >> /home/hduser/.ssh/authorized_keys"
+      ]
+    },
+    {
+      "description"                : "[sudo] mkdir -p /usr/local/hadoop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'mkdir -p /usr/local/hadoop && chown hduser.hadoop /usr/local/hadoop'"
+      ]
+    },
+    {
+      "description"                : "[sudo] curl hadoop.tar.gz | tar xvf",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo --user=hduser -S -- bash -c 'curl http://mirrors.sonic.net/apache/hadoop/common/hadoop-2.6.5/hadoop-2.6.5.tar.gz | tar xz --strip-components=1 -C /usr/local/hadoop'"
       ]
     }
   ]

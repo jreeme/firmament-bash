@@ -124,6 +124,58 @@
         "-c",
         "echo password | sudo --user=hduser -S -- bash -c 'curl http://mirrors.sonic.net/apache/hadoop/common/hadoop-2.6.5/hadoop-2.6.5.tar.gz | tar xz --strip-components=1 -C /usr/local/hadoop'"
       ]
+    },
+    {
+      "description"                : "[sudo] adduser hduser sudo",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'adduser hduser sudo'"
+      ]
+    },
+    {
+      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 0)",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES START >> /home/hduser/.bashrc'"
+      ]
+    },
+    {
+      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 1)",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser -- bash -c 'export J_H=`which java` && export J_H2=`readlink -f ${J_H}` && echo export JAVA_HOME=${J_H2%/jre/bin/java} >> /home/hduser/.bashrc'"
+      ]
+    },
+    {
+      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 2)",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_INSTALL=/usr/local/hadoop >> /home/hduser/.bashrc'"
+      ]
     }
   ]
 }

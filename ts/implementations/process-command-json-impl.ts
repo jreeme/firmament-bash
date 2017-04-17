@@ -10,8 +10,10 @@ import path = require('path');
 import fs = require('fs');
 import url = require('url');
 import request = require('request');
+import {Url} from 'url';
 const async = require('async');
 const chalk = require('chalk');
+const nodeUrl = require('url');
 const textColors = ['green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray'];
 //const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
 const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/commandCatalog.json';
@@ -279,7 +281,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       }
       let executionGraph = <ExecutionGraph>jsonObject;
       if (executionGraph.prerequisiteGraphUri) {
-        me.resolveExecutionGraph(executionGraph.prerequisiteGraphUri,
+        me.resolveExecutionGraph(ProcessCommandJsonImpl.getFullResourcePath(executionGraph.prerequisiteGraphUri, url),
           (err: Error, subExecutionGraph: ExecutionGraph) => {
             if (me.commandUtil.callbackIfError(cb, err)) {
               return;
@@ -291,6 +293,29 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         cb(null, executionGraph);
       }
     });
+  }
+
+  private static getFullResourcePath(url: string, parentUrl: string): string {
+    let retVal: string;
+    let parsedUrl: Url = nodeUrl.parse(url);
+    //First, figure out if it's a network resource or filesystem resource
+    if (parsedUrl.protocol) {
+      //Network resource
+      retVal = url;
+    } else {
+      //Filesystem resource
+      if (path.isAbsolute(url)) {
+        retVal = url;
+      } else {
+        let parsedParentUrl: Url = nodeUrl.parse(parentUrl);
+        let baseUrl = path.dirname(parentUrl);
+        if (parsedParentUrl.protocol) {
+          baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;
+        }
+        retVal = path.resolve(baseUrl, url);
+      }
+    }
+    return retVal;
   }
 
   private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {

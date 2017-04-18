@@ -25,19 +25,6 @@
         "software-properties-common",
         "docker-ce"
       ]
-    },
-    {
-      "description"                : "[sudo] npm install -g strongloop",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "npm",
-      "args"                       : [
-        "install",
-        "-g",
-        "strongloop"
-      ]
     }
   ],
   "serialSynchronizedCommands": [
@@ -67,6 +54,19 @@
         "--global",
         "user.email",
         "nobody@nowhere.com"
+      ]
+    },
+    {
+      "description"                : "[sudo] npm install -g strongloop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "npm",
+      "args"                       : [
+        "install",
+        "-g",
+        "strongloop"
       ]
     },
     {

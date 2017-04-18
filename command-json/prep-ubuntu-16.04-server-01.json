@@ -19,20 +19,6 @@
       ]
     },
     {
-      "description"                : "[sudo] Add Chrome linux signing key",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
-      ]
-    },
-    {
       "description"                : "[sudo] Add Docker sources",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -43,19 +29,6 @@
         "bash",
         "-c",
         "echo 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' >> /etc/apt/sources.list"
-      ]
-    },
-    {
-      "description"                : "[sudo] Add Docker signing key",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "curl https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
       ]
     },
     {
@@ -134,6 +107,33 @@
     }
   ],
   "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] Add Chrome linux signing key",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add Docker signing key",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
+      ]
+    },
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,

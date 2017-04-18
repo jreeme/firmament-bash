@@ -1,9 +1,9 @@
 {
-  "description": "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
-  "options": {
+  "description"               : "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
+  "options"                   : {
     "displayExecutionGraphDescription": true
   },
-  "asynchronousCommands": [
+  "asynchronousCommands"      : [
     {
       "description"                : "[sudo] curl webstorm.tar.gz | tar xvf",
       "suppressOutput"             : false,
@@ -19,73 +19,86 @@
       ]
     },
     {
-      "description": "Add 'set -o vi' to .bashrc",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "Add 'set -o vi' to .bashrc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "command": "/usr/bin/env",
-      "args": [
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "-c",
         "echo \"set -o vi\" >> ~/.bashrc"
       ]
     },
     {
-      "description": "Add 'alias d='docker'' to .bashrc",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "Add 'alias d='docker'' to .bashrc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "command": "/usr/bin/env",
-      "args": [
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "-c",
         "echo \"alias d='docker'\" >> ~/.bashrc"
       ]
     },
     {
-      "description": "Add 'alias f='firmament'' to .bashrc",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "Add 'alias f='firmament'' to .bashrc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "command": "/usr/bin/env",
-      "args": [
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "-c",
         "echo \"alias f='firmament'\" >> ~/.bashrc"
       ]
     },
     {
-      "description": "Add 'set nu' to .vimrc",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "Add 'set nu' to .vimrc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "command": "/usr/bin/env",
-      "args": [
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "-c",
         "echo \"set nu\" >> ~/.vimrc"
       ]
     },
     {
-      "description": "Create '_swapEsc.sh'",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "Create '_swapEsc.sh'",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "command": "/usr/bin/env",
-      "args": [
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "-c",
         "echo \"#!/usr/bin/env bash\nsetxkbmap -option caps:swapescape\" >> ~/_swapEsc.sh && chmod 755 ~/_swapEsc.sh"
       ]
     },
     {
-      "description": "apt-get install curl build-essential",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "apt-get install curl build-essential",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
         "install",
         "-y",
         "curl",
@@ -93,28 +106,15 @@
         "build-essential",
         "libkrb5-dev"
       ]
-    }
-  ],
-  "serialSynchronizedCommands": [
-    {
-      "description": "[sudo] apt-get update",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
-        "update"
-      ]
     },
     {
-      "description": "git config --global 'user.name'",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "git config --global 'user.name'",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "git",
-      "args": [
+      "useSudo"                    : false,
+      "command"                    : "git",
+      "args"                       : [
         "config",
         "--global",
         "user.name",
@@ -122,13 +122,13 @@
       ]
     },
     {
-      "description": "git config --global 'user.email'",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "git config --global 'user.email'",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "git",
-      "args": [
+      "useSudo"                    : false,
+      "command"                    : "git",
+      "args"                       : [
         "config",
         "--global",
         "user.email",

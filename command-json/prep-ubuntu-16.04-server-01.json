@@ -5,6 +5,34 @@
   },
   "asynchronousCommands"      : [
     {
+      "description"                : "[sudo] Add Chrome sources",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add Chrome linux signing key",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
+      ]
+    },
+    {
       "description"                : "[sudo] curl webstorm.tar.gz | tar xvf",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,

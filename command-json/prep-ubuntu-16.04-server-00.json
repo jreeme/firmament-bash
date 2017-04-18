@@ -6,6 +6,18 @@
   },
   "asynchronousCommands": [
     {
+      "description": "WebStorm First Run",
+      "suppressOutput": false,
+      "showDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo": false,
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
+      ]
+    },
+    {
       "description": "[sudo] apt-get install ...",
       "suppressOutput": false,
       "showDiagnostics": false,

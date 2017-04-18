@@ -1,5 +1,5 @@
 {
-  "description"               : "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
+  "description"               : "Prepare base Ubuntu 16.04 server for firmament-docker deploys (01)",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
@@ -30,6 +30,32 @@
         "bash",
         "-c",
         "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add Docker sources",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' >> /etc/apt/sources.list"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add Docker signing key",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
       ]
     },
     {
@@ -105,7 +131,9 @@
         "-c",
         "echo \"#!/usr/bin/env bash\nsetxkbmap -option caps:swapescape\" >> ~/_swapEsc.sh && chmod 755 ~/_swapEsc.sh"
       ]
-    },
+    }
+  ],
+  "serialSynchronizedCommands": [
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
@@ -115,52 +143,6 @@
       "command"                    : "apt-get",
       "args"                       : [
         "update"
-      ]
-    }
-  ],
-  "serialSynchronizedCommands": [
-    {
-      "description"                : "apt-get install curl build-essential",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "apt-get",
-      "args"                       : [
-        "install",
-        "-y",
-        "curl",
-        "git",
-        "build-essential",
-        "libkrb5-dev"
-      ]
-    },
-    {
-      "description"                : "git config --global 'user.name'",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
-      "command"                    : "git",
-      "args"                       : [
-        "config",
-        "--global",
-        "user.name",
-        "nobody.nobody"
-      ]
-    },
-    {
-      "description"                : "git config --global 'user.email'",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
-      "command"                    : "git",
-      "args"                       : [
-        "config",
-        "--global",
-        "user.email",
-        "nobody@nowhere.com"
       ]
     }
   ]

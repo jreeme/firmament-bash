@@ -1,45 +1,51 @@
 {
-  "description": "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
-  "prerequisiteGraphUri": "prep-ubuntu-16.04-server-01.json",
-  "options": {
+  "description"               : "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
+  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-01.json",
+  "options"                   : {
     "displayExecutionGraphDescription": true
   },
-  "asynchronousCommands": [
+  "asynchronousCommands"      : [
     {
-      "description": "WebStorm First Run",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "apt-get install [...]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "/usr/bin/env",
-      "args": [
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "curl",
+        "git",
+        "build-essential",
+        "libkrb5-dev",
+        "apt-transport-https",
+        "google-chrome-stable",
+        "ca-certificates",
+        "software-properties-common",
+        "docker-ce"
+      ]
+    },
+    {
+      "description"                : "WebStorm First Run",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
         "bash",
         "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
       ]
     },
     {
-      "description": "[sudo] apt-get install ...",
-      "suppressOutput": false,
-      "showDiagnostics": false,
+      "description"                : "[sudo] npm install -g strongloop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
-        "install",
-        "-y",
-        "apt-transport-https",
-        "ca-certificates",
-        "software-properties-common"
-      ]
-    },
-    {
-      "description": "[sudo] npm install -g strongloop",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "npm",
-      "args": [
+      "useSudo"                    : true,
+      "command"                    : "npm",
+      "args"                       : [
         "install",
         "-g",
         "strongloop"
@@ -48,66 +54,56 @@
   ],
   "serialSynchronizedCommands": [
     {
-      "description": "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "/usr/bin/env",
-      "args": [
-        "bash",
-        "-c",
-        "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
-      ]
-    },
-    {
-      "description"                : "keep testing",
+      "description"                : "git config --global 'user.name'",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
+      "useSudo"                    : false,
+      "command"                    : "git",
+      "args"                       : [
+        "config",
+        "--global",
+        "user.name",
+        "nobody.nobody"
+      ]
+    },
+    {
+      "description"                : "git config --global 'user.email'",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "git",
+      "args"                       : [
+        "config",
+        "--global",
+        "user.email",
+        "nobody@nowhere.com"
+      ]
+    },
+    {
+      "description"                : "usermod -aG docker <me>",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
-      ]
-    },
-    {
-      "description": "[sudo] apt-get update",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
-        "update"
-      ]
-    },
-    {
-      "description": "[sudo] apt-get install docker-ce",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": true,
-      "command": "apt-get",
-      "args": [
-        "install",
-        "-y",
-        "docker-ce"
-      ]
-    },
-    {
-      "description": "usermod -aG docker <me>",
-      "suppressOutput": false,
-      "showDiagnostics": false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo": false,
-      "command": "/usr/bin/env",
-      "args": [
-        "bash",
-        "-c",
         "sudo usermod -aG docker $USER"
+      ]
+    },
+    {
+      "description"                : "Chrome First Run",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "/usr/bin/google-chrome"
       ]
     }
   ]

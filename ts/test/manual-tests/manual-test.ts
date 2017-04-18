@@ -19,7 +19,8 @@ processCommandJson.processJson(
   {
     //input: 'glibber'
     //input: 'firmament-dev'
-    input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu-16.04-server-00.json'
+    //input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu-16.04-server-00.json'
+    input: '/home/jreeme/src/firmament-bash/command-json/install-webstorm.json'
   }
 );
 /*processCommandJson.process(networkScriptPath, (err, result) => {

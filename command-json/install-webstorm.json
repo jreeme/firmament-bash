@@ -1,0 +1,25 @@
+{
+  "description"               : "Install Hadoop 2.6.5 on Ubuntu 16.04 (single-node cluster)",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] curl webstorm.tar.gz | tar xvf",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://download-cf.jetbrains.com/webstorm/WebStorm-2017.1.1.tar.gz | tar -xzvC /var/local"
+      ]
+    }
+  ]
+}
+

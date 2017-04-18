@@ -5,6 +5,20 @@
   },
   "asynchronousCommands": [
     {
+      "description"                : "[sudo] curl webstorm.tar.gz | tar xvf",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://download-cf.jetbrains.com/webstorm/WebStorm-2017.1.1.tar.gz | tar -xzvC /var/local"
+      ]
+    },
+    {
       "description": "Add 'set -o vi' to .bashrc",
       "suppressOutput": false,
       "showDiagnostics": false,

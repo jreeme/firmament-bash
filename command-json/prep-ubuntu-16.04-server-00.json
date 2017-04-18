@@ -27,18 +27,6 @@
       ]
     },
     {
-      "description"                : "WebStorm First Run",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
-      ]
-    },
-    {
       "description"                : "[sudo] npm install -g strongloop",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -104,6 +92,18 @@
       "args"                       : [
         "bash",
         "/usr/bin/google-chrome"
+      ]
+    },
+    {
+      "description"                : "WebStorm First Run",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
       ]
     }
   ]

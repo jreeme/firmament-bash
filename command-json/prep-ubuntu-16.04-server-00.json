@@ -6,6 +6,19 @@
   },
   "asynchronousCommands"      : [
     {
+      "description"                : "[sudo] npm install -g strongloop",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "npm",
+      "args"                       : [
+        "install",
+        "-g",
+        "strongloop"
+      ]
+    },
+    {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -53,19 +66,6 @@
         "--global",
         "user.email",
         "nobody@nowhere.com"
-      ]
-    },
-    {
-      "description"                : "[sudo] npm install -g strongloop",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "npm",
-      "args"                       : [
-        "install",
-        "-g",
-        "strongloop"
       ]
     },
     {

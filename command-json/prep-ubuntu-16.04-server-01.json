@@ -5,6 +5,20 @@
   },
   "asynchronousCommands"      : [
     {
+      "description"                : "apt-get install [...]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "build-essential",
+        "libkrb5-dev"
+      ]
+    },
+    {
       "description"                : "[sudo] Add Chrome sources",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -20,6 +34,19 @@
     },
     {
       "description"                : "[sudo] Add Docker sources",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo 'deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian xenial contrib' >> /etc/apt/sources.list"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add VirtualBox sources",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -132,6 +159,19 @@
         "bash",
         "-c",
         "curl https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add VirtualBox signing key",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "curl https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add -"
       ]
     },
     {

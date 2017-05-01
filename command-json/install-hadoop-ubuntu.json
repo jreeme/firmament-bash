@@ -139,7 +139,7 @@
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 0)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 0)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -148,11 +148,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES START >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES START >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 1)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 1)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -161,11 +161,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'export J_H=`which java` && export J_H2=`readlink -f ${J_H}` && echo export JAVA_HOME=${J_H2%/jre/bin/java} >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'export J_H=`which java` && export J_H2=`readlink -f ${J_H}` && echo export JAVA_HOME=${J_H2%/jre/bin/java} >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 2)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 2)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -174,11 +174,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_INSTALL=/usr/local/hadoop >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_INSTALL=/usr/local/hadoop >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 3)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 3)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -187,11 +187,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export PATH=\\$PATH:\\$HADOOP_INSTALL/bin:\\$HADOOP_INSTALL/sbin >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export PATH=\\$PATH:\\$HADOOP_INSTALL/bin:\\$HADOOP_INSTALL/sbin >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 4)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 4)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -200,11 +200,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_MAPRED_HOME=\\$HADOOP_INSTALL >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_MAPRED_HOME=\\$HADOOP_INSTALL >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 5)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 5)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -213,11 +213,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_COMMON_HOME=\\$HADOOP_INSTALL >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_COMMON_HOME=\\$HADOOP_INSTALL >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 6)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 6)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -226,11 +226,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_HDFS_HOME=\\$HADOOP_INSTALL >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_HDFS_HOME=\\$HADOOP_INSTALL >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 7)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 7)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -239,11 +239,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export YARN_HOME=\\$HADOOP_INSTALL >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export YARN_HOME=\\$HADOOP_INSTALL >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 8)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 8)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -252,11 +252,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_COMMON_LIB_NATIVE_DIR=\\$HADOOP_INSTALL/lib/native >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_COMMON_LIB_NATIVE_DIR=\\$HADOOP_INSTALL/lib/native >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 9)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 9)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -265,11 +265,11 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_OPTS=\\\"-Djava.library.path=\\$HADOOP_INSTALL/lib\\\" >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo export HADOOP_OPTS=\\\"-Djava.library.path=\\$HADOOP_INSTALL/lib\\\" >> /home/hduser/.profile'"
       ]
     },
     {
-      "description"                : "[sudo] Update /home/hduser/.bashrc (Step 10)",
+      "description"                : "[sudo] Update /home/hduser/.profile (Step 10)",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -278,7 +278,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES END >> /home/hduser/.bashrc'"
+        "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES END >> /home/hduser/.profile'"
       ]
     },
     {
@@ -395,7 +395,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "hadoop namenode -format"
+        "echo password | sudo -S -i -u hduser bash -c 'hadoop namenode -format'"
       ]
     }
   ]

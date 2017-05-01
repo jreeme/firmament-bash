@@ -319,6 +319,19 @@
         "-c",
         "echo password | sudo -S -- bash -c 'mkdir -p /app/hadoop/tmp && chown hduser.hadoop /app/hadoop/tmp'"
       ]
+    },
+    {
+      "description"                : "[sudo] wget core-site.xml",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'wget -O /usr/local/hadoop/etc/hadoop/core-site.xml https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/hadoop-config/core-site.xml'"
+      ]
     }
   ]
 }

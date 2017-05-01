@@ -369,7 +369,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S -- bash -c 'mkdir -p /usr/local/hadoop_store/hdfs/datanode && chown hduser.hadoop /usr/local/hadoop_store'"
+        "echo password | sudo -S -- bash -c 'mkdir -p /usr/local/hadoop_store/hdfs/datanode && chown -R hduser.hadoop /usr/local/hadoop_store'"
       ]
     },
     {
@@ -383,6 +383,19 @@
       "args"                       : [
         "-c",
         "echo password | sudo -S -- bash -c 'wget -O /usr/local/hadoop/etc/hadoop/hdfs-site.xml https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/hadoop-config/hdfs-site.xml'"
+      ]
+    },
+    {
+      "description"                : "[sudo] hadoop namenode -format",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "hadoop namenode -format"
       ]
     }
   ]

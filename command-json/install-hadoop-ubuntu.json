@@ -332,6 +332,58 @@
         "-c",
         "echo password | sudo -S -- bash -c 'wget -O /usr/local/hadoop/etc/hadoop/core-site.xml https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/hadoop-config/core-site.xml'"
       ]
+    },
+    {
+      "description"                : "[sudo] wget mapred-site.xml",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'wget -O /usr/local/hadoop/etc/hadoop/mapred-site.xml https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/hadoop-config/mapred-site.xml'"
+      ]
+    },
+    {
+      "description"                : "[sudo] mkdir -p /usr/local/hadoop_store/hdfs.namenode",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'mkdir -p /usr/local/hadoop_store/hdfs/namenode'"
+      ]
+    },
+    {
+      "description"                : "[sudo] mkdir -p /usr/local/hadoop_store/hdfs.datanode",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'mkdir -p /usr/local/hadoop_store/hdfs/datanode && chown hduser.hadoop /usr/local/hadoop_store'"
+      ]
+    },
+    {
+      "description"                : "[sudo] wget hdfs-site.xml",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'wget -O /usr/local/hadoop/etc/hadoop/hdfs-site.xml https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/hadoop-config/hdfs-site.xml'"
+      ]
     }
   ]
 }

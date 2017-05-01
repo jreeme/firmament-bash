@@ -280,6 +280,45 @@
         "-c",
         "echo password | sudo -S --user=hduser -- bash -c 'echo \\#HADOOP VARIABLES END >> /home/hduser/.bashrc'"
       ]
+    },
+    {
+      "description"                : "[sudo] Update /usr/local/hadoop/hadoop-env.sh with JAVA_HOME",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser -- bash -c 'export J_H=`which java` && export J_H2=`readlink -f ${J_H}` && echo export JAVA_HOME=${J_H2%/jre/bin/java} >> /usr/local/hadoop/etc/hadoop/hadoop-env.sh'"
+      ]
+    },
+    {
+      "description"                : "[sudo] Update /usr/local/hadoop/hadoop-env.sh with JAVA_HOME",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S --user=hduser -- bash -c 'export J_H=`which java` && export J_H2=`readlink -f ${J_H}` && echo export JAVA_HOME=${J_H2%/jre/bin/java} >> /usr/local/hadoop/etc/hadoop/hadoop-env.sh'"
+      ]
+    },
+    {
+      "description"                : "[sudo] mkdir -p /app/hadoop/tmp",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'mkdir -p /app/hadoop/tmp && chown hduser.hadoop /app/hadoop/tmp'"
+      ]
     }
   ]
 }

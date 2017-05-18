@@ -5,35 +5,7 @@
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
-    {
-      "description"                : "[sudo] Add Chrome linux signing key",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
-      ]
-    }
   ],
   "serialSynchronizedCommands": [
-    {
-      "description"                : "[sudo] Add Chrome linux signing key",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -"
-      ]
-    }
   ]
 }

@@ -37,7 +37,9 @@
     {
       "name": "install-newman3",
       "urls": [
-        "install-newman3-00.json"
+        "install-newman3-00.json",
+        "prep-ubuntu-16.04-server-00.json",
+        "prep-ubuntu-16.04-server-01.json"
       ]
     }
   ]

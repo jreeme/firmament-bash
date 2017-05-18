@@ -1,6 +1,5 @@
 {
   "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux",
-  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-00.json",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },

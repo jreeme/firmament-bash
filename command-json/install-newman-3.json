@@ -1,25 +1,11 @@
 {
-  "description"               : "Prepare base Ubuntu 16.04 server for firmament-docker deploys",
-  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-01.json",
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "[sudo] npm install -g strongloop",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "npm",
-      "args"                       : [
-        "install",
-        "-g",
-        "strongloop"
-      ]
-    },
-    {
-      "description"                : "apt-get install [...]",
+      "description"                : "[sudo] apt-get install [...]",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -31,6 +17,8 @@
         "curl",
         "git",
         "apt-transport-https",
+        "virtualbox-5.1",
+        "google-chrome-stable",
         "ca-certificates",
         "software-properties-common",
         "docker-ce"
@@ -77,6 +65,30 @@
         "bash",
         "-c",
         "sudo usermod -aG docker $USER"
+      ]
+    },
+    {
+      "description"                : "Chrome First Run",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "/usr/bin/google-chrome"
+      ]
+    },
+    {
+      "description"                : "WebStorm First Run",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
       ]
     }
   ]

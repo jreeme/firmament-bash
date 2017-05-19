@@ -5,6 +5,62 @@
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
+    {
+      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "docker load -i /vagrant-docker-images/newman_docker_apertium.tar"
+      ]
+    },
+    {
+      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "docker load -i /vagrant-docker-images/newman_docker_couchdb_offline_tiles.tar"
+      ]
+    },
+    {
+      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "docker load -i /vagrant-docker-images/newman_docker_geo_utils.tar"
+      ]
+    },
+    {
+      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "docker load -i /vagrant-docker-images/newman_docker_ocr.tar"
+      ]
+    }
   ],
   "serialSynchronizedCommands": [
     {

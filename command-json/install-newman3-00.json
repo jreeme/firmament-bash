@@ -6,7 +6,7 @@
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "description"                : "docker load -i /tmp/newman_docker_apertium.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -20,7 +20,7 @@
       ]
     },
     {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "description"                : "docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "description"                : "docker load -i /tmp/newman_docker_geo_utils.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -48,7 +48,21 @@
       ]
     },
     {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "description"                : "docker load -i /tmp/newman_docker_ocr.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "docker load -i /tmp/newman_docker_ocr.tar"
+      ]
+    },
+    {
+      "description"                : "docker load -i /tmp/newman_docker_ocr.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -137,6 +151,18 @@
       "args"                       : [
         "-c",
         "echo vagrant | sudo -S --user=vagrant -- bash -c 'find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;'"
+      ]
+    },
+    {
+      "description"                : "/vagrant/bootstrap.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "/vagrant/bootstrap.sh"
       ]
     }
   ]

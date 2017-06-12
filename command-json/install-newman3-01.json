@@ -1,0 +1,67 @@
+{
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 1)",
+  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-00.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "wget newman_docker_apertium.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /tmp/newman_docker_apertium.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_couchdb_offline-tiles.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline-tiles.tar -O /tmp/newman_docker_couchdb_offline-tiles.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_geo_utils.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_geo_utils.tar -O /tmp/newman_docker_geo_utils.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_ocr.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /tmp/newman_docker_ocr.tar"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+  ]
+}

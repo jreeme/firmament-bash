@@ -1,6 +1,5 @@
 {
   "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 2)",
-  "prerequisiteGraphUri"      : "install-newman3-01.json",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
@@ -16,7 +15,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /vagrant-docker-images/newman_docker_apertium.tar"
+        "docker load -i /tmp/newman_docker_apertium.tar"
       ]
     },
     {
@@ -30,7 +29,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /vagrant-docker-images/newman_docker_couchdb_offline_tiles.tar"
+        "docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar"
       ]
     },
     {
@@ -44,7 +43,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /vagrant-docker-images/newman_docker_geo_utils.tar"
+        "docker load -i /tmp/newman_docker_geo_utils.tar"
       ]
     },
     {
@@ -58,7 +57,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /vagrant-docker-images/newman_docker_ocr.tar"
+        "docker load -i /tmp/newman_docker_ocr.tar"
       ]
     }
   ],

@@ -30,7 +30,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline-tiles.tar -O /tmp/newman_docker_couchdb_offline-tiles.tar"
+        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline_tiles.tar -O /tmp/newman_docker_couchdb_offline-tiles.tar"
       ]
     },
     {

@@ -142,6 +142,6 @@
         "build-essential",
         "libkrb5-dev"
       ]
-    },
+    }
   ]
 }

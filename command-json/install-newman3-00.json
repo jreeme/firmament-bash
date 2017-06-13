@@ -60,20 +60,6 @@
         "-c",
         "docker load -i /tmp/newman_docker_ocr.tar"
       ]
-    },
-    {
-      "description"                : "docker load -i /tmp/newman_docker_ocr.tar",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "docker load -i /tmp/newman_docker_ocr.tar"
-      ]
     }
   ],
   "serialSynchronizedCommands": [
@@ -138,7 +124,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout v3.x-firmament'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout newman-vm-v3.x'"
       ]
     },
     {

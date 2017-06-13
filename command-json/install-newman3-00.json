@@ -16,7 +16,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /tmp/newman_docker_apertium.tar"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_apertium.tar'"
       ]
     },
     {
@@ -30,7 +30,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar'"
       ]
     },
     {
@@ -44,7 +44,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /tmp/newman_docker_geo_utils.tar"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_geo_utils.tar'"
       ]
     },
     {
@@ -58,51 +58,11 @@
       "args"                       : [
         "bash",
         "-c",
-        "docker load -i /tmp/newman_docker_ocr.tar"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_ocr.tar'"
       ]
     }
   ],
   "serialSynchronizedCommands": [
-    {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"vagrant\",\"vagrant\"))'` -s /bin/bash vagrant -G sudo,docker"
-      ]
-    },
-    {
-      "description"                : "[sudo] Add [nopasswd] to vagrant/sudoer's entry",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "echo \"\nvagrant ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
-      ]
-    },
-    {
-      "description"                : "[sudo] Create /vagrant and chown it to vagrant:vagrant",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "mkdir /vagrant && chown vagrant:vagrant /vagrant"
-      ]
-    },
     {
       "description"                : "git newman-vm -> /vagrant",
       "suppressOutput"             : false,

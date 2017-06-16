@@ -18,7 +18,9 @@
     {
       "name": "prep-ubuntu-desktop-16.04",
       "urls": [
-        "prep-ubuntu-16.04-desktop-00.json"
+        "prep-ubuntu-16.04-desktop-00.json",
+        "prep-ubuntu-16.04-server-00.json",
+        "prep-ubuntu-16.04-server-01.json"
       ]
     },
     {

@@ -36,6 +36,17 @@
   ],
   "serialSynchronizedCommands": [
     {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update"
+      ]
+    },
+    {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,

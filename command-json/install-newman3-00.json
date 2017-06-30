@@ -105,7 +105,7 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
-      "command"                    : "bash",
+      "command"                    : "ls",
       "args"                       : [
         "-c",
         "/vagrant/bootstrap.sh"

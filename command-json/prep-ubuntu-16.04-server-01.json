@@ -5,7 +5,7 @@
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "[sudo] Add Docker sources",
+      "description"                : "[sudo] Add VirtualBox sources",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,

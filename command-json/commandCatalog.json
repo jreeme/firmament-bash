@@ -44,6 +44,18 @@
         "prep-ubuntu-16.04-server-00.json",
         "prep-ubuntu-16.04-server-01.json"
       ]
+    },
+    {
+      "name": "install-chrome",
+      "urls": [
+        "install-chrome-ubuntu-16.04.json"
+      ]
+    },
+    {
+      "name": "install-mongodb",
+      "urls": [
+        "install-mongodb-ubuntu-16.04.json"
+      ]
     }
   ]
 }

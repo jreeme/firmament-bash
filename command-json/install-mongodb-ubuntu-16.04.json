@@ -57,6 +57,31 @@
         "-y",
         "mongodb-org"
       ]
+    },
+    {
+      "description"                : "[sudo] wget mongod.service",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'wget -O /lib/systemd/system/mongod.service https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/mongo-config/mongod.service'"
+      ]
+    },
+    {
+      "description"                : "[sudo] systemctl enable mongod",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "systemctl",
+      "args"                       : [
+        "enable",
+        "mongod"
+      ]
     }
   ]
 }

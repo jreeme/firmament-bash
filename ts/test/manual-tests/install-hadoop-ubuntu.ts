@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import kernel from '../../inversify.config';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
-import {RemoteCatalogGetter} from "firmament-yargs";
+import {RemoteCatalogGetter} from 'firmament-yargs';
 let processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
 
 const installHadoopUbuntu = '/home/jreeme/src/firmament-bash/command-json/install-hadoop-ubuntu.json';

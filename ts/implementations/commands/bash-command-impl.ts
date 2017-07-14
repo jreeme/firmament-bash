@@ -1,7 +1,7 @@
-import {injectable, inject} from "inversify";
+import {injectable, inject} from 'inversify';
 import kernel from '../../inversify.config';
 import {Command, CommandUtil} from 'firmament-yargs';
-import {ProcessCommandJson} from "../../interfaces/process-command-json";
+import {ProcessCommandJson} from '../../interfaces/process-command-json';
 
 @injectable()
 export class BashCommandImpl implements Command {
@@ -12,13 +12,9 @@ export class BashCommandImpl implements Command {
   };
   options: any = {};
   subCommands: Command[] = [];
-  private commandUtil: CommandUtil;
-  private processCommandJson: ProcessCommandJson;
 
-  constructor(@inject('CommandUtil') _commandUtil: CommandUtil,
-              @inject('ProcessCommandJson') _processCommandJson: ProcessCommandJson) {
-    this.commandUtil = _commandUtil;
-    this.processCommandJson = _processCommandJson;
+  constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
+              @inject('ProcessCommandJson') private processCommandJson: ProcessCommandJson) {
     this.buildCommandTree();
   }
 

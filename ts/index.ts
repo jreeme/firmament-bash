@@ -1,4 +1,4 @@
-import kernel from "./inversify.config";
+import kernel from './inversify.config';
 export {kernel};
 
 //HACK so tools can get version to sync the firmament ecosystem

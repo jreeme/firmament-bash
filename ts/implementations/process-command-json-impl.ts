@@ -1,10 +1,9 @@
 import {injectable, inject} from 'inversify';
-import {ProcessCommandJson} from "../interfaces/process-command-json";
+import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
   CommandUtil, ForceErrorImpl, Spawn, SpawnOptions2, RemoteCatalogGetter,
   RemoteCatalogEntry
-} from "firmament-yargs";
-import {ExecutionGraph, ShellCommand} from "../interfaces/execution-graph";
+} from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
 import fs = require('fs');
@@ -20,7 +19,6 @@ const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-ba
 
 @injectable()
 export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCommandJson {
-
   constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
               @inject('RemoteCatalogGetter') private remoteCatalogGetter: RemoteCatalogGetter,
               @inject('Spawn') private spawn: Spawn) {
@@ -295,29 +293,6 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     });
   }
 
-  private static getFullResourcePath(url: string, parentUrl: string): string {
-    let retVal: string;
-    let parsedUrl: Url = nodeUrl.parse(url);
-    //First, figure out if it's a network resource or filesystem resource
-    if (parsedUrl.protocol) {
-      //Network resource
-      retVal = url;
-    } else {
-      //Filesystem resource
-      if (path.isAbsolute(url)) {
-        retVal = url;
-      } else {
-        let parsedParentUrl: Url = nodeUrl.parse(parentUrl);
-        let baseUrl = path.dirname(parentUrl);
-        if (parsedParentUrl.protocol) {
-          baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;
-        }
-        retVal = path.resolve(baseUrl, url);
-      }
-    }
-    return retVal;
-  }
-
   private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
     let me = this;
     cb = me.checkCallback(cb);
@@ -339,5 +314,28 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     })).parsedObject;
 
     cb(null, startGraph);
+  }
+
+  private static getFullResourcePath(url: string, parentUrl: string): string {
+    let retVal: string;
+    let parsedUrl: Url = nodeUrl.parse(url);
+    //First, figure out if it's a network resource or filesystem resource
+    if (parsedUrl.protocol) {
+      //Network resource
+      retVal = url;
+    } else {
+      //Filesystem resource
+      if (path.isAbsolute(url)) {
+        retVal = url;
+      } else {
+        let parsedParentUrl: Url = nodeUrl.parse(parentUrl);
+        let baseUrl = path.dirname(parentUrl);
+        if (parsedParentUrl.protocol) {
+          baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;
+        }
+        retVal = path.resolve(baseUrl, url);
+      }
+    }
+    return retVal;
   }
 }

@@ -3,7 +3,6 @@ import kernel from '../inversify.config';
 import {expect} from 'chai';
 import path = require('path');
 import {ProcessCommandJson} from '../interfaces/process-command-json';
-import {ExecutionGraph} from "../interfaces/execution-graph";
 import {} from 'mocha';
 const jsonfile = require('jsonfile');
 const relativePathToTestJson = 'command-json/valid.json';

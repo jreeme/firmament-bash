@@ -15,7 +15,7 @@ const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandC
 /*remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, remoteCatalog) => {
  let e = err;
  });*/
-processCommandJson.processJson(
+processCommandJson.processYargsCommand(
   {
     //input: 'glibber'
     //input: 'firmament-dev'

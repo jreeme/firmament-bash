@@ -1,8 +1,8 @@
 import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
-  CommandUtil, ForceErrorImpl, Spawn, SpawnOptions2, RemoteCatalogGetter,
-  RemoteCatalogEntry
+  CommandUtil, ForceErrorImpl, RemoteCatalogGetter,
+  RemoteCatalogEntry, Spawn, SpawnOptions2
 } from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
@@ -25,7 +25,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     super();
   }
 
-  processJson(argv: any) {
+  processYargsCommand(argv: any) {
     let me = this;
     //Start by trying to get command catalog. If that fails assume input is absolute location of
     //command graph resource

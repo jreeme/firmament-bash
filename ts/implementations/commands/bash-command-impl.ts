@@ -1,6 +1,6 @@
 import {injectable, inject} from 'inversify';
 import kernel from '../../inversify.config';
-import {Command, CommandUtil} from 'firmament-yargs';
+import {Command} from 'firmament-yargs';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
 
 @injectable()
@@ -8,13 +8,12 @@ export class BashCommandImpl implements Command {
   aliases: string[] = [];
   command: string = '';
   commandDesc: string = '';
-  handler: (argv: any)=>void = () => {
+  handler: (argv: any) => void = () => {
   };
   options: any = {};
   subCommands: Command[] = [];
 
-  constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
-              @inject('ProcessCommandJson') private processCommandJson: ProcessCommandJson) {
+  constructor(@inject('ProcessCommandJson') private processCommandJson: ProcessCommandJson) {
     this.buildCommandTree();
   }
 
@@ -28,7 +27,7 @@ export class BashCommandImpl implements Command {
   private pushTestCommand() {
     let me = this;
     let processCommand = kernel.get<Command>('CommandImpl');
-    processCommand.aliases = ['process','p'];
+    processCommand.aliases = ['process', 'p'];
     processCommand.commandDesc = 'Execute bash command graph described in Json file';
     processCommand.options = {
       input: {
@@ -38,7 +37,7 @@ export class BashCommandImpl implements Command {
         desc: 'Url to command graph or list available graphs if none specified'
       }
     };
-    processCommand.handler = this.processCommandJson.processJson.bind(this.processCommandJson);
+    processCommand.handler = this.processCommandJson.processYargsCommand.bind(this.processCommandJson);
     me.subCommands.push(processCommand);
   }
 }

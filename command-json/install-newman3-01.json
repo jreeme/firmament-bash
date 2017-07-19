@@ -11,12 +11,12 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
+      "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /tmp/newman_docker_apertium.tar"
+        "[[ ! -e /var/tmp/newman_docker_apertium.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_apertium.tar"
       ]
     },
     {
@@ -25,12 +25,12 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
+      "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline_tiles.tar -O /tmp/newman_docker_couchdb_offline_tiles.tar"
+        "[[ ! -e /var/tmp/newman_docker_couchdb_offline_tiles.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_couchdb_offline_tiles.tar"
       ]
     },
     {
@@ -39,12 +39,12 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
+      "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_geo_utils.tar -O /tmp/newman_docker_geo_utils.tar"
+        "[[ ! -e /var/tmp/newman_docker_geo_utils.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_geo_utils.tar"
       ]
     },
     {
@@ -53,12 +53,12 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
+      "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /tmp/newman_docker_ocr.tar"
+        "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_ocr.tar"
       ]
     }
   ],

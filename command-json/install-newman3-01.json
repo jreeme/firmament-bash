@@ -102,6 +102,34 @@
         "-c",
         "mkdir /vagrant && chown vagrant:vagrant /vagrant"
       ]
+    },
+    {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update",
+        "-y"
+      ]
+    },
+    {
+      "description"                : "[sudo] Install JDK",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "default-jdk",
+        "maven",
+        "-y"
+      ]
     }
   ]
 }

@@ -6,7 +6,7 @@
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "docker load -i /tmp/newman_docker_apertium.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -16,11 +16,11 @@
       "args"                       : [
         "bash",
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_apertium.tar'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_apertium.tar'"
       ]
     },
     {
-      "description"                : "docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -30,11 +30,11 @@
       "args"                       : [
         "bash",
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_couchdb_offline_tiles.tar'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar'"
       ]
     },
     {
-      "description"                : "docker load -i /tmp/newman_docker_geo_utils.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_geo_utils.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -44,11 +44,11 @@
       "args"                       : [
         "bash",
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_geo_utils.tar'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_geo_utils.tar'"
       ]
     },
     {
-      "description"                : "docker load -i /tmp/newman_docker_ocr.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_ocr.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -58,7 +58,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /tmp/newman_docker_ocr.tar'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_ocr.tar'"
       ]
     }
   ],
@@ -84,7 +84,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout newman-vm-v3.x'"
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout v3.x-firmament'"
       ]
     },
     {

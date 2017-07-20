@@ -1,0 +1,63 @@
+{
+  "description"               : "Prepare Ubuntu 16.04 for REmbleton's ETL activities",
+  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-00.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "[sudo] useradd etl -s /bin/bash -m -g sudo,docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash etl -G sudo,docker"
+      ]
+    },
+    {
+      "description"                : "wget Anaconda2-4.4.0-Linux-ppc64le.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-ppc64le.sh -O /tmp/Anaconda2-4.4.0-Linux-ppc64le.sh"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] Add [nopasswd] to etl/sudoer's entry",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/bash",
+      "args"                       : [
+        "-c",
+        "echo \"\netl ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+      ]
+    },
+    {
+      "description"                : "[sudo] Install Anaconda2-4.4.0",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c '/usr/bin/bash /tmp/Anaconda2-4.4.0-Linux-ppc64le.sh'"
+      ]
+    }
+  ]
+}

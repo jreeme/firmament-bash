@@ -56,6 +56,20 @@
         "-c",
         "echo password | sudo -S --user=etl -- /bin/bash -c '/bin/bash /tmp/Anaconda2-4.4.0-Linux-x86_64.sh -b -p /home/etl/anaconda2'"
       ]
+    },
+    {
+      "description"                : "[sudo] Add Anaconda activation to /home/etl/.bashrc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo 'source ~/anaconda2/bin/activate' >> /home/etl/.bashrc"
+      ]
     }
   ]
 }

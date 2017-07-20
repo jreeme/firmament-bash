@@ -6,6 +6,18 @@
   },
   "asynchronousCommands"      : [
     {
+      "description"                : "[sudo] add-apt-repository ppa:ubuntu-toolchain-r/test",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "add-apt-repository",
+      "args"                       : [
+        "-y",
+        "ppa:ubuntu-toolchain-r/test"
+      ]
+    },
+    {
       "description"                : "[sudo] useradd etl -s /bin/bash -m -g sudo,docker",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -69,6 +81,85 @@
         "bash",
         "-c",
         "echo 'source ~/anaconda2/bin/activate' >> /home/etl/.bashrc"
+      ]
+    },
+    {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update"
+      ]
+    },
+    {
+      "description"                : "apt-get install [...]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "software-properties-common",
+        "gcc-4.8",
+        "g++-4.8",
+        "gcc-6",
+        "g++-6",
+        "gcc-snapshot"
+      ]
+    },
+    {
+      "description"                : "update-alternatives --install gcc-6",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "update-alternatives",
+      "args"                       : [
+        "--install",
+        "/usr/bin/gcc",
+        "gcc",
+        "/usr/bin/gcc-6",
+        "60",
+        "--slave",
+        "/usr/bin/g++",
+        "g++",
+        "/usr/bin/g++-6"
+      ]
+    },
+    {
+      "description"                : "update-alternatives --install gcc-4.8",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "update-alternatives",
+      "args"                       : [
+        "--install",
+        "/usr/bin/gcc",
+        "gcc",
+        "/usr/bin/gcc-4.8",
+        "60",
+        "--slave",
+        "/usr/bin/g++",
+        "g++",
+        "/usr/bin/g++-4.8"
+      ]
+    },
+    {
+      "description"                : "update-alternatives --config gcc",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "update-alternatives",
+      "args"                       : [
+        "--config",
+        "gcc"
       ]
     }
   ]

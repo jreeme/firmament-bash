@@ -12,9 +12,8 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "/bin/bash",
       "args"                       : [
-        "bash",
         "-c",
         "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash etl -G sudo,docker"
       ]
@@ -26,9 +25,8 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "/bin/bash",
       "args"                       : [
-        "bash",
         "-c",
         "wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-ppc64le.sh -O /tmp/Anaconda2-4.4.0-Linux-ppc64le.sh"
       ]
@@ -41,7 +39,7 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/bash",
+      "command"                    : "/bin/bash",
       "args"                       : [
         "-c",
         "echo \"\netl ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
@@ -53,10 +51,10 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/bash",
+      "command"                    : "/bin/bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S -- bash -c '/usr/bin/bash /tmp/Anaconda2-4.4.0-Linux-ppc64le.sh'"
+        "echo password | sudo -S -- /bin/bash -c '/bin/bash /tmp/Anaconda2-4.4.0-Linux-ppc64le.sh'"
       ]
     }
   ]

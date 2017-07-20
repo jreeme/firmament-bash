@@ -1,10 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="jreeme">
     <words>
+      <w>dateutil</w>
       <w>embleton</w>
+      <w>libmysqlclient</w>
       <w>lodash</w>
       <w>nopasswd</w>
       <w>printf</w>
+      <w>pymongo</w>
       <w>sudoer</w>
       <w>sudoers</w>
       <w>useradd</w>

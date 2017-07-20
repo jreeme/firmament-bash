@@ -80,7 +80,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "echo 'source ~/anaconda2/bin/activate' >> /home/etl/.bashrc"
+        "echo 'source ~/anaconda2/bin/activate' >> /home/etl/.profile"
       ]
     },
     {
@@ -109,7 +109,9 @@
         "g++-4.8",
         "gcc-6",
         "g++-6",
-        "gcc-snapshot"
+        "gcc-snapshot",
+        "python-dev",
+        "libmysqlclient-dev"
       ]
     },
     {
@@ -151,15 +153,15 @@
       ]
     },
     {
-      "description"                : "update-alternatives --config gcc",
+      "description"                : "Install pip packages",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
-      "command"                    : "update-alternatives",
+      "command"                    : "/bin/bash",
       "args"                       : [
-        "--config",
-        "gcc"
+        "-c",
+        "echo password | sudo -S --user=etl -- /bin/bash -c 'pip install MySQL-python pymongo csv2es python-dateutil'"
       ]
     }
   ]

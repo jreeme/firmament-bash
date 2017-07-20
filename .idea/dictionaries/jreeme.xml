@@ -8,6 +8,7 @@
       <w>sudoer</w>
       <w>sudoers</w>
       <w>useradd</w>
+      <w>wget</w>
     </words>
   </dictionary>
 </component>

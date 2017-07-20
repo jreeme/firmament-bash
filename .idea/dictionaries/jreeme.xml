@@ -8,9 +8,11 @@
       <w>nopasswd</w>
       <w>printf</w>
       <w>pymongo</w>
+      <w>rembleton</w>
       <w>sudoer</w>
       <w>sudoers</w>
       <w>useradd</w>
+      <w>virtualbox</w>
       <w>wget</w>
     </words>
   </dictionary>

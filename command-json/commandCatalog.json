@@ -37,6 +37,14 @@
       ]
     },
     {
+      "name": "install-rembleton-etl",
+      "urls": [
+        "prep-ubuntu-16.04-etl-00.json",
+        "prep-ubuntu-16.04-server-00.json",
+        "prep-ubuntu-16.04-server-01.json"
+      ]
+    },
+    {
       "name": "install-newman3",
       "urls": [
         "install-newman3-00.json",

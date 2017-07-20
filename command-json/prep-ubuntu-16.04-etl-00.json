@@ -54,7 +54,7 @@
       "command"                    : "/bin/bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S -- /bin/bash -c '/bin/bash /tmp/Anaconda2-4.4.0-Linux-x86_64.sh -b -p /home/etl/anaconda2'"
+        "echo password | sudo -S --user=etl -- /bin/bash -c '/bin/bash /tmp/Anaconda2-4.4.0-Linux-x86_64.sh -b -p /home/etl/anaconda2'"
       ]
     }
   ]

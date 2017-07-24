@@ -58,7 +58,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
       let stdoutText = '';
       let stderrText = '';
       options.showDiagnostics && cbDiagnostic(`Running '${cmd}' @ '${options.cwd}'`);
-      options.preSpawnMessage && cbDiagnostic(options.preSpawnMessage);
+      options.showDiagnostics && options.preSpawnMessage && cbDiagnostic(options.preSpawnMessage);
       childProcess = spawn(command, args, options);
       childProcess.stderr.on('data', (dataChunk: Uint8Array) => {
         if (options.suppressStdErr && !options.cacheStdErr) {
@@ -99,16 +99,12 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
                                   cbFinal: (err: Error, result: string) => void,
                                   cbDiagnostic: (message: string) => void): (err: Error, result: string) => void {
     if (cbFinal) {
-      if (options.postSpawnMessage) {
-        cbDiagnostic(options.postSpawnMessage);
-      }
-      let returnString = !options.suppressFinalStats
-        ? JSON.stringify({code, signal, stdoutText, stderrText}, undefined, 2)
-        : '';
+      options.showDiagnostics && options.postSpawnMessage && cbDiagnostic(options.postSpawnMessage);
+      let returnString = JSON.stringify({code, signal, stdoutText, stderrText}, undefined, 2);
       let error = (code !== null && code !== 0)
         ? new Error(returnString)
         : null;
-      cbFinal(error, returnString);
+      cbFinal(error, options.suppressFinalStats ? '' : returnString);
     }
     return null;
   }

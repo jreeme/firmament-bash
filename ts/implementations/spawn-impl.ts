@@ -3,10 +3,12 @@ import {Spawn} from '../interfaces/spawn';
 import {ChildProcess, spawn} from 'child_process';
 import {CommandUtil, ForceErrorImpl} from "firmament-yargs";
 import {SpawnOptions3} from "../custom-typings";
+
 const readlineSync = require('readline-sync');
 const inpathSync = require('inpath').sync;
 const pidof = require('pidof');
 const psTree = require('ps-tree');
+
 //noinspection JSUnusedGlobalSymbols
 @injectable()
 export class SpawnImpl extends ForceErrorImpl implements Spawn {
@@ -37,7 +39,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
     cbStatus = me.checkCallback(cbStatus);
     cbFinal = me.checkCallback(cbFinal);
     cbDiagnostic = cbDiagnostic || (() => {
-      });
+    });
     return {cmd, options, cbStatus, cbFinal, cbDiagnostic};
   }
 
@@ -112,7 +114,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
 
   sudoSpawnAsync(cmd: string[],
                  options: SpawnOptions3,
-                 cbStatusOrFinal: (err: Error, result: string) => void,
+                 cbStatus: (err: Error, result: string) => void,
                  cbFinal: (err: Error, result: string) => void) {
     let me = this;
     let prompt = '#node-sudo-passwd#';
@@ -125,7 +127,16 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
     let sudoBin = inpathSync('sudo', path);
     args.unshift(sudoBin);
 
-    let child: ChildProcess = me.spawnShellCommandAsync(args, options, cbStatusOrFinal, cbFinal);
+    let child: ChildProcess = me.spawnShellCommandAsync(
+      args,
+      options,
+      (err, result) => {
+        if (err && err.message === prompt) {
+          return;
+        }
+        cbStatus(err, result);
+      },
+      cbFinal);
 
     if (!child) {
       //In this case spawnShellCommandAsync should handle the error callbacks
@@ -160,6 +171,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
             ? `Sorry, try again.\n[sudo] password for ${username}: `
             : `[sudo] password for ${username}: `;
 
+          me.cachedPassword = 'password';
           if (me.cachedPassword) {
             child.stdin.write(me.cachedPassword + '\n');
           } else {

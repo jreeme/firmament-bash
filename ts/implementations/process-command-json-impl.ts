@@ -2,7 +2,7 @@ import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
   CommandUtil, ForceErrorImpl, RemoteCatalogGetter,
-  RemoteCatalogEntry, Spawn, SpawnOptions2
+  RemoteCatalogEntry, Spawn
 } from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
@@ -10,7 +10,7 @@ import fs = require('fs');
 import url = require('url');
 import request = require('request');
 import {Url} from 'url';
-import {ExecutionGraph, ShellCommand} from '../custom-typings';
+import {ExecutionGraph, ShellCommand, SpawnOptions3} from '../custom-typings';
 
 const async = require('async');
 const chalk = require('chalk');
@@ -30,6 +30,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   processYargsCommand(argv: any) {
     const me = this;
     //Start by checking to see if argv.input is a url we can just execute and be done with it
+    argv.input = '';
     me.processAbsoluteUrl(argv.input, (err: Error) => {
       if (err) {
         me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
@@ -40,7 +41,6 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
               me.commandUtil.log('> ' + entry.name);
             });
             me.commandUtil.processExit();
-            return;
           }
           //If we got a command catalog and the user specified something check to see if it's a catalog entry
           const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
@@ -55,8 +55,9 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
           }
         });
         return;
+      } else {
+        me.commandUtil.processExit();
       }
-      me.commandUtil.processExitWithError(err);
     });
     if (me !== argv) {
       return;
@@ -175,7 +176,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     if (useSudo) {
       //Because launching several async processes requiring a password would ask the user multiple times
       //for a password, we just do it once here to cache the password.
-      me.spawn.sudoSpawnAsync(['echo', 'unicorn'], {}, (err: Error) => {
+      me.spawn.sudoSpawnAsync(['printf', 'unicorn'], {}, (err: Error) => {
         if (me.commandUtil.callbackIfError(cb, err)) {
           return;
         }
@@ -237,7 +238,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
           ? me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn)
           : me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn);
         const cmdArray: string[][] = [];
-        const optionsArray: SpawnOptions2[] = [];
+        const optionsArray: SpawnOptions3[] = [];
         command.commandPipeline.forEach(subCommand => {
           const cmd = subCommand.args.slice(0);
           cmd.unshift(subCommand.command);
@@ -274,7 +275,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     };
   }
 
-  private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
+  private buildSpawnOptions(command: ShellCommand): SpawnOptions3 {
     let workingDirectory: string;
     if (command.workingDirectory) {
       workingDirectory = command.workingDirectory;

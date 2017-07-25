@@ -10,7 +10,8 @@ import fs = require('fs');
 import url = require('url');
 import request = require('request');
 import {Url} from 'url';
-import {ExecutionGraph, ShellCommand} from "../custom-typings";
+import {ExecutionGraph, ShellCommand} from '../custom-typings';
+
 const async = require('async');
 const chalk = require('chalk');
 const nodeUrl = require('url');
@@ -27,7 +28,39 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   processYargsCommand(argv: any) {
-    let me = this;
+    const me = this;
+    //Start by checking to see if argv.input is a url we can just execute and be done with it
+    me.processAbsoluteUrl(argv.input, (err: Error) => {
+      if (err) {
+        me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
+          //If we got a command catalog but user didn't specify anything then list entries in catalog
+          if (!argv.input) {
+            me.commandUtil.log('\nAvailable templates:\n');
+            commandCatalog.entries.forEach(entry => {
+              me.commandUtil.log('> ' + entry.name);
+            });
+            me.commandUtil.processExit();
+            return;
+          }
+          //If we got a command catalog and the user specified something check to see if it's a catalog entry
+          const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
+            return entry.name === argv.input;
+          });
+          //If it is a catalog entry then execute graph from catalog
+          if (commandGraph) {
+            me.processCatalogEntry(commandGraph, (err) => {
+              me.commandUtil.processExitWithError(err);
+            });
+            return;
+          }
+        });
+        return;
+      }
+      me.commandUtil.processExitWithError(err);
+    });
+    if (me !== argv) {
+      return;
+    }
     //Start by trying to get command catalog. If that fails assume input is absolute location of
     //command graph resource
     me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
@@ -49,7 +82,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         return;
       }
       //If we got a command catalog and the user specified something check to see if it's a catalog entry
-      let commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
+      const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
         return entry.name === argv.input;
       });
       //If it is a catalog entry then execute graph from catalog
@@ -67,7 +100,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   processCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, result: string) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
       return;
@@ -82,7 +115,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   processAbsoluteUrl(jsonOrUri: string, cb: (err: Error, result: string) => void): void {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
       return;
@@ -97,10 +130,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     let graphCursor = executionGraph;
-    let executionGraphs: ExecutionGraph[] = [];
+    const executionGraphs: ExecutionGraph[] = [];
     executionGraphs.unshift(graphCursor);
     while (graphCursor = graphCursor.prerequisiteGraph) {
       executionGraphs.unshift(graphCursor);
@@ -114,15 +147,15 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private preProcessExecutionGraphs(executionGraphs: ExecutionGraph[], cb: (err: Error, fnArray: any[]) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     //Give all properties of executionGraph reasonable values so we don't clutter other code up
     //with defaults & checks
     let counter = 0;
     let useSudo = false;
-    let fnArray = [];
+    const fnArray = [];
     executionGraphs.forEach(executionGraph => {
-      let eg = executionGraph;
+      const eg = executionGraph;
       eg.description = eg.description || 'ExecutionGraph +';
       eg.options = eg.options || {displayExecutionGraphDescription: true};
       eg.prerequisiteGraph = eg.prerequisiteGraph || null;
@@ -154,20 +187,20 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private executeSingleGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     if (!executionGraph) {
       cb(new Error('Invalid executionGraph'), null);
       return;
     }
-    let eg = executionGraph;
+    const eg = executionGraph;
     if (eg.options.displayExecutionGraphDescription) {
       me.commandUtil.log(chalk['green'](`Starting execution graph '${eg.description}'`));
     }
     //Use firmament-yargs:spawn services to execute commands
     //1) First do the asynchronous ones
     //2) Then do the synchronous ones (in order)
-    let spawnFnArray = [
+    const spawnFnArray = [
       async.apply(me.executeAsynchronousCommands.bind(me), eg.asynchronousCommands),
       async.apply(me.executeSynchronousCommands.bind(me), eg.serialSynchronizedCommands)
     ];
@@ -177,7 +210,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      let msg = `Execution graph '${eg.description}' completed.`;
+      const msg = `Execution graph '${eg.description}' completed.`;
       if (eg.options.displayExecutionGraphDescription) {
         me.commandUtil.log(chalk['green'](msg));
       }
@@ -194,19 +227,19 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private createSpawnFnArray(commands: ShellCommand[]): any[] {
-    let me = this;
-    let spawnFnArray = [];
+    const me = this;
+    const spawnFnArray = [];
     commands.forEach(command => {
       //Pipelined commands
       if (command.commandPipeline) {
-        let fnSpawn = command.useSudo
+        const fnSpawn = command.useSudo
           //? me.spawn.sudoSpawnPipelineAsync.bind(me.spawn)
           ? me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn)
           : me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn);
-        let cmdArray: string[][] = [];
-        let optionsArray: SpawnOptions2[] = [];
+        const cmdArray: string[][] = [];
+        const optionsArray: SpawnOptions2[] = [];
         command.commandPipeline.forEach(subCommand => {
-          let cmd = subCommand.args.slice(0);
+          const cmd = subCommand.args.slice(0);
           cmd.unshift(subCommand.command);
           cmdArray.push(cmd);
           optionsArray.push(me.buildSpawnOptions(subCommand));
@@ -217,10 +250,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
           me.buildSpawnCallback(command)));
       } else {
         //Non-pipelined commands
-        let fnSpawn = command.useSudo
+        const fnSpawn = command.useSudo
           ? me.spawn.sudoSpawnAsync.bind(me.spawn)
           : me.spawn.spawnShellCommandAsync.bind(me.spawn);
-        let cmd = command.args.slice(0);
+        const cmd = command.args.slice(0);
         cmd.unshift(command.command);
         spawnFnArray.push(async.apply(fnSpawn,
           cmd,
@@ -268,7 +301,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private resolveExecutionGraph(url: string, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
     me.remoteCatalogGetter.resolveJsonObjectFromUrl(url, (err, jsonObject) => {
       if (me.commandUtil.callbackIfError(cb, err)) {
@@ -278,7 +311,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         cb(new Error(`Execution graph at '${url}' not found`));
         return;
       }
-      let executionGraph = <ExecutionGraph>jsonObject;
+      const executionGraph = <ExecutionGraph>jsonObject;
       if (executionGraph.prerequisiteGraphUri) {
         me.resolveExecutionGraph(ProcessCommandJsonImpl.getFullResourcePath(executionGraph.prerequisiteGraphUri, url),
           (err: Error, subExecutionGraph: ExecutionGraph) => {
@@ -295,14 +328,14 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
-    let me = this;
+    const me = this;
     cb = me.checkCallback(cb);
 
     catalogEntry.resources.forEach(resource => {
-      let po = resource.parsedObject;
-      let preReqUri = po.prerequisiteGraphUri;
+      const po = resource.parsedObject;
+      const preReqUri = po.prerequisiteGraphUri;
       if (preReqUri) {
-        let preReq = _.find(catalogEntry.resources, r => {
+        const preReq = _.find(catalogEntry.resources, r => {
           return r.name === preReqUri;
         });
         po.prerequisiteGraph = preReq.parsedObject;
@@ -310,7 +343,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       }
     });
     //Find graph with no parent and we know where to start
-    let startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
+    const startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
       return !resource.parsedObject.parent;
     })).parsedObject;
 
@@ -319,7 +352,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
 
   private static getFullResourcePath(url: string, parentUrl: string): string {
     let retVal: string;
-    let parsedUrl: Url = nodeUrl.parse(url);
+    const parsedUrl: Url = nodeUrl.parse(url);
     //First, figure out if it's a network resource or filesystem resource
     if (parsedUrl.protocol) {
       //Network resource
@@ -329,7 +362,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       if (path.isAbsolute(url)) {
         retVal = url;
       } else {
-        let parsedParentUrl: Url = nodeUrl.parse(parentUrl);
+        const parsedParentUrl: Url = nodeUrl.parse(parentUrl);
         let baseUrl = path.dirname(parentUrl);
         if (parsedParentUrl.protocol) {
           baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;

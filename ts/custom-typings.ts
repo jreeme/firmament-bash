@@ -1,4 +1,5 @@
-interface ShellCommand {
+import {SpawnOptions2} from "firmament-yargs";
+export interface ShellCommand {
   description: string;
   outputColor: string;
   workingDirectory: string;
@@ -10,10 +11,10 @@ interface ShellCommand {
   args: string[];
   commandPipeline: ShellCommand[];
 }
-interface ExecutionGraphOptions {
+export interface ExecutionGraphOptions {
   displayExecutionGraphDescription: boolean;
 }
-interface ExecutionGraph {
+export interface ExecutionGraph {
   description: string;
   options: ExecutionGraphOptions;
   prerequisiteGraph: ExecutionGraph;
@@ -21,6 +22,9 @@ interface ExecutionGraph {
   asynchronousCommands: ShellCommand[];
   serialSynchronizedCommands: ShellCommand[];
 }
-interface ReadableStream {
+export interface SpawnOptions3 extends SpawnOptions2 {
+  suppressFinalError?: boolean
+}
+export interface ReadableStream {
   isTTY: boolean
 }

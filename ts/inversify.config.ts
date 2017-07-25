@@ -8,6 +8,7 @@ import {SpawnImpl} from "./implementations/spawn-impl";
 kernel.bind<ProcessCommandJson>('ProcessCommandJson').to(ProcessCommandJsonImpl).inSingletonScope();
 kernel.bind<Command>('Command').to(BashCommandImpl).inSingletonScope();
 
+//TODO: Move our Spawn implementation and unit test to 'firmament-yargs'
 kernel.rebind<Spawn>('Spawn').to(SpawnImpl).inTransientScope();
 
 export default kernel;

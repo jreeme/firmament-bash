@@ -10,6 +10,7 @@ import fs = require('fs');
 import url = require('url');
 import request = require('request');
 import {Url} from 'url';
+import {ExecutionGraph, ShellCommand} from "../custom-typings";
 const async = require('async');
 const chalk = require('chalk');
 const nodeUrl = require('url');

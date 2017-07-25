@@ -4,6 +4,7 @@ import {expect} from 'chai';
 import path = require('path');
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {} from 'mocha';
+import {ExecutionGraph} from "../custom-typings";
 const jsonfile = require('jsonfile');
 const relativePathToTestJson = 'command-json/valid.json';
 const httpUrlToTestJson = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/valid.json';

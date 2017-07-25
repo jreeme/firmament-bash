@@ -1,7 +1,8 @@
 import {injectable, inject} from "inversify";
 import {Spawn} from '../interfaces/spawn';
 import {ChildProcess, spawn} from 'child_process';
-import {CommandUtil, ForceErrorImpl, SpawnOptions2} from "firmament-yargs";
+import {CommandUtil, ForceErrorImpl} from "firmament-yargs";
+import {SpawnOptions3} from "../custom-typings";
 const readlineSync = require('readline-sync');
 const inpathSync = require('inpath').sync;
 const pidof = require('pidof');
@@ -16,7 +17,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
   }
 
   private validate_spawnShellCommandAsync_args(cmd: string[],
-                                               options: SpawnOptions2,
+                                               options: SpawnOptions3,
                                                cbStatus: (err: Error, result: string) => void,
                                                cbFinal: (err: Error, result: string) => void,
                                                cbDiagnostic: (message: string) => void = null) {
@@ -41,7 +42,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
   }
 
   spawnShellCommandAsync(_cmd: string[],
-                         _options: SpawnOptions2,
+                         _options: SpawnOptions3,
                          _cbStatus: (err: Error, result: string) => void,
                          _cbFinal: (err: Error, result: string) => void,
                          _cbDiagnostic: (message: string) => void = null) {
@@ -95,7 +96,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
                                   signal: string,
                                   stdoutText: string,
                                   stderrText: string,
-                                  options: SpawnOptions2,
+                                  options: SpawnOptions3,
                                   cbFinal: (err: Error, result: string) => void,
                                   cbDiagnostic: (message: string) => void): (err: Error, result: string) => void {
     if (cbFinal) {
@@ -104,13 +105,13 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
       let error = (code !== null && code !== 0)
         ? new Error(returnString)
         : null;
-      cbFinal(error, options.suppressFinalStats ? '' : returnString);
+      cbFinal(options.suppressFinalError ? null : error, options.suppressFinalStats ? '' : returnString);
     }
     return null;
   }
 
   sudoSpawnAsync(cmd: string[],
-                 options: SpawnOptions2,
+                 options: SpawnOptions3,
                  cbStatusOrFinal: (err: Error, result: string) => void,
                  cbFinal: (err: Error, result: string) => void) {
     let me = this;

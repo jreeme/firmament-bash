@@ -1,12 +1,11 @@
 import 'reflect-metadata';
 import kernel from '../inversify.config';
 import {expect} from 'chai';
-//import {} from 'mocha';
 import * as sinon from 'sinon';
 import * as _ from 'lodash';
 import path = require('path');
 import {Spawn} from "../interfaces/spawn";
-import {SpawnOptions2} from "firmament-yargs";
+import {SpawnOptions3} from "../custom-typings";
 
 const pathToScripts = path.resolve(__dirname, '../../ts/test/shell-scripts');
 const testScript = path.resolve(pathToScripts, 'kitchen-sink.sh');
@@ -14,7 +13,7 @@ const testArgs = [
   'arg1',
   'arg2'
 ];
-function getNewSpawnOptions(): SpawnOptions2 {
+function getNewSpawnOptions(): SpawnOptions3 {
   return _.clone({
     preSpawnMessage: 'PreSpawn Message',
     postSpawnMessage: 'PostSpawn Message',
@@ -23,7 +22,8 @@ function getNewSpawnOptions(): SpawnOptions2 {
     suppressStdOut: true,
     cacheStdErr: true,
     cacheStdOut: true,
-    suppressFinalStats: true
+    suppressFinalStats: true,
+    suppressFinalError: false
   });
 }
 function getArgArray(): string[] {
@@ -57,7 +57,7 @@ describe('Testing Spawn Creation/Force Error', () => {
 describe('Testing Spawn ', () => {
   let spawn: Spawn;
   let argArray: string[];
-  let spawnOptions: SpawnOptions2;
+  let spawnOptions: SpawnOptions3;
   let sinonSandbox;
   let cbStdOutSpy;
   let cbStdErrSpy;
@@ -208,6 +208,61 @@ describe('Testing Spawn ', () => {
         expect(cbStdOutSpy.called).to.be.true;
         expect(cbStdErrSpy.called).to.be.true;
         expect(cbDiagnosticSpy.called).to.be.false;
+        done();
+      },
+      o.cbDiagnostic
+    );
+  });
+  it('no diagnostics, output to stdout but suppress && output to stderr but suppress, send final stats, final err === null', (done) => {
+    spawnOptions.suppressFinalStats = false;
+    spawnOptions.suppressStdOut = true;
+    spawnOptions.suppressStdErr = true;
+    spawn.spawnShellCommandAsync(
+      argArray,
+      spawnOptions,
+      cbStatusMock,
+      (err, result) => {
+        expect(result).to.be.a('string');
+        const resultObj = JSON.parse(result);
+        expect(resultObj).to.include({code: 0, stdoutText: 'arg1arg2', stderrText: 'arg1arg2'});
+        expect(err).to.not.exist;
+        expect(cbStdOutSpy.called).to.be.false;
+        expect(cbStdErrSpy.called).to.be.false;
+        expect(cbDiagnosticSpy.called).to.be.false;
+        done();
+      },
+      o.cbDiagnostic
+    );
+  });
+  it('do not suppress final error', (done) => {
+    spawnOptions.suppressFinalStats = false;
+    argArray[1] = 'exitWithErrCode';
+    argArray[2] = '3';
+    spawnOptions.suppressFinalError = false;
+    spawn.spawnShellCommandAsync(
+      argArray,
+      spawnOptions,
+      cbStatusMock,
+      (err,result) => {
+        expect(JSON.parse(result)).to.include({code: 3});
+        expect(err).to.exist;
+        done();
+      },
+      o.cbDiagnostic
+    );
+  });
+  it('suppress final error', (done) => {
+    spawnOptions.suppressFinalStats = false;
+    argArray[1] = 'exitWithErrCode';
+    argArray[2] = '3';
+    spawnOptions.suppressFinalError = true;
+    spawn.spawnShellCommandAsync(
+      argArray,
+      spawnOptions,
+      cbStatusMock,
+      (err,result) => {
+        expect(JSON.parse(result)).to.include({code: 3});
+        expect(err).to.not.exist;
         done();
       },
       o.cbDiagnostic

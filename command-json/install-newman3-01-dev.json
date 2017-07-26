@@ -11,20 +11,8 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "[[ ! -e /var/tmp/newman_docker_apertium.tar ]]"
-      ]
-    },
-    {
-      "description"                : "wget newman_docker_apertium.tar",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
@@ -34,5 +22,21 @@
     }
   ],
   "serialSynchronizedCommands": [
+    {
+      "description"                : "wget newman_docker_apertium.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "[[ ! -e /var/tmp/newman_docker_apertium.tar ]]"
+      ]
+    }
   ]
 }

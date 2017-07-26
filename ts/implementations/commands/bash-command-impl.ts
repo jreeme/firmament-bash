@@ -35,6 +35,12 @@ export class BashCommandImpl implements Command {
         type: 'string',
         required: true,
         desc: 'Url to command graph or list available graphs if none specified'
+      },
+      catalogPath: {
+        alias: 'c',
+        type: 'string',
+        required: false,
+        desc: 'Url or path to command catalog file'
       }
     };
     processCommand.handler = this.processCommandJson.processYargsCommand.bind(this.processCommandJson);

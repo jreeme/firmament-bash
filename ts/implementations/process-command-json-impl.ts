@@ -2,115 +2,80 @@ import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
   CommandUtil, ForceErrorImpl, RemoteCatalogGetter,
-  RemoteCatalogEntry, Spawn
+  RemoteCatalogEntry, SafeJson
 } from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
-import fs = require('fs');
-import url = require('url');
-import request = require('request');
 import {Url} from 'url';
 import {ExecutionGraph, ShellCommand, SpawnOptions3} from '../custom-typings';
+import {Spawn} from "../interfaces/spawn";
 
 const async = require('async');
 const chalk = require('chalk');
 const nodeUrl = require('url');
 const textColors = ['green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray'];
-//const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
 const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/commandCatalog.json';
 
 @injectable()
 export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCommandJson {
   constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
               @inject('RemoteCatalogGetter') private remoteCatalogGetter: RemoteCatalogGetter,
+              @inject('SafeJson') private safeJson: SafeJson,
               @inject('Spawn') private spawn: Spawn) {
     super();
   }
 
   processYargsCommand(argv: any) {
     const me = this;
+    argv.catalogPath = argv.catalogPath || commandCatalogUrl;
     //Start by checking to see if argv.input is a url we can just execute and be done with it
-    argv.input = '';
     me.processAbsoluteUrl(argv.input, (err: Error) => {
       if (err) {
-        me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
-          //If we got a command catalog but user didn't specify anything then list entries in catalog
-          if (!argv.input) {
-            me.commandUtil.log('\nAvailable templates:\n');
-            commandCatalog.entries.forEach(entry => {
-              me.commandUtil.log('> ' + entry.name);
+        const parsedError = me.safeJson.safeParseSync(err.message);
+        if (parsedError.err) {
+          //This means no process launched (which means argv.input was not a execution graph
+          //in a local file). Now we see if it's a graph on the web or list the graphs we know
+          //about on the web.
+          me.remoteCatalogGetter.getCatalogFromUrl(argv.catalogPath, (err, commandCatalog) => {
+            me.commandUtil.processExitIfError(err);
+            //If we got a command catalog but user didn't specify anything then list entries in catalog
+            if (!argv.input) {
+              me.commandUtil.log('\nAvailable templates:\n');
+              commandCatalog.entries.forEach(entry => {
+                me.commandUtil.log('> ' + entry.name);
+              });
+              me.commandUtil.processExit();
+            }
+            //If we got a command catalog and the user specified something check to see if it's a catalog entry
+            const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
+              return entry.name === argv.input;
             });
-            me.commandUtil.processExit();
-          }
-          //If we got a command catalog and the user specified something check to see if it's a catalog entry
-          const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
-            return entry.name === argv.input;
-          });
-          //If it is a catalog entry then execute graph from catalog
-          if (commandGraph) {
+            //If it is a catalog entry then execute graph from catalog
             me.processCatalogEntry(commandGraph, (err) => {
-              me.commandUtil.processExitWithError(err);
+              me.commandUtil.processExitWithError(new Error(`Invalid execution graph: ${err.message}`));
             });
-            return;
-          }
-        });
-        return;
+          });
+        } else {
+          //This means a local graph executed but exited with an error
+          me.commandUtil.processExitWithError(err);
+        }
       } else {
+        //This is a successful completion of a local graph
         me.commandUtil.processExit();
       }
-    });
-    if (me !== argv) {
-      return;
-    }
-    //Start by trying to get command catalog. If that fails assume input is absolute location of
-    //command graph resource
-    me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
-      if (err || !commandCatalog) {
-        me.processAbsoluteUrl(argv.input, (err: Error) => {
-          me.commandUtil.processExitWithError(err);
-        });
-        return;
-      }
-      //If we got a command catalog but user didn't specify anything then list entries in catalog
-      if (!argv.input) {
-        me.commandUtil.log('\nAvailable templates:\n');
-        me.remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, commandCatalog) => {
-          commandCatalog.entries.forEach(entry => {
-            me.commandUtil.log('> ' + entry.name);
-          });
-          me.commandUtil.processExit();
-        });
-        return;
-      }
-      //If we got a command catalog and the user specified something check to see if it's a catalog entry
-      const commandGraph: RemoteCatalogEntry = _.find(commandCatalog.entries, entry => {
-        return entry.name === argv.input;
-      });
-      //If it is a catalog entry then execute graph from catalog
-      if (commandGraph) {
-        me.processCatalogEntry(commandGraph, (err) => {
-          me.commandUtil.processExitWithError(err);
-        });
-        return;
-      }
-      //If it is not a catalog entry assume absolute location
-      me.processAbsoluteUrl(argv.input, (err: Error) => {
-        me.commandUtil.processExitWithError(err);
-      });
     });
   }
 
   processCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, result: string) => void) {
     const me = this;
     cb = me.checkCallback(cb);
-    if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
+    if (me.checkForceError('ProcessCommandJsonImpl.processCatalogEntry', cb)) {
       return;
     }
     me.resolveExecutionGraphFromCatalogEntry(catalogEntry, (err, executionGraph) => {
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
       me.execute(executionGraph, cb);
     });
   }
@@ -125,7 +90,6 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      //noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
       me.execute(executionGraph, cb);
     });
   }
@@ -154,6 +118,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     //with defaults & checks
     let counter = 0;
     let useSudo = false;
+    let sudoPassword = '';
     const fnArray = [];
     executionGraphs.forEach(executionGraph => {
       const eg = executionGraph;
@@ -166,7 +131,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       [eg.asynchronousCommands, eg.serialSynchronizedCommands].forEach(commands => {
         commands.forEach(command => {
           command.outputColor = command.outputColor || textColors[counter++ % textColors.length];
-          if (command.useSudo) {
+          if (!sudoPassword && command.sudoPassword) {
+            sudoPassword = command.sudoPassword;
+          }
+          if (!useSudo && command.useSudo) {
             useSudo = command.useSudo;
           }
         });
@@ -176,12 +144,17 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     if (useSudo) {
       //Because launching several async processes requiring a password would ask the user multiple times
       //for a password, we just do it once here to cache the password.
-      me.spawn.sudoSpawnAsync(['printf', 'unicorn'], {}, (err: Error) => {
-        if (me.commandUtil.callbackIfError(cb, err)) {
-          return;
-        }
-        cb(null, fnArray);
-      });
+      me.spawn.sudoSpawnAsync(
+        ['printf', 'unicorn'],
+        {sudoPassword},
+        () => {
+        },
+        (err) => {
+          if (me.commandUtil.callbackIfError(cb, err)) {
+            return;
+          }
+          cb(null, fnArray);
+        });
     } else {
       cb(null, fnArray);
     }
@@ -208,14 +181,11 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
 
     //noinspection JSUnusedLocalSymbols
     async.series(spawnFnArray, (err: Error, results: any) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
-        return;
-      }
       const msg = `Execution graph '${eg.description}' completed.`;
       if (eg.options.displayExecutionGraphDescription) {
         me.commandUtil.log(chalk['green'](msg));
       }
-      cb(null, msg);
+      cb(err, msg);
     });
   }
 
@@ -231,36 +201,16 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     const me = this;
     const spawnFnArray = [];
     commands.forEach(command => {
-      //Pipelined commands
-      if (command.commandPipeline) {
-        const fnSpawn = command.useSudo
-          //? me.spawn.sudoSpawnPipelineAsync.bind(me.spawn)
-          ? me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn)
-          : me.spawn.spawnShellCommandPipelineAsync.bind(me.spawn);
-        const cmdArray: string[][] = [];
-        const optionsArray: SpawnOptions3[] = [];
-        command.commandPipeline.forEach(subCommand => {
-          const cmd = subCommand.args.slice(0);
-          cmd.unshift(subCommand.command);
-          cmdArray.push(cmd);
-          optionsArray.push(me.buildSpawnOptions(subCommand));
-        });
-        spawnFnArray.push(async.apply(fnSpawn,
-          cmdArray,
-          optionsArray,
-          me.buildSpawnCallback(command)));
-      } else {
-        //Non-pipelined commands
-        const fnSpawn = command.useSudo
-          ? me.spawn.sudoSpawnAsync.bind(me.spawn)
-          : me.spawn.spawnShellCommandAsync.bind(me.spawn);
-        const cmd = command.args.slice(0);
-        cmd.unshift(command.command);
-        spawnFnArray.push(async.apply(fnSpawn,
-          cmd,
-          me.buildSpawnOptions(command),
-          me.buildSpawnCallback(command)));
-      }
+      //Non-pipelined commands
+      const fnSpawn = command.useSudo
+        ? me.spawn.sudoSpawnAsync.bind(me.spawn)
+        : me.spawn.spawnShellCommandAsync.bind(me.spawn);
+      const cmd = command.args.slice(0);
+      cmd.unshift(command.command);
+      spawnFnArray.push(async.apply(fnSpawn,
+        cmd,
+        me.buildSpawnOptions(command),
+        me.buildSpawnCallback(command)));
     });
     return spawnFnArray;
   }
@@ -294,9 +244,11 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       showDiagnostics: command.showDiagnostics,
       cacheStdErr: true,
       cacheStdOut: false,
+      sudoPassword: command.sudoPassword,
       suppressFinalStats: command.suppressOutput,
       suppressStdErr: command.suppressOutput,
       suppressStdOut: command.suppressOutput,
+      suppressFinalError: command.suppressFinalError,
       cwd: workingDirectory
     };
   }
@@ -331,24 +283,27 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
     const me = this;
     cb = me.checkCallback(cb);
+    try {
+      catalogEntry.resources.forEach(resource => {
+        const po = resource.parsedObject;
+        const preReqUri = po.prerequisiteGraphUri;
+        if (preReqUri) {
+          const preReq = _.find(catalogEntry.resources, r => {
+            return r.name === preReqUri;
+          });
+          po.prerequisiteGraph = preReq.parsedObject;
+          preReq.parsedObject.parent = resource;
+        }
+      });
+      //Find graph with no parent and we know where to start
+      const startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
+        return !resource.parsedObject.parent;
+      })).parsedObject;
 
-    catalogEntry.resources.forEach(resource => {
-      const po = resource.parsedObject;
-      const preReqUri = po.prerequisiteGraphUri;
-      if (preReqUri) {
-        const preReq = _.find(catalogEntry.resources, r => {
-          return r.name === preReqUri;
-        });
-        po.prerequisiteGraph = preReq.parsedObject;
-        preReq.parsedObject.parent = resource;
-      }
-    });
-    //Find graph with no parent and we know where to start
-    const startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
-      return !resource.parsedObject.parent;
-    })).parsedObject;
-
-    cb(null, startGraph);
+      cb(null, startGraph);
+    } catch (err) {
+      cb(err);
+    }
   }
 
   private static getFullResourcePath(url: string, parentUrl: string): string {

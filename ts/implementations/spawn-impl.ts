@@ -34,6 +34,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
     options.cacheStdErr = options.cacheStdErr || false;
     options.cacheStdOut = options.cacheStdOut || false;
     options.suppressFinalStats = options.suppressFinalStats || false;
+    options.suppressFinalError = options.suppressFinalError || false;
     options.stdio = options.stdio || 'pipe';
     options.cwd = options.cwd || process.cwd();
     cbStatus = me.checkCallback(cbStatus);
@@ -115,7 +116,8 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
   sudoSpawnAsync(cmd: string[],
                  options: SpawnOptions3,
                  cbStatus: (err: Error, result: string) => void,
-                 cbFinal: (err: Error, result: string) => void) {
+                 cbFinal: (err: Error, result: string) => void,
+                 cbDiagnostic: (message: string) => void = null) {
     let me = this;
     let prompt = '#node-sudo-passwd#';
     let prompts = 0;
@@ -171,13 +173,12 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
             ? `Sorry, try again.\n[sudo] password for ${username}: `
             : `[sudo] password for ${username}: `;
 
-          me.cachedPassword = 'password';
-          if (me.cachedPassword) {
-            child.stdin.write(me.cachedPassword + '\n');
-          } else {
-            me.cachedPassword = readlineSync.question(loginMessage, {hideEchoBack: true});
-            child.stdin.write(me.cachedPassword + '\n');
+          if (!me.cachedPassword) {
+            me.cachedPassword = options.sudoPassword
+              ? options.sudoPassword
+              : readlineSync.question(loginMessage, {hideEchoBack: true});
           }
+          child.stdin.write(me.cachedPassword + '\n');
         }
       });
     });

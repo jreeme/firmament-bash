@@ -1,0 +1,115 @@
+{
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 2)",
+  "prerequisiteGraphUri"      : "install-newman3-01-dev.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_apertium.tar'"
+      ]
+    },
+    {
+      "description"                : "docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar'"
+      ]
+    },
+    {
+      "description"                : "docker load -i /var/tmp/newman_docker_geo_utils.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_geo_utils.tar'"
+      ]
+    },
+    {
+      "description"                : "docker load -i /var/tmp/newman_docker_ocr.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_ocr.tar'"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "git newman-vm -> /vagrant",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git clone https://github.com/sotera/newman-vm /vagrant'"
+      ]
+    },
+    {
+      "description"                : "git newman-vm -> /vagrant",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout v3.x-firmament'"
+      ]
+    },
+    {
+      "description"                : "chmod +x -R /vagrant",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo vagrant | sudo -S --user=vagrant -- bash -c 'find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;'"
+      ]
+    },
+    {
+      "description"                : "/vagrant/bootstrap.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "ls",
+      "args"                       : [
+        "-c",
+        "/vagrant/bootstrap.sh"
+      ]
+    }
+  ]
+}

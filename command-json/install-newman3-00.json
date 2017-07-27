@@ -105,7 +105,7 @@
         "-c",
         "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
       ]
-    }
+    },
     {
       "description"                : "/vagrant/bootstrap.sh",
       "suppressOutput"             : false,

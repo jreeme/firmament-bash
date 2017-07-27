@@ -67,9 +67,7 @@
         "-c",
         "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /var/tmp/newman_docker_ocr.tar"
       ]
-    }
-  ],
-  "serialSynchronizedCommands": [
+    },
     {
       "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
       "suppressOutput"             : false,
@@ -86,6 +84,20 @@
       ]
     },
     {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update",
+        "-y"
+      ]
+    },
+    {
       "description"                : "[sudo] Add [nopasswd] to vagrant/sudoer's entry",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -98,7 +110,9 @@
         "-c",
         "echo \"\nvagrant ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
       ]
-    },
+    }
+  ],
+  "serialSynchronizedCommands": [
     {
       "description"                : "[sudo] Create /vagrant and chown it to vagrant:vagrant",
       "suppressOutput"             : false,
@@ -111,20 +125,6 @@
         "bash",
         "-c",
         "mkdir /vagrant && chown vagrant:vagrant /vagrant"
-      ]
-    },
-    {
-      "description"                : "[sudo] apt-get update",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "apt-get",
-      "args"                       : [
-        "update",
-        "-y"
       ]
     },
     {

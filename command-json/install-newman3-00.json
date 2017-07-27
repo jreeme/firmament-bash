@@ -12,11 +12,11 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_apertium.tar'"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_apertium.tar"
       ]
     },
     {
@@ -26,11 +26,11 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar'"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_couchdb_offline_tiles.tar"
       ]
     },
     {
@@ -40,11 +40,11 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_geo_utils.tar'"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_geo_utils.tar"
       ]
     },
     {
@@ -54,11 +54,11 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
-      "command"                    : "/usr/bin/env",
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'docker load -i /var/tmp/newman_docker_ocr.tar'"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_ocr.tar"
       ]
     }
   ],
@@ -68,11 +68,13 @@
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
-      "command"                    : "bash",
+      "useSudo"                    : true,
+      "sudoUser"                   : "vagrant",
+      "command"                    : "git",
       "args"                       : [
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git clone https://github.com/sotera/newman-vm /vagrant'"
+        "clone",
+        "https://github.com/sotera/newman-vm",
+        "/vagrant"
       ]
     },
     {
@@ -80,11 +82,14 @@
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
-      "command"                    : "bash",
+      "useSudo"                    : true,
+      "sudoUser"                   : "vagrant",
+      "command"                    : "git",
       "args"                       : [
-        "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'git --work-tree=/vagrant --git-dir=/vagrant/.git checkout v3.x-firmament'"
+        "--work-tree=/vagrant",
+        "--git-dir=/vagrant/.git",
+        "checkout",
+        "v3.x-firmament"
       ]
     },
     {
@@ -92,13 +97,15 @@
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : false,
+      "useSudo"                    : true,
+      "sudoUser"                   : "vagrant",
+      "sudoPassword"               : "password",
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo vagrant | sudo -S --user=vagrant -- bash -c 'find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;'"
+        "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
       ]
-    },
+    }
     {
       "description"                : "/vagrant/bootstrap.sh",
       "suppressOutput"             : false,

@@ -4,24 +4,22 @@
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
+  ],
+  "serialSynchronizedCommands": [
     {
-      "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
+      "description"                : "chmod +x -R /vagrant",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
       "useSudo"                    : true,
       "sudoUser"                   : "vagrant",
       "sudoPassword"               : "password",
-      "command"                    : "/usr/bin/env",
+      "command"                    : "bash",
       "args"                       : [
-        "docker",
-        "load",
-        "-i",
-        "/var/tmp/newman_docker_apertium.tar"
+        "-c",
+        "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
       ]
     }
-  ],
-  "serialSynchronizedCommands": [
   ]
 }
+

@@ -190,7 +190,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
-    async.parallel(this.createSpawnFnArray(commands), cb);
+    //async.parallel(this.createSpawnFnArray(commands), cb);
+    async.parallel(this.createSpawnFnArray(commands), (err, result) => {
+      cb(err, result);
+    });
   }
 
   private executeSynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
@@ -218,7 +221,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   private buildSpawnCallback(command: ShellCommand): (err: Error, results: string) => void {
     return (err: Error, results: string) => {
       if (err) {
-        this.commandUtil.stdoutWrite(chalk['red'](err.message));
+        this.commandUtil.stdoutWrite(chalk['redBright'](err.message));
         return;
       }
       this.commandUtil.stdoutWrite(chalk[command.outputColor](results));

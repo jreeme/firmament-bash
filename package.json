@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "async": "^2.1.4",
-    "chalk": "^1.1.3",
+    "chalk": "^2.0.1",
     "firmament-yargs": "1.1.7",
     "inversify": "^3.0.0-beta.1",
     "jsonfile": "^2.4.0",

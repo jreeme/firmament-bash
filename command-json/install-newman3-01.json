@@ -12,6 +12,8 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
@@ -26,11 +28,13 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "[[ ! -e /var/tmp/newman_docker_couchdb_offline_tiles.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_couchdb_offline_tiles.tar"
+        "[[ ! -e /var/tmp/newman_docker_couchdb_offline_tiles.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline_tiles.tar -O /var/tmp/newman_docker_couchdb_offline_tiles.tar"
       ]
     },
     {
@@ -40,11 +44,13 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "[[ ! -e /var/tmp/newman_docker_geo_utils.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_geo_utils.tar"
+        "[[ ! -e /var/tmp/newman_docker_geo_utils.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_geo_utils.tar -O /var/tmp/newman_docker_geo_utils.tar"
       ]
     },
     {
@@ -54,11 +60,13 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
         "-c",
-        "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_ocr.tar"
+        "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /var/tmp/newman_docker_ocr.tar"
       ]
     }
   ],
@@ -70,6 +78,7 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
@@ -83,6 +92,7 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
@@ -96,6 +106,7 @@
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
@@ -110,6 +121,7 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
       "command"                    : "apt-get",
       "args"                       : [
         "update",
@@ -123,6 +135,7 @@
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
+      "sudoPassword"               : "password",
       "command"                    : "apt-get",
       "args"                       : [
         "install",

@@ -62,9 +62,10 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
       let stdoutText = '';
       let stderrText = '';
       options.showDiagnostics && cbDiagnostic(`Running '${cmd}' @ '${options.cwd}'`);
-      options.showDiagnostics && options.preSpawnMessage && cbDiagnostic(options.preSpawnMessage);
+      options.preSpawnMessage && cbStatus(null, options.preSpawnMessage);
       childProcess = spawn(command, args, options);
       childProcess.stderr.on('data', (dataChunk: Uint8Array) => {
+        //console.log('> data on stderr');
         if (options.suppressStdErr && !options.cacheStdErr) {
           return;
         }
@@ -73,6 +74,7 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
         options.cacheStdErr && (stderrText += text);
       });
       childProcess.stdout.on('data', (dataChunk: Uint8Array) => {
+        //console.log('> data on stdout');
         if (options.suppressStdOut && !options.cacheStdOut) {
           return;
         }
@@ -81,13 +83,13 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
         options.cacheStdOut && (stdoutText += text);
       });
       childProcess.on('error', (code: number) => {
-        cbFinal = SpawnImpl.childCloseOrExit(code, '', stdoutText, stderrText, options, cbFinal, cbDiagnostic);
+        cbFinal = SpawnImpl.childCloseOrExit(code, '', stdoutText, stderrText, options, cbStatus, cbFinal);
       });
       childProcess.on('exit', (code: number, signal: string) => {
-        cbFinal = SpawnImpl.childCloseOrExit(code, signal, stdoutText, stderrText, options, cbFinal, cbDiagnostic);
+        cbFinal = SpawnImpl.childCloseOrExit(code, signal, stdoutText, stderrText, options, cbStatus, cbFinal);
       });
       childProcess.on('close', (code: number, signal: string) => {
-        cbFinal = SpawnImpl.childCloseOrExit(code, signal, stdoutText, stderrText, options, cbFinal, cbDiagnostic);
+        cbFinal = SpawnImpl.childCloseOrExit(code, signal, stdoutText, stderrText, options, cbStatus, cbFinal);
       });
     } catch (err) {
       cbFinal(err, null);
@@ -100,10 +102,10 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
                                   stdoutText: string,
                                   stderrText: string,
                                   options: SpawnOptions3,
-                                  cbFinal: (err: Error, result: string) => void,
-                                  cbDiagnostic: (message: string) => void): (err: Error, result: string) => void {
+                                  cbStatus: (err: Error, result: string) => void,
+                                  cbFinal: (err: Error, result: string) => void): (err: Error, result: string) => void {
     if (cbFinal) {
-      options.showDiagnostics && options.postSpawnMessage && cbDiagnostic(options.postSpawnMessage);
+      options.postSpawnMessage && cbStatus(null, options.postSpawnMessage);
       let returnString = JSON.stringify({code, signal, stdoutText, stderrText}, undefined, 2);
       let error = (code !== null && code !== 0)
         ? new Error(returnString)

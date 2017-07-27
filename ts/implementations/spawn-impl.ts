@@ -35,6 +35,8 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
     options.cacheStdOut = options.cacheStdOut || false;
     options.suppressFinalStats = options.suppressFinalStats || false;
     options.suppressFinalError = options.suppressFinalError || false;
+    options.sudoUser = options.sudoUser || '';
+    options.sudoPassword = options.sudoPassword || '';
     options.stdio = options.stdio || 'pipe';
     options.cwd = options.cwd || process.cwd();
     cbStatus = me.checkCallback(cbStatus);
@@ -124,6 +126,9 @@ export class SpawnImpl extends ForceErrorImpl implements Spawn {
     let prompt = '#node-sudo-passwd#';
     let prompts = 0;
     let args = ['-S', '-p', prompt];
+    if(options.sudoUser){
+      args.unshift(`--user=${options.sudoUser}`);
+    }
     cmd = cmd || [];
     cmd = cmd.slice(0);
     [].push.apply(args, cmd);

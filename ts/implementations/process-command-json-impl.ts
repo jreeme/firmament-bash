@@ -247,6 +247,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       showDiagnostics: command.showDiagnostics,
       cacheStdErr: true,
       cacheStdOut: false,
+      sudoUser: command.sudoUser,
       sudoPassword: command.sudoPassword,
       suppressFinalStats: command.suppressOutput,
       suppressStdErr: command.suppressOutput,

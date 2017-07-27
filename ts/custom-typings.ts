@@ -9,6 +9,7 @@ export interface ShellCommand {
   showDiagnostics: boolean;
   showPreAndPostSpawnMessages: boolean;
   useSudo: boolean;
+  sudoUser: string;
   sudoPassword: string;
   command: string;
   args: string[];
@@ -29,6 +30,7 @@ export interface ExecutionGraph {
 
 export interface SpawnOptions3 extends SpawnOptions2 {
   suppressFinalError?: boolean,
+  sudoUser?: string,
   sudoPassword?: string
 }
 

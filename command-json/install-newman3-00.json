@@ -80,6 +80,124 @@
         "-c",
         "source /vagrant/provision/os_config.sh"
       ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/scala.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/scala.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/spark-2.0.1.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/spark-2.0.1.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/elasticsearch.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/elasticsearch.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/kibana.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/kibana.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/mitie.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/mitie.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/newman.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/newman.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/newman-research.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/newman-research.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] sourcing /vagrant/provision/pst-extraction.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "source /vagrant/provision/pst-extraction.sh"
+      ]
+    },
+    {
+      "description"                : "[sudo] chown vagrant:vagrant /srv/software -R",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "chown",
+      "args"                       : [
+        "vagrant:vagrant",
+        "/srv/software",
+        "-R"
+      ]
     }
   ]
 }

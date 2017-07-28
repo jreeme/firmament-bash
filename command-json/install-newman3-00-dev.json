@@ -44,6 +44,7 @@
         "pkg-config",
         "python-pip",
         "python-dev",
+        "python-igraph",
         "netcat",
         "htop",
         "iperf",

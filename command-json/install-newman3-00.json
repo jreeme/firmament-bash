@@ -62,6 +62,8 @@
         "python-pip",
         "python-dev",
         "python-igraph",
+        "python-virtualenv",
+        "virtualenv",
         "netcat",
         "htop",
         "iperf",

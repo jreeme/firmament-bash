@@ -111,6 +111,7 @@
         "g++-6",
         "gcc-snapshot",
         "python-dev",
+        "mysql-client-core-5.7",
         "libmysqlclient-dev"
       ]
     },

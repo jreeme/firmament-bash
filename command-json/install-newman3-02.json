@@ -1,0 +1,148 @@
+{
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 1)",
+  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-00.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "wget newman_docker_apertium.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "[[ ! -e /var/tmp/newman_docker_apertium.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_apertium.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_couchdb_offline_tiles.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "[[ ! -e /var/tmp/newman_docker_couchdb_offline_tiles.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline_tiles.tar -O /var/tmp/newman_docker_couchdb_offline_tiles.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_geo_utils.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "[[ ! -e /var/tmp/newman_docker_geo_utils.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_geo_utils.tar -O /var/tmp/newman_docker_geo_utils.tar"
+      ]
+    },
+    {
+      "description"                : "wget newman_docker_ocr.tar",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "suppressFinalError"         : true,
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /var/tmp/newman_docker_ocr.tar"
+      ]
+    },
+    {
+      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"vagrant\",\"vagrant\"))'` -s /bin/bash vagrant -G sudo,docker"
+      ]
+    },
+    {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update",
+        "-y"
+      ]
+    },
+    {
+      "description"                : "[sudo] Add [nopasswd] to vagrant/sudoer's entry",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo \"\nvagrant ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] Create /vagrant and chown it to vagrant:vagrant",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "mkdir /vagrant && chown vagrant:vagrant /vagrant"
+      ]
+    },
+    {
+      "description"                : "[sudo] Install JDK",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "default-jdk",
+        "maven",
+        "-y"
+      ]
+    }
+  ]
+}

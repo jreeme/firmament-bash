@@ -1,148 +1,123 @@
 {
-  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 1)",
-  "prerequisiteGraphUri"      : "prep-ubuntu-16.04-server-00.json",
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 2)",
+  "prerequisiteGraphUri"      : "install-newman3-02.json",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "wget newman_docker_apertium.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "suppressFinalError"         : true,
-      "command"                    : "/usr/bin/env",
+      "useSudo"                    : false,
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "[[ ! -e /var/tmp/newman_docker_apertium.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_apertium.tar -O /var/tmp/newman_docker_apertium.tar"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_apertium.tar"
       ]
     },
     {
-      "description"                : "wget newman_docker_couchdb_offline_tiles.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "suppressFinalError"         : true,
-      "command"                    : "/usr/bin/env",
+      "useSudo"                    : false,
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "[[ ! -e /var/tmp/newman_docker_couchdb_offline_tiles.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_couchdb_offline_tiles.tar -O /var/tmp/newman_docker_couchdb_offline_tiles.tar"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_couchdb_offline_tiles.tar"
       ]
     },
     {
-      "description"                : "wget newman_docker_geo_utils.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_geo_utils.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "suppressFinalError"         : true,
-      "command"                    : "/usr/bin/env",
+      "useSudo"                    : false,
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "[[ ! -e /var/tmp/newman_docker_geo_utils.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_geo_utils.tar -O /var/tmp/newman_docker_geo_utils.tar"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_geo_utils.tar"
       ]
     },
     {
-      "description"                : "wget newman_docker_ocr.tar",
+      "description"                : "docker load -i /var/tmp/newman_docker_ocr.tar",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "suppressFinalError"         : true,
-      "command"                    : "/usr/bin/env",
+      "useSudo"                    : false,
+      "command"                    : "docker",
       "args"                       : [
-        "bash",
-        "-c",
-        "[[ ! -e /var/tmp/newman_docker_ocr.tar ]] && wget https://s3.amazonaws.com/newman-docker-containers/newman_docker_ocr.tar -O /var/tmp/newman_docker_ocr.tar"
-      ]
-    },
-    {
-      "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"vagrant\",\"vagrant\"))'` -s /bin/bash vagrant -G sudo,docker"
-      ]
-    },
-    {
-      "description"                : "[sudo] apt-get update",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "apt-get",
-      "args"                       : [
-        "update",
-        "-y"
-      ]
-    },
-    {
-      "description"                : "[sudo] Add [nopasswd] to vagrant/sudoer's entry",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "/usr/bin/env",
-      "args"                       : [
-        "bash",
-        "-c",
-        "echo \"\nvagrant ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+        "load",
+        "-i",
+        "/var/tmp/newman_docker_ocr.tar"
       ]
     }
   ],
   "serialSynchronizedCommands": [
     {
-      "description"                : "[sudo] Create /vagrant and chown it to vagrant:vagrant",
+      "description"                : "git newman-vm -> /vagrant",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "/usr/bin/env",
+      "sudoUser"                   : "vagrant",
+      "command"                    : "git",
       "args"                       : [
-        "bash",
-        "-c",
-        "mkdir /vagrant && chown vagrant:vagrant /vagrant"
+        "clone",
+        "https://github.com/sotera/newman-vm",
+        "/vagrant"
       ]
     },
     {
-      "description"                : "[sudo] Install JDK",
+      "description"                : "git newman-vm -> /vagrant",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
       "useSudo"                    : true,
-      "sudoPassword"               : "password",
-      "command"                    : "apt-get",
+      "sudoUser"                   : "vagrant",
+      "command"                    : "git",
       "args"                       : [
-        "install",
-        "default-jdk",
-        "maven",
-        "-y"
+        "--work-tree=/vagrant",
+        "--git-dir=/vagrant/.git",
+        "checkout",
+        "v3.x-firmament"
+      ]
+    },
+    {
+      "description"                : "chmod +x -R /vagrant",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoUser"                   : "vagrant",
+      "sudoPassword"               : "password",
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
+      ]
+    },
+    {
+      "description"                : "/vagrant/bootstrap.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "ls",
+      "args"                       : [
+        "-c",
+        "/vagrant/bootstrap.sh"
       ]
     }
   ]
 }
+

@@ -1,123 +1,83 @@
 {
-  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 2)",
-  "prerequisiteGraphUri"      : "install-newman3-01-dev.json",
+  "description"               : "Install Newman 3.x on Ubuntu 16.x based Linux (Step 3)",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
+      "description"                : "[sudo] add-apt-repository ppa:igraph/ppa",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : false,
-      "command"                    : "docker",
+      "useSudo"                    : true,
+      "command"                    : "add-apt-repository",
       "args"                       : [
-        "load",
-        "-i",
-        "/var/tmp/newman_docker_apertium.tar"
+        "-y",
+        "ppa:igraph/ppa"
       ]
     },
     {
-      "description"                : "docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar",
+      "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
-      "command"                    : "docker",
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
       "args"                       : [
-        "load",
-        "-i",
-        "/var/tmp/newman_docker_couchdb_offline_tiles.tar"
+        "update",
+        "-y"
       ]
     },
     {
-      "description"                : "docker load -i /var/tmp/newman_docker_geo_utils.tar",
+      "description"                : "[sudo] apt-get install zip,p7zip-full,etc",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
-      "command"                    : "docker",
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
       "args"                       : [
-        "load",
-        "-i",
-        "/var/tmp/newman_docker_geo_utils.tar"
+        "install",
+        "zip",
+        "p7zip-full",
+        "pkg-config",
+        "python-pip",
+        "python-dev",
+        "netcat",
+        "htop",
+        "iperf",
+        "-y"
       ]
     },
     {
-      "description"                : "docker load -i /var/tmp/newman_docker_ocr.tar",
+      "description"                : "[sudo] mkdir -p /srv/software",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
-      "useSudo"                    : false,
-      "command"                    : "docker",
+      "useSudo"                    : true,
+      "command"                    : "mkdir",
       "args"                       : [
-        "load",
-        "-i",
-        "/var/tmp/newman_docker_ocr.tar"
+        "-p",
+        "/srv/software"
+      ]
+    },
+    {
+      "description"                : "[sudo] chmod 755 /srv/software",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "chmod",
+      "args"                       : [
+        "755",
+        "/srv/software"
       ]
     }
   ],
   "serialSynchronizedCommands": [
-    {
-      "description"                : "git newman-vm -> /vagrant",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "sudoUser"                   : "vagrant",
-      "command"                    : "git",
-      "args"                       : [
-        "clone",
-        "https://github.com/sotera/newman-vm",
-        "/vagrant"
-      ]
-    },
-    {
-      "description"                : "git newman-vm -> /vagrant",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "sudoUser"                   : "vagrant",
-      "command"                    : "git",
-      "args"                       : [
-        "--work-tree=/vagrant",
-        "--git-dir=/vagrant/.git",
-        "checkout",
-        "v3.x-firmament"
-      ]
-    },
-    {
-      "description"                : "chmod +x -R /vagrant",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "sudoUser"                   : "vagrant",
-      "sudoPassword"               : "password",
-      "command"                    : "bash",
-      "args"                       : [
-        "-c",
-        "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
-      ]
-    },
-    {
-      "description"                : "/vagrant/bootstrap.sh",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "ls",
-      "args"                       : [
-        "-c",
-        "/vagrant/bootstrap.sh"
-      ]
-    }
   ]
 }
 

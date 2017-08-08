@@ -162,7 +162,7 @@
       "command"                    : "/bin/bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S --user=etl -- /bin/bash -c 'source /home/etl/anaconda2/bin/activate && pip --no-cache-dir install MySQL-python pymongo csv2es python-dateutil'"
+        "echo password | sudo -S --user=etl -- /bin/bash -c 'source /home/etl/anaconda2/bin/activate && pip --no-cache-dir install MySQL-python pymongo csv2es python-dateutil elasticsearch tangelo'"
       ]
     }
   ]

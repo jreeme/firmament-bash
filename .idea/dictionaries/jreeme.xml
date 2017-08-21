@@ -3,6 +3,7 @@
     <words>
       <w>dateutil</w>
       <w>embleton</w>
+      <w>ledbetter</w>
       <w>libmysqlclient</w>
       <w>lodash</w>
       <w>nopasswd</w>
@@ -11,6 +12,7 @@
       <w>rembleton</w>
       <w>sudoer</w>
       <w>sudoers</w>
+      <w>svegney</w>
       <w>useradd</w>
       <w>virtualbox</w>
       <w>wget</w>

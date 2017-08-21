@@ -17,6 +17,9 @@ export class ExecutionGraphResolverImpl extends ForceErrorImpl implements Execut
   resolveExecutionGraph(url: string, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
     const me = this;
     cb = me.checkCallback(cb);
+    if (me.checkForceError('ExecutionGraphResolverImpl.resolveExecutionGraph', cb)) {
+      return;
+    }
     me.remoteCatalogGetter.resolveJsonObjectFromUrl(url, (err, jsonObject) => {
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
@@ -27,14 +30,16 @@ export class ExecutionGraphResolverImpl extends ForceErrorImpl implements Execut
       }
       const executionGraph = <ExecutionGraph>jsonObject;
       if (executionGraph.prerequisiteGraphUri) {
-        me.resolveExecutionGraph(ExecutionGraphResolverImpl.getFullResourcePath(executionGraph.prerequisiteGraphUri, url),
-          (err: Error, subExecutionGraph: ExecutionGraph) => {
-            if (me.commandUtil.callbackIfError(cb, err)) {
-              return;
-            }
-            executionGraph.prerequisiteGraph = subExecutionGraph;
-            cb(null, executionGraph);
-          });
+        me.getFullResourcePath(executionGraph.prerequisiteGraphUri, url, (err, fullResourcePath) => {
+          me.resolveExecutionGraph(fullResourcePath,
+            (err: Error, subExecutionGraph: ExecutionGraph) => {
+              if (me.commandUtil.callbackIfError(cb, err)) {
+                return;
+              }
+              executionGraph.prerequisiteGraph = subExecutionGraph;
+              cb(null, executionGraph);
+            });
+        });
       } else {
         cb(null, executionGraph);
       }
@@ -44,6 +49,9 @@ export class ExecutionGraphResolverImpl extends ForceErrorImpl implements Execut
   resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
     const me = this;
     cb = me.checkCallback(cb);
+    if (me.checkForceError('ExecutionGraphResolverImpl.resolveExecutionGraphFromCatalogEntry', cb)) {
+      return;
+    }
     try {
       catalogEntry.resources.forEach(resource => {
         const po = resource.parsedObject;
@@ -67,26 +75,30 @@ export class ExecutionGraphResolverImpl extends ForceErrorImpl implements Execut
     }
   }
 
-  private static getFullResourcePath(url: string, parentUrl: string): string {
-    let retVal: string;
-    const parsedUrl: Url = nodeUrl.parse(url);
-    //First, figure out if it's a network resource or filesystem resource
-    if (parsedUrl.protocol) {
-      //Network resource
-      retVal = url;
-    } else {
-      //Filesystem resource
-      if (path.isAbsolute(url)) {
-        retVal = url;
+  getFullResourcePath(url: string, parentUrl: string, cb: (err: Error, fullResourcePath?: string) => void) {
+    const me = this;
+    cb = me.checkCallback(cb);
+    if (me.checkForceError('ExecutionGraphResolverImpl.getFullResourcePath', cb)) {
+      return;
+    }
+    try {
+      const parsedUrl: Url = nodeUrl.parse(url);
+      if (parsedUrl.protocol || path.isAbsolute(url)) {
+        cb(null, url);
       } else {
         const parsedParentUrl: Url = nodeUrl.parse(parentUrl);
-        let baseUrl = path.dirname(parentUrl);
+        let fullResourcePath = '';
         if (parsedParentUrl.protocol) {
-          baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;
+          fullResourcePath = `${parsedParentUrl.protocol}//${parsedParentUrl.hostname}`;
+          fullResourcePath = `${fullResourcePath}${path.dirname(parsedParentUrl.path)}`;
+          fullResourcePath = `${fullResourcePath}/${url}`;
+        } else {
+          fullResourcePath = `${path.dirname(parentUrl)}/${url}`;
         }
-        retVal = path.resolve(baseUrl, url);
+        cb(null, fullResourcePath);
       }
+    } catch (err) {
+      cb(err);
     }
-    return retVal;
   }
 }

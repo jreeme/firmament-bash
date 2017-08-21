@@ -1,5 +1,3 @@
-import {SpawnOptions2} from "firmament-yargs";
-
 export interface ShellCommand {
   description: string;
   outputColor: string;
@@ -28,12 +26,3 @@ export interface ExecutionGraph {
   serialSynchronizedCommands: ShellCommand[];
 }
 
-export interface SpawnOptions3 extends SpawnOptions2 {
-  suppressFinalError?: boolean,
-  sudoUser?: string,
-  sudoPassword?: string
-}
-
-export interface ReadableStream {
-  isTTY: boolean
-}

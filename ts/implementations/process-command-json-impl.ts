@@ -2,17 +2,15 @@ import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
   CommandUtil, ForceErrorImpl, RemoteCatalogGetter,
-  RemoteCatalogEntry, SafeJson
+  RemoteCatalogEntry, SafeJson, Spawn, SpawnOptions2
 } from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
-import {Url} from 'url';
-import {ExecutionGraph, ShellCommand, SpawnOptions3} from '../custom-typings';
-import {Spawn} from "../interfaces/spawn";
+import {ExecutionGraph, ShellCommand} from '../custom-typings';
+import {ExecutionGraphResolver} from "../interfaces/execution-graph-resolver";
 
 const async = require('async');
 const chalk = require('chalk');
-const nodeUrl = require('url');
 const textColors = ['green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'gray'];
 const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/commandCatalog.json';
 
@@ -20,6 +18,7 @@ const commandCatalogUrl = 'https://raw.githubusercontent.com/jreeme/firmament-ba
 export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCommandJson {
   constructor(@inject('CommandUtil') private commandUtil: CommandUtil,
               @inject('RemoteCatalogGetter') private remoteCatalogGetter: RemoteCatalogGetter,
+              @inject('ExecutionGraphResolver') private executionGraphResolver: ExecutionGraphResolver,
               @inject('SafeJson') private safeJson: SafeJson,
               @inject('Spawn') private spawn: Spawn) {
     super();
@@ -72,7 +71,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     if (me.checkForceError('ProcessCommandJsonImpl.processCatalogEntry', cb)) {
       return;
     }
-    me.resolveExecutionGraphFromCatalogEntry(catalogEntry, (err, executionGraph) => {
+    me.executionGraphResolver.resolveExecutionGraphFromCatalogEntry(catalogEntry, (err, executionGraph) => {
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
@@ -86,7 +85,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
       return;
     }
-    me.resolveExecutionGraph(jsonOrUri, (err, executionGraph) => {
+    me.executionGraphResolver.resolveExecutionGraph(jsonOrUri, (err, executionGraph) => {
       if (me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
@@ -228,7 +227,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     };
   }
 
-  private buildSpawnOptions(command: ShellCommand): SpawnOptions3 {
+  private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
     let workingDirectory: string;
     if (command.workingDirectory) {
       workingDirectory = command.workingDirectory;
@@ -257,79 +256,4 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     };
   }
 
-  private resolveExecutionGraph(url: string, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
-    const me = this;
-    cb = me.checkCallback(cb);
-    me.remoteCatalogGetter.resolveJsonObjectFromUrl(url, (err, jsonObject) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
-        return;
-      }
-      if (!jsonObject) {
-        cb(new Error(`Execution graph at '${url}' not found`));
-        return;
-      }
-      const executionGraph = <ExecutionGraph>jsonObject;
-      if (executionGraph.prerequisiteGraphUri) {
-        me.resolveExecutionGraph(ProcessCommandJsonImpl.getFullResourcePath(executionGraph.prerequisiteGraphUri, url),
-          (err: Error, subExecutionGraph: ExecutionGraph) => {
-            if (me.commandUtil.callbackIfError(cb, err)) {
-              return;
-            }
-            executionGraph.prerequisiteGraph = subExecutionGraph;
-            cb(null, executionGraph);
-          });
-      } else {
-        cb(null, executionGraph);
-      }
-    });
-  }
-
-  private resolveExecutionGraphFromCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, executionGraph?: ExecutionGraph) => void) {
-    const me = this;
-    cb = me.checkCallback(cb);
-    try {
-      catalogEntry.resources.forEach(resource => {
-        const po = resource.parsedObject;
-        const preReqUri = po.prerequisiteGraphUri;
-        if (preReqUri) {
-          const preReq = _.find(catalogEntry.resources, r => {
-            return r.name === preReqUri;
-          });
-          po.prerequisiteGraph = preReq.parsedObject;
-          preReq.parsedObject.parent = resource;
-        }
-      });
-      //Find graph with no parent and we know where to start
-      const startGraph: ExecutionGraph = (_.find(catalogEntry.resources, resource => {
-        return !resource.parsedObject.parent;
-      })).parsedObject;
-
-      cb(null, startGraph);
-    } catch (err) {
-      cb(err);
-    }
-  }
-
-  private static getFullResourcePath(url: string, parentUrl: string): string {
-    let retVal: string;
-    const parsedUrl: Url = nodeUrl.parse(url);
-    //First, figure out if it's a network resource or filesystem resource
-    if (parsedUrl.protocol) {
-      //Network resource
-      retVal = url;
-    } else {
-      //Filesystem resource
-      if (path.isAbsolute(url)) {
-        retVal = url;
-      } else {
-        const parsedParentUrl: Url = nodeUrl.parse(parentUrl);
-        let baseUrl = path.dirname(parentUrl);
-        if (parsedParentUrl.protocol) {
-          baseUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${path.dirname(parsedUrl.path)}`;
-        }
-        retVal = path.resolve(baseUrl, url);
-      }
-    }
-    return retVal;
-  }
 }

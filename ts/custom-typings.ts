@@ -4,8 +4,8 @@ export interface ShellCommand {
   workingDirectory: string;
   suppressOutput: boolean;
   suppressFinalError: boolean,
-  showDiagnostics: boolean;
-  showPreAndPostSpawnMessages: boolean;
+  suppressDiagnostics: boolean;
+  suppressPreAndPostSpawnMessages: boolean;
   useSudo: boolean;
   sudoUser: string;
   sudoPassword: string;

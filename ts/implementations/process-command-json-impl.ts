@@ -237,18 +237,18 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     }
 
     return {
-      preSpawnMessage: command.showPreAndPostSpawnMessages
-        ? `Starting task '${command.description}'\n`
-        : null,
-      postSpawnMessage: command.showPreAndPostSpawnMessages
-        ? `Task '${command.description}' completed\n`
-        : null,
-      showDiagnostics: command.showDiagnostics,
+      preSpawnMessage: command.suppressPreAndPostSpawnMessages
+        ? null
+        : `Starting task '${command.description}'\n`,
+      postSpawnMessage: command.suppressPreAndPostSpawnMessages
+        ? null
+        : `Task '${command.description}' completed\n`,
+      suppressDiagnostics: command.suppressDiagnostics,
       cacheStdErr: true,
       cacheStdOut: false,
       sudoUser: command.sudoUser,
       sudoPassword: command.sudoPassword,
-      suppressFinalStats: command.suppressOutput,
+      suppressResult: command.suppressOutput,
       suppressStdErr: command.suppressOutput,
       suppressStdOut: command.suppressOutput,
       suppressFinalError: command.suppressFinalError,

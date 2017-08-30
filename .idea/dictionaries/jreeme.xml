@@ -1,11 +1,14 @@
 <component name="ProjectDictionaryState">
   <dictionary name="jreeme">
     <words>
+      <w>apertium</w>
+      <w>couchdb</w>
       <w>dateutil</w>
       <w>embleton</w>
       <w>ledbetter</w>
       <w>libmysqlclient</w>
       <w>lodash</w>
+      <w>mkdir</w>
       <w>nopasswd</w>
       <w>printf</w>
       <w>pymongo</w>

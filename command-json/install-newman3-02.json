@@ -129,6 +129,32 @@
       ]
     },
     {
+      "description"                : "[sudo] mkdir -p /srv/software",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "mkdir",
+      "args"                       : [
+        "-p",
+        "/srv/software"
+      ]
+    },
+    {
+      "description"                : "[sudo] chmod 755 /srv/software",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "chmod",
+      "args"                       : [
+        "755",
+        "/srv/software"
+      ]
+    },
+    {
       "description"                : "[sudo] Install JDK",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -141,6 +167,17 @@
         "install",
         "default-jdk",
         "maven",
+        "zip",
+        "p7zip-full",
+        "pkg-config",
+        "python-pip",
+        "python-dev",
+        "python-igraph",
+        "python-virtualenv",
+        "virtualenv",
+        "netcat",
+        "htop",
+        "iperf",
         "-y"
       ]
     }

@@ -105,18 +105,6 @@
         "-c",
         "find /vagrant \\( -name \"*.py\" -o -name \"*.sh\" \\) -exec chmod +x {} \\;"
       ]
-    },
-    {
-      "description"                : "/vagrant/bootstrap.sh",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "useSudo"                    : true,
-      "command"                    : "ls",
-      "args"                       : [
-        "-c",
-        "/vagrant/bootstrap.sh"
-      ]
     }
   ]
 }

@@ -5,71 +5,8 @@
     "displayExecutionGraphDescription": true
   },
   "asynchronousCommands"      : [
-    {
-      "description"                : "[sudo] apt-get update",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "apt-get",
-      "args"                       : [
-        "update",
-        "-y"
-      ]
-    },
-    {
-      "description"                : "[sudo] mkdir -p /srv/software",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "mkdir",
-      "args"                       : [
-        "-p",
-        "/srv/software"
-      ]
-    },
-    {
-      "description"                : "[sudo] chmod 755 /srv/software",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "chmod",
-      "args"                       : [
-        "755",
-        "/srv/software"
-      ]
-    }
   ],
   "serialSynchronizedCommands": [
-    {
-      "description"                : "[sudo] apt-get install zip,p7zip-full,etc",
-      "suppressOutput"             : false,
-      "showDiagnostics"            : false,
-      "showPreAndPostSpawnMessages": true,
-      "outputColor"                : "",
-      "useSudo"                    : true,
-      "command"                    : "apt-get",
-      "args"                       : [
-        "install",
-        "zip",
-        "p7zip-full",
-        "pkg-config",
-        "python-pip",
-        "python-dev",
-        "python-igraph",
-        "python-virtualenv",
-        "virtualenv",
-        "netcat",
-        "htop",
-        "iperf",
-        "-y"
-      ]
-    },
     {
       "description"                : "[sudo] sourcing /vagrant/provision/os_config.sh",
       "suppressOutput"             : false,

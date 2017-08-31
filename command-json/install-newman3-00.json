@@ -137,6 +137,32 @@
         "/srv/software",
         "-R"
       ]
+    },
+    {
+      "description"                : "[sudo] systemctl enable elasticsearch",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "systemctl",
+      "args"                       : [
+        "enable",
+        "elasticsearch"
+      ]
+    },
+    {
+      "description"                : "[sudo] systemctl start elasticsearch",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "systemctl",
+      "args"                       : [
+        "start",
+        "elasticsearch"
+      ]
     }
   ]
 }

@@ -51,7 +51,8 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
             });
             //If it is a catalog entry then execute graph from catalog
             me.processCatalogEntry(commandGraph, (err) => {
-              me.commandUtil.processExitWithError(new Error(`Invalid execution graph: ${err.message}`));
+              err = err ? new Error(`Invalid execution graph: ${err.message}`) : null;
+              me.commandUtil.processExitWithError(err);
             });
           });
         } else {

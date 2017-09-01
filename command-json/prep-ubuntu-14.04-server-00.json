@@ -18,6 +18,7 @@
         "apt-transport-https",
         "ca-certificates",
         "git",
+        "cifs-utils",
         "apparmor",
         "libkrb5-dev",
         "docker-engine"

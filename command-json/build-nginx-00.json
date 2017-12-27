@@ -22,6 +22,33 @@
         "libpcre3",
         "libpcre3-dev"
       ]
+    },
+    {
+      "description"                : "[sudo] Add [nopasswd] to nginx/sudoer's entry",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo \"\nnginx ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+      ]
+    },
+    {
+      "description"                : "[sudo] adduser nginx sudo",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "echo password | sudo -S -- bash -c 'adduser nginx sudo'"
+      ]
     }
   ],
   "serialSynchronizedCommands": [

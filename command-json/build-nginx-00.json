@@ -1,0 +1,26 @@
+{
+  "description"               : "Build NginX web server from sources for Ubuntu 16.04 (LTS)",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "apt-get install [libpcre3 libpcre3-dev]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "zlib1g",
+        "zlib1g-dev",
+        "libpcre3",
+        "libpcre3-dev"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+  ]
+}

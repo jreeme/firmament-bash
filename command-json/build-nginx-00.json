@@ -5,7 +5,7 @@
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "apt-get install [libpcre3 libpcre3-dev]",
+      "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -14,6 +14,8 @@
       "args"                       : [
         "install",
         "-y",
+        "openssl",
+        "libssl-dev",
         "zlib1g",
         "zlib1g-dev",
         "libpcre3",
@@ -22,5 +24,17 @@
     }
   ],
   "serialSynchronizedCommands": [
+    {
+      "description"                : "Download and expand nginx-stable source",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /usr/local/hadoop'"
+      ]
+    }
   ]
 }

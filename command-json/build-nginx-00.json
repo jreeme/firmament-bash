@@ -1,5 +1,6 @@
 {
   "description"               : "Build NginX web server from sources for Ubuntu 16.04 (LTS)",
+  "prerequisiteGraphUri"      : "build-nginx-01.json",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },
@@ -33,7 +34,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /usr/local/hadoop'"
+        "echo password | sudo --user=nginx -S -- bash -c 'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /home/nginx'"
       ]
     }
   ]

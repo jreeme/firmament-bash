@@ -47,7 +47,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo -S -- bash -c 'adduser nginx sudo'"
+        "sudo -- bash -c 'adduser nginx sudo'"
       ]
     }
   ],
@@ -61,7 +61,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "echo password | sudo --user=nginx -S -- bash -c 'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /home/nginx'"
+        "sudo --user=nginx -- bash -c 'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /home/nginx'"
       ]
     }
   ]

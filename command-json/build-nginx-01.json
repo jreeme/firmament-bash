@@ -19,9 +19,21 @@
         "-c",
         "useradd -m -p `perl -e 'printf(\"%s\n\", crypt(\"password\",\"password\"))'` -s /bin/bash nginx"
       ]
-    }
-  ],
-  "serialSynchronizedCommands": [
+    },
+    {
+      "description"                : "[sudo] Add [nopasswd] to nginx/sudoer's entry",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo \"\nnginx ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+      ]
+    },
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
@@ -31,6 +43,39 @@
       "command"                    : "apt-get",
       "args"                       : [
         "update"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] adduser nginx sudo",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo -- bash -c 'adduser nginx sudo'"
+      ]
+    },
+    {
+      "description"                : "apt-get install [...]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "openssl",
+        "libssl-dev",
+        "zlib1g",
+        "zlib1g-dev",
+        "libpcre3",
+        "libpcre3-dev"
       ]
     }
   ]

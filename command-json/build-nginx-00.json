@@ -39,8 +39,10 @@
       "showPreAndPostSpawnMessages": true,
       "workingDirectory"           : "/home/nginx/nginx-1.12.2",
       "useSudo"                    : false,
-      "command"                    : "make",
+      "command"                    : "bash",
       "args"                       : [
+        "-c",
+        "sudo --user=nginx -- bash -c 'make'"
       ]
     },
     {

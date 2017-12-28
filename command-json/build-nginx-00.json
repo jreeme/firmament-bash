@@ -6,6 +6,19 @@
   },
   "asynchronousCommands"      : [
     {
+      "description"                : "[sudo] wget nginx.sh --> /etc/init.d/nginx",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo -- bash -c 'wget -O /etc/init.d/nginx https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/nginx-config/nginx.sh'"
+      ]
+    },
+    {
       "description"                : "Download and expand nginx-stable source",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,

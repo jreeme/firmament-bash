@@ -26,12 +26,10 @@
       "showPreAndPostSpawnMessages": true,
       "workingDirectory"           : "/home/nginx/nginx-1.12.2",
       "useSudo"                    : false,
-      "command"                    : "configure",
+      "command"                    : "bash",
       "args"                       : [
-        "--user=www-data",
-        "--group=www-data",
-        "--with-http_ssl_module",
-        "--with-http_realip_module"
+        "-c",
+        "sudo --user=nginx -- bash -c './configure --user=www-data --group=www-data --with-http_ssl_module --with-http_realip_module'"
       ]
     },
     {

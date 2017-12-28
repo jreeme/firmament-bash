@@ -33,6 +33,18 @@
   ],
   "serialSynchronizedCommands": [
     {
+      "description"                : "[sudo] chmod 755 /etc/init.d/nginx",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "chmod",
+      "args"                       : [
+        "755",
+        "/etc/init.d/nginx"
+      ]
+    },
+    {
       "description"                : "Configure NginX build",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
@@ -68,6 +80,29 @@
       "command"                    : "make",
       "args"                       : [
         "install"
+      ]
+    },
+    {
+      "description"                : "[sudo] update-rc.d -f nginx defaults",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "update-rc.d",
+      "args"                       : [
+        "-f",
+        "nginx",
+        "defaults"
+      ]
+    },
+    {
+      "description"                : "[sudo] reboot",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "reboot",
+      "args"                       : [
       ]
     }
   ]

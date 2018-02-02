@@ -2,23 +2,35 @@
   <dictionary name="jreeme">
     <words>
       <w>apertium</w>
+      <w>cdrom</w>
+      <w>chpasswd</w>
+      <w>cloudimg</w>
       <w>couchdb</w>
       <w>dateutil</w>
       <w>embleton</w>
+      <w>hostfwd</w>
       <w>ledbetter</w>
       <w>libmysqlclient</w>
+      <w>localds</w>
       <w>lodash</w>
       <w>mkdir</w>
+      <w>netdev</w>
       <w>nopasswd</w>
       <w>printf</w>
+      <w>pwauth</w>
       <w>pymongo</w>
+      <w>qcow</w>
+      <w>qemu</w>
       <w>rembleton</w>
       <w>sudoer</w>
       <w>sudoers</w>
       <w>svegney</w>
       <w>useradd</w>
+      <w>virtio</w>
       <w>virtualbox</w>
       <w>wget</w>
+      <w>writeback</w>
+      <w>xenial</w>
     </words>
   </dictionary>
 </component>

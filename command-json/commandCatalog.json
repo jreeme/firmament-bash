@@ -9,6 +9,13 @@
       ]
     },
     {
+      "name": "prep-ubuntu16-cloud-init",
+      "urls": [
+        "prep-ubuntu16-cloud-init-00.json",
+        "prep-ubuntu16-cloud-init-01.json"
+      ]
+    },
+    {
       "name": "prep-ubuntu-14.04",
       "urls": [
         "prep-ubuntu-14.04-server-00.json",

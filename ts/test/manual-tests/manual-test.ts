@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import kernel from '../../inversify.config';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
 import {RemoteCatalogGetter} from 'firmament-yargs';
+
 let processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
 
 const scriptPath = '/home/jreeme/src/firmament-bash/command-json/valid.json';
@@ -20,7 +21,7 @@ processCommandJson.processYargsCommand(
     //input: 'glibber'
     //input: 'firmament-dev'
     //input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu-16.04-server-00.json'
-    input: '/home/jreeme/src/firmament-bash/command-json/install-webstorm.json'
+    input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu16-cloud-init.json'
   }
 );
 /*processCommandJson.process(networkScriptPath, (err, result) => {

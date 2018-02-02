@@ -1,0 +1,107 @@
+{
+  "description"               : "Pull Ubuntu16 cloud image and build seed CDROM iso",
+  "prerequisiteGraphUri"      : "prep-ubuntu16-cloud-init-01.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "Write stub 'seed' file",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/seed\" ]] && echo \"#cloud-config\npassword: password\nchpasswd: { expire: False }\nssh_pwauth: True\" > \"$HOME/ubuntu-cloud-init/seed\""
+      ]
+    },
+    {
+      "description"                : "Create '_build_seed_img.sh' to build cdrom boot image",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" ]] && echo \"#!/usr/bin/env bash\ncloud-localds seed.img seed\" > \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\""
+      ]
+    },
+    {
+      "description"                : "Create '_run_seed_img.sh' to build cdrom boot image",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" ]] && echo \"#!/usr/bin/env bash\nkvm -m 8192 -smp 4 -cdrom seed.img -device e1000,netdev=user.0 -netdev user,id=user.0,hostfwd=tcp::5555-:22 -drive file=xenial-server-cloudimg-amd64-disk1.img,if=virtio,cache=writeback,index=0\" > \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\""
+      ]
+    },
+    {
+      "description"                : "Create '_ssh.sh' to ssh into running kvm image",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_ssh.sh\" ]] && echo \"#!/usr/bin/env bash\nssh -p 5555 ubuntu@localhost\" > \"$HOME/ubuntu-cloud-init/_ssh.sh\""
+      ]
+    },
+    {
+      "description"                : "Download the QCOW2 Ubuntu16 Cloud Image (with cloud-init)",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/xenial-server-cloudimg-amd64-disk1.img\" ]] && wget http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img -O \"$HOME/ubuntu-cloud-init/xenial-server-cloudimg-amd64-disk1.img\""
+      ]
+    },
+    {
+      "description"                : "apt-get install [...]",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "install",
+        "-y",
+        "qemu-kvm"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] chmod 755 _build_seed_img.sh",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : true,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "chmod 755 \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_ssh.sh\""
+      ]
+    }
+  ]
+}

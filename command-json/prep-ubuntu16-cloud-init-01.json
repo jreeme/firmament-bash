@@ -1,0 +1,35 @@
+{
+  "description"               : "Pull Ubuntu16 cloud image and build seed CDROM iso",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "Create $HOME/ubuntu-cloud-init folder if non existent",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -d \"$HOME/ubuntu-cloud-init\" ]] && mkdir -p \"$HOME/ubuntu-cloud-init\""
+      ]
+    },
+    {
+      "description"                : "[sudo] apt-get update",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "apt-get",
+      "args"                       : [
+        "update"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+  ]
+}

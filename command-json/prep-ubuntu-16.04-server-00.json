@@ -6,7 +6,7 @@
   },
   "asynchronousCommands"      : [
     {
-      "description"                : "[sudo] npm install -g strongloop",
+      "description"                : "[sudo] npm install -g yarn",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,
       "showPreAndPostSpawnMessages": true,
@@ -15,7 +15,7 @@
       "args"                       : [
         "install",
         "-g",
-        "strongloop"
+        "yarn"
       ]
     },
     {

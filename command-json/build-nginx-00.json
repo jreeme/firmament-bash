@@ -1,0 +1,109 @@
+{
+  "description"               : "Build NginX web server from sources for Ubuntu 16.04 (LTS)",
+  "prerequisiteGraphUri"      : "build-nginx-01.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                : "[sudo] wget nginx.sh --> /etc/init.d/nginx",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo -- bash -c 'wget -O /etc/init.d/nginx https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/nginx-config/nginx.sh'"
+      ]
+    },
+    {
+      "description"                : "Download and expand nginx-stable source",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo --user=nginx -- bash -c 'curl http://nginx.org/download/nginx-1.12.2.tar.gz | tar xz -C /home/nginx'"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                : "[sudo] chmod 755 /etc/init.d/nginx",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "chmod",
+      "args"                       : [
+        "755",
+        "/etc/init.d/nginx"
+      ]
+    },
+    {
+      "description"                : "Configure NginX build",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "workingDirectory"           : "/home/nginx/nginx-1.12.2",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo --user=nginx -- bash -c './configure --user=www-data --group=www-data --with-http_ssl_module --with-http_realip_module'"
+      ]
+    },
+    {
+      "description"                : "Run make to build NginX",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "workingDirectory"           : "/home/nginx/nginx-1.12.2",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo --user=nginx -- bash -c 'make'"
+      ]
+    },
+    {
+      "description"                : "Run 'make install' to install NginX to /usr/local",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "workingDirectory"           : "/home/nginx/nginx-1.12.2",
+      "useSudo"                    : true,
+      "command"                    : "make",
+      "args"                       : [
+        "install"
+      ]
+    },
+    {
+      "description"                : "[sudo] update-rc.d -f nginx defaults",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "update-rc.d",
+      "args"                       : [
+        "-f",
+        "nginx",
+        "defaults"
+      ]
+    },
+    {
+      "description"                : "[sudo] reboot",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "command"                    : "reboot",
+      "args"                       : [
+      ]
+    }
+  ]
+}

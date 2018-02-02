@@ -89,6 +89,20 @@
         "-c",
         "echo \"#!/usr/bin/env bash\nsetxkbmap -option caps:swapescape\" >> ~/_swapEsc.sh && chmod 755 ~/_swapEsc.sh"
       ]
+    },
+    {
+      "description"                : "[sudo] Add [nopasswd] to jreeme/sudoer's entry",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "useSudo"                    : true,
+      "sudoPassword"               : "password",
+      "command"                    : "/usr/bin/env",
+      "args"                       : [
+        "bash",
+        "-c",
+        "echo \"\njreeme ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers"
+      ]
     }
   ],
   "serialSynchronizedCommands": [

@@ -71,7 +71,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "https://download.jetbrains.com/webstorm/WebStorm-2017.3.4.tar.gz | tar -xzvC /var/local"
+        "curl https://download.jetbrains.com/webstorm/WebStorm-2017.3.4.tar.gz | tar -xvC /var/local"
       ]
     },
     {

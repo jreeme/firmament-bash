@@ -71,7 +71,7 @@
       "args"                       : [
         "bash",
         "-c",
-        "curl https://download.jetbrains.com/webstorm/WebStorm-2017.3.4.tar.gz | tar -xvC /var/local"
+        "curl https://download-cf.jetbrains.com/webstorm/WebStorm-2017.3.4.tar.gz | tar -xvzC /var/local"
       ]
     },
     {
@@ -95,7 +95,7 @@
       "command"                    : "/usr/bin/env",
       "args"                       : [
         "bash",
-        "/var/local/WebStorm-171.4073.40/bin/webstorm.sh"
+        "/var/local/WebStorm-173.4548.30/bin/webstorm.sh"
       ]
     }
   ]

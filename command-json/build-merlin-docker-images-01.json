@@ -1,0 +1,49 @@
+{
+  "description"               : "Build Merlin Docker Images (01)",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                    : "Build Alpine 3.7",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/alpine/3.7",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    },
+    {
+      "description"                    : "Build Elasticsearch-head 5.x",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/elasticsearch-head/5.x",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                    : "Build Alpine-jre 3.7-8",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/alpine-jre/3.7-8",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    }
+  ]
+}

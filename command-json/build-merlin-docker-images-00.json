@@ -1,0 +1,63 @@
+{
+  "description"               : "Build Merlin Docker Images (00)",
+  "prerequisiteGraphUri"      : "build-merlin-docker-images-01.json",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                    : "Build Portainer 1.16.2",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/portainer/1.16.2",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    },
+    {
+      "description"                    : "Build Elasticsearch 5.6.6",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/elasticsearch/5.6.6",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    },
+    {
+      "description"                    : "Build NginX 1.13.8",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/nginx/1.13.8",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description"                    : "Build Amino3 1.1",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/home/jreeme/src/firmament-docker/docker/amino3/1.1",
+      "command"                        : "/usr/bin/env",
+      "args"                           : [
+        "bash",
+        "_build.sh"
+      ]
+    }
+  ]
+}

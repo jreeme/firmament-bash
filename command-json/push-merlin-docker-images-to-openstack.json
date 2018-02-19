@@ -1,0 +1,101 @@
+{
+  "description"               : "Push Merlin Docker Images to AWS",
+  "options"                   : {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands"      : [
+    {
+      "description"                    : "Push 10.1.70.193:5000/amino3:1.1",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/amino3:1.1"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/portainer:1.16.2",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/portainer:1.16.2"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/nginx:1.13.8",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/nginx:1.13.8"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/elasticsearch:5.6.6",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/elasticsearch:5.6.6"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/alpine-jre:3.7-8",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/alpine-jre:3.7-8"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/alpine:3.7",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/alpine:3.7"
+      ]
+    },
+    {
+      "description"                    : "Push 10.1.70.193:5000/elasticsearch-head:5.x",
+      "suppressOutput"                 : false,
+      "suppressDiagnostics"            : false,
+      "suppressPreAndPostSpawnMessages": false,
+      "outputColor"                    : "",
+      "workingDirectory"               : "/tmp",
+      "command"                        : "docker",
+      "args"                           : [
+        "push",
+        "10.1.70.193:5000/elasticsearch-head:5.x"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+  ]
+}

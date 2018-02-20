@@ -1,5 +1,5 @@
 {
-  "description"               : "Push Merlin Docker Images to AWS",
+  "description"               : "Push Merlin Docker Images to Openstack",
   "options"                   : {
     "displayExecutionGraphDescription": true
   },

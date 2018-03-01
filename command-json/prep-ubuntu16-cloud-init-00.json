@@ -57,7 +57,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "sudo -- bash -c 'wget -O ./_config.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_config.sh'"
+        "sudo -- bash -c 'wget -O $HOME/ubuntu-cloud-init/_config.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_config.sh'"
       ]
     },
     {

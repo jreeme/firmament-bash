@@ -34,6 +34,33 @@
       ]
     },
     {
+      "description"                : "Create '_scp_config_to_qemu_machine.sh' to get the config script in the VM",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "suppressFinalError"         : true,
+      "args"                       : [
+        "-c",
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" ]] && echo \"#!/usr/bin/env bash\nsudo scp -P 5555 _config.sh ubuntu@localhost:/tmp\" > \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\""
+      ]
+    },
+    {
+      "description"                : "Get _config.sh so it can be copied to VM",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "sudo -- bash -c 'wget -O ./_config.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_config.sh'"
+      ]
+    },
+    {
       "description"                : "Create '_run_seed_img.sh' to build cdrom boot image",
       "suppressOutput"             : false,
       "showDiagnostics"            : false,

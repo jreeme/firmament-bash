@@ -57,7 +57,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "sudo -- bash -c 'wget -O $HOME/ubuntu-cloud-init/_config.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_config.sh'"
+        "wget -O $HOME/ubuntu-cloud-init/_config.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_config.sh"
       ]
     },
     {
@@ -127,7 +127,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "chmod 755 \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_ssh.sh\""
+        "chmod 755 \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_config.sh\" \"$HOME/ubuntu-cloud-init/_ssh.sh\""
       ]
     }
   ]

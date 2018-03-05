@@ -44,7 +44,7 @@
       "suppressFinalError"         : true,
       "args"                       : [
         "-c",
-        "[[ ! -f \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" ]] && echo \"#!/usr/bin/env bash\nsudo scp -P 5555 _config.sh ubuntu@localhost:/tmp\nsudo scp -P 5555 _mount_qnap.sh ubuntu@localhost:/tmp\" > \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\""
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" ]] && echo \"#!/usr/bin/env bash\nsudo scp -P 5555 _mount_qnap.sh _config.sh ubuntu@localhost:/tmp\" > \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\""
       ]
     },
     {

@@ -4,4 +4,4 @@
 sudo sed "1s/$/ ubuntu/" -i /etc/hosts
 
 #Change
-sudo echo 'vm.max_map_count=262144' >> /etc/sysctl.conf
+sudo bash -c "echo 'vm.max_map_count=262144 >> /etc/sysctl.conf'"

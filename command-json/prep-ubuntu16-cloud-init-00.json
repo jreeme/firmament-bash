@@ -44,7 +44,20 @@
       "suppressFinalError"         : true,
       "args"                       : [
         "-c",
-        "[[ ! -f \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" ]] && echo \"#!/usr/bin/env bash\nsudo scp -P 5555 _config.sh ubuntu@localhost:/tmp\" > \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\""
+        "[[ ! -f \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" ]] && echo \"#!/usr/bin/env bash\nsudo scp -P 5555 _config.sh ubuntu@localhost:/tmp\nsudo scp -P 5555 _mount_qnap.sh ubuntu@localhost:/tmp\" > \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\""
+      ]
+    },
+    {
+      "description"                : "Get _mount_qnap.sh so it can be copied to VM",
+      "suppressOutput"             : false,
+      "showDiagnostics"            : false,
+      "showPreAndPostSpawnMessages": true,
+      "outputColor"                : "",
+      "useSudo"                    : false,
+      "command"                    : "bash",
+      "args"                       : [
+        "-c",
+        "wget -O $HOME/ubuntu-cloud-init/_mount_qnap.sh https://raw.githubusercontent.com/jreeme/firmament-bash/master/command-json/cloud-init-config/_mount_qnap.sh"
       ]
     },
     {
@@ -127,7 +140,7 @@
       "command"                    : "bash",
       "args"                       : [
         "-c",
-        "chmod 755 \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_config.sh\" \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" \"$HOME/ubuntu-cloud-init/_ssh.sh\""
+        "chmod 755 \"$HOME/ubuntu-cloud-init/_build_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_run_seed_img.sh\" \"$HOME/ubuntu-cloud-init/_config.sh\" \"$HOME/ubuntu-cloud-init/_scp_config_to_qemu_machine.sh\" \"$HOME/ubuntu-cloud-init/_ssh.sh\" \"$HOME/ubuntu-cloud-init/_mount_qnap.sh\""
       ]
     }
   ]

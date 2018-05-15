@@ -7,7 +7,7 @@
     {
       "description"                : "[sudo] Add Chrome linux signing key",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -21,7 +21,7 @@
     {
       "description"                : "[sudo] Add Chrome sources",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -37,7 +37,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -48,7 +48,7 @@
     {
       "description"                : "apt-get install google-chrome-stable",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",

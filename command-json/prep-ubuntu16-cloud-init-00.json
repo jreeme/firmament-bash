@@ -8,7 +8,7 @@
     {
       "description"                : "Write stub 'seed' file",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -22,7 +22,7 @@
     {
       "description"                : "Create '_build_seed_img.sh' to build cdrom boot image",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -36,7 +36,7 @@
     {
       "description"                : "Create '_scp_config_to_qemu_machine.sh' to get the config script in the VM",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -50,7 +50,7 @@
     {
       "description"                : "Get _mount_qnap.sh so it can be copied to VM",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -63,7 +63,7 @@
     {
       "description"                : "Get _config.sh so it can be copied to VM",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -76,7 +76,7 @@
     {
       "description"                : "Create '_run_seed_img.sh' to build cdrom boot image",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -90,7 +90,7 @@
     {
       "description"                : "Create '_ssh.sh' to ssh into running kvm image",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -104,7 +104,7 @@
     {
       "description"                : "Download the QCOW2 Ubuntu16 Cloud Image (with cloud-init)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -118,7 +118,7 @@
     {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -133,7 +133,7 @@
     {
       "description"                : "[sudo] chmod 755 _build_seed_img.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,

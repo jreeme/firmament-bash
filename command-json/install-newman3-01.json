@@ -8,7 +8,7 @@
     {
       "description"                : "docker load -i /var/tmp/newman_docker_apertium.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -22,7 +22,7 @@
     {
       "description"                : "docker load -i /var/tmp/newman_docker_couchdb_offline_tiles.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -36,7 +36,7 @@
     {
       "description"                : "docker load -i /var/tmp/newman_docker_geo_utils.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -50,7 +50,7 @@
     {
       "description"                : "docker load -i /var/tmp/newman_docker_ocr.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -66,7 +66,7 @@
     {
       "description"                : "git newman-vm -> /vagrant",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoUser"                   : "vagrant",
@@ -80,7 +80,7 @@
     {
       "description"                : "git newman-vm -> /vagrant",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoUser"                   : "vagrant",
@@ -95,7 +95,7 @@
     {
       "description"                : "chmod +x -R /vagrant",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoUser"                   : "vagrant",

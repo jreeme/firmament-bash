@@ -7,7 +7,7 @@
     {
       "description": "Add 'set -o vi' to .bashrc",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "/usr/bin/env",
       "args": [
@@ -19,7 +19,7 @@
     {
       "description": "Add 'alias d='docker'' to .bashrc",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "/usr/bin/env",
       "args": [
@@ -31,7 +31,7 @@
     {
       "description": "Add 'alias f='firmament'' to .bashrc",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "/usr/bin/env",
       "args": [
@@ -43,7 +43,7 @@
     {
       "description": "Add 'set nu' to .vimrc",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "/usr/bin/env",
       "args": [
@@ -55,7 +55,7 @@
     {
       "description": "[sudo] deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
       "command": "/usr/bin/env",
@@ -68,7 +68,7 @@
     {
       "description": "[sudo] apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
       "command": "apt-key",
@@ -83,7 +83,7 @@
     {
       "description": "[sudo] apt-cache policy docker-engine",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
       "command": "apt-cache",
@@ -97,7 +97,7 @@
     {
       "description": "[sudo] apt-get update",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
       "command": "apt-get",
@@ -108,7 +108,7 @@
     {
       "description": "apt-get install linux-image-extra build-essential",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo": true,
       "command": "/usr/bin/env",

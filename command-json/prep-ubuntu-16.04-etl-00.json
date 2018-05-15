@@ -8,7 +8,7 @@
     {
       "description"                : "[sudo] add-apt-repository ppa:ubuntu-toolchain-r/test",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "add-apt-repository",
@@ -20,7 +20,7 @@
     {
       "description"                : "[sudo] useradd etl -s /bin/bash -m -g sudo,docker",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -33,7 +33,7 @@
     {
       "description"                : "wget Anaconda2-4.4.0-Linux-x86_64.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -48,7 +48,7 @@
     {
       "description"                : "[sudo] Add [nopasswd] to etl/sudoer's entry",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/bin/bash",
@@ -60,7 +60,7 @@
     {
       "description"                : "[sudo] Install Anaconda2-4.4.0",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/bin/bash",
@@ -72,7 +72,7 @@
     {
       "description"                : "[sudo] Add Anaconda activation to /home/etl/.bashrc",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -86,7 +86,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -97,7 +97,7 @@
     {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -118,7 +118,7 @@
     {
       "description"                : "update-alternatives --install gcc-6",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "update-alternatives",
@@ -137,7 +137,7 @@
     {
       "description"                : "update-alternatives --install gcc-4.8",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "update-alternatives",
@@ -156,7 +156,7 @@
     {
       "description"                : "Install pip packages",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/bin/bash",

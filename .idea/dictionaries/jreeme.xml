@@ -23,6 +23,7 @@
       <w>qemu</w>
       <w>qnap</w>
       <w>rembleton</w>
+      <w>sudo</w>
       <w>sudoer</w>
       <w>sudoers</w>
       <w>svegney</w>
@@ -32,6 +33,7 @@
       <w>wget</w>
       <w>writeback</w>
       <w>xenial</w>
+      <w>yargs</w>
     </words>
   </dictionary>
 </component>

@@ -9,7 +9,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -22,7 +22,7 @@
     {
       "description"                : "[sudo] Install JDK",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -36,7 +36,7 @@
     {
       "description"                : "[sudo] addgroup hadoop",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -48,7 +48,7 @@
     {
       "description"                : "[sudo] useradd hduser -s /bin/bash -m -g hadoop",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -62,7 +62,7 @@
     {
       "description"                : "[sudo] apt-get install ssh (probably unnecessary)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -76,7 +76,7 @@
     {
       "description"                : "[sudo] ssh-keygen",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -89,7 +89,7 @@
     {
       "description"                : "[sudo] cat id_rsa.pub >> authorized_keys",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -102,7 +102,7 @@
     {
       "description"                : "[sudo] mkdir -p /usr/local/hadoop",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -115,7 +115,7 @@
     {
       "description"                : "[sudo] curl hadoop.tar.gz | tar xvf",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -128,7 +128,7 @@
     {
       "description"                : "[sudo] adduser hduser sudo",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -141,7 +141,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 0)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -154,7 +154,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 1)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -167,7 +167,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 2)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -180,7 +180,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 3)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -193,7 +193,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 4)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -206,7 +206,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 5)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -219,7 +219,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 6)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -232,7 +232,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 7)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -245,7 +245,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 8)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -258,7 +258,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 9)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -271,7 +271,7 @@
     {
       "description"                : "[sudo] Update /home/hduser/.profile (Step 10)",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -284,7 +284,7 @@
     {
       "description"                : "[sudo] Update /usr/local/hadoop/hadoop-env.sh with JAVA_HOME",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -297,7 +297,7 @@
     {
       "description"                : "[sudo] Update /usr/local/hadoop/hadoop-env.sh with JAVA_HOME",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -310,7 +310,7 @@
     {
       "description"                : "[sudo] mkdir -p /app/hadoop/tmp",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -323,7 +323,7 @@
     {
       "description"                : "[sudo] wget core-site.xml",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -336,7 +336,7 @@
     {
       "description"                : "[sudo] wget mapred-site.xml",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -349,7 +349,7 @@
     {
       "description"                : "[sudo] mkdir -p /usr/local/hadoop_store/hdfs.namenode",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -362,7 +362,7 @@
     {
       "description"                : "[sudo] mkdir -p /usr/local/hadoop_store/hdfs.datanode",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -375,7 +375,7 @@
     {
       "description"                : "[sudo] wget hdfs-site.xml",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -388,7 +388,7 @@
     {
       "description"                : "[sudo] hadoop namenode -format",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,

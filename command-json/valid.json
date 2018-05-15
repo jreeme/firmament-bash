@@ -7,7 +7,7 @@
     {
       "description": "Async Group 0 Task 1",
       "suppressOutput": true,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "node",
       "outputColor": "blue",
@@ -21,7 +21,7 @@
       "description": "Async Group 0 Task 2",
       "command": "node",
       "suppressOutput": true,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
       "args": [
@@ -35,7 +35,7 @@
     {
       "description": "Sync Group 0 Task 1",
       "suppressOutput": true,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command": "node",
       "outputColor": "yellow",
@@ -49,7 +49,7 @@
       "description": "Sync Group 0 Task 2",
       "command": "node",
       "suppressOutput": true,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "magenta",
       "args": [

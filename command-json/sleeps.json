@@ -1,0 +1,54 @@
+{
+  "description": "Sleep Well My Little Sleepers!",
+  "options": {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands": [
+    {
+      "description": "Sleep 1",
+      "suppressOutput": false,
+      "suppressDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Sleeping...' && sleep 3"
+      ]
+    },
+    {
+      "description": "Sleep 2",
+      "suppressOutput": false,
+      "suppressDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Sleeping...' && sleep 3"
+      ]
+    }
+  ],
+  "serialSynchronizedCommands": [
+    {
+      "description": "Sleep 3",
+      "suppressOutput": false,
+      "suppressDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Sleeping...' && sleep 3"
+      ]
+    },
+    {
+      "description": "Sleep 4",
+      "suppressOutput": false,
+      "suppressDiagnostics": false,
+      "showPreAndPostSpawnMessages": true,
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo 'Sleeping...' && sleep 3"
+      ]
+    }
+  ]
+}

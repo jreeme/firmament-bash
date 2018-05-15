@@ -8,7 +8,7 @@
     {
       "description": "NPM install firmament-yargs",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "cyan",
       "command": "npm",
@@ -21,7 +21,7 @@
     {
       "description": "NPM install firmament-bash",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "yellow",
       "command": "npm",
@@ -34,7 +34,7 @@
     {
       "description": "NPM install firmament-vita",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
       "command": "npm",
@@ -47,7 +47,7 @@
     {
       "description": "NPM install firmament-docker",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "white",
       "command": "npm",
@@ -62,7 +62,7 @@
     {
       "description": "GIT checkout shell",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "green",
       "workingDirectory": "firmament",
@@ -75,7 +75,7 @@
     {
       "description": "NPM install firmament",
       "suppressOutput": false,
-      "showDiagnostics": false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor": "blue",
       "command": "npm",

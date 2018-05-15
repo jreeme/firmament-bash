@@ -8,7 +8,7 @@
     {
       "description"                : "wget newman_docker_apertium.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -24,7 +24,7 @@
     {
       "description"                : "wget newman_docker_couchdb_offline_tiles.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -40,7 +40,7 @@
     {
       "description"                : "wget newman_docker_geo_utils.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -56,7 +56,7 @@
     {
       "description"                : "wget newman_docker_ocr.tar",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -72,7 +72,7 @@
     {
       "description"                : "[sudo] useradd vagrant -s /bin/bash -m -g sudo docker",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -87,7 +87,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -101,7 +101,7 @@
     {
       "description"                : "[sudo] Add [nopasswd] to vagrant/sudoer's entry",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoPassword"               : "password",
@@ -117,7 +117,7 @@
     {
       "description"                : "[sudo] Create /vagrant and chown it to vagrant:vagrant",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoPassword"               : "password",
@@ -131,7 +131,7 @@
     {
       "description"                : "[sudo] mkdir -p /srv/software",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -144,7 +144,7 @@
     {
       "description"                : "[sudo] chmod 755 /srv/software",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -157,7 +157,7 @@
     {
       "description"                : "[sudo] Install JDK",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,

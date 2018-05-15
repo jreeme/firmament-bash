@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import path = require('path');
 import {ExecutionGraph, ShellCommand} from '../custom-typings';
 import {ExecutionGraphResolver} from "../interfaces/execution-graph-resolver";
+import {ErrorCallback} from "async";
 
 const async = require('async');
 const chalk = require('chalk');
@@ -181,7 +182,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
 
     //noinspection JSUnusedLocalSymbols
     async.series(spawnFnArray, (err: Error, results: any) => {
-      const msg = `Execution graph '${eg.description}' completed.`;
+      const msg = `Execution graph '${eg.description}' completed.\n`;
       if (eg.options.displayExecutionGraphDescription) {
         me.commandUtil.log(chalk['green'](msg));
       }
@@ -190,7 +191,6 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
-    //async.parallel(this.createSpawnFnArray(commands), cb);
     async.parallel(this.createSpawnFnArray(commands), (err, result) => {
       cb(err, result);
     });
@@ -204,28 +204,36 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     const me = this;
     const spawnFnArray = [];
     commands.forEach(command => {
-      //Non-pipelined commands
       const fnSpawn = command.useSudo
         ? me.spawn.sudoSpawnAsync.bind(me.spawn)
         : me.spawn.spawnShellCommandAsync.bind(me.spawn);
       const cmd = command.args.slice(0);
       cmd.unshift(command.command);
-      spawnFnArray.push(async.apply(fnSpawn,
-        cmd,
-        me.buildSpawnOptions(command),
-        me.buildSpawnCallback(command)));
+      const spawnOptions = me.buildSpawnOptions(command);
+      spawnFnArray.push(async.apply(me.spawnWrapper.bind(me), fnSpawn, cmd, spawnOptions, command.outputColor));
     });
     return spawnFnArray;
   }
 
-  private buildSpawnCallback(command: ShellCommand): (err: Error, results: string) => void {
-    return (err: Error, results: string) => {
-      if (err) {
-        this.commandUtil.stdoutWrite(chalk['redBright'](err.message));
-        return;
+  private spawnWrapper(fnSpawn, cmd: string[], spawnOptions: SpawnOptions2, outputColor: string, cb: (err: Error, result: any) => void) {
+    fnSpawn(
+      cmd,
+      spawnOptions,
+      (err: Error, results: string) => {
+        if (err) {
+          return this.commandUtil.stdoutWrite(chalk['redBright'](err.message));
+        }
+        this.commandUtil.stdoutWrite(chalk[outputColor](results));
+      },
+      (err: Error, results: string) => {
+        err && this.commandUtil.stdoutWrite(chalk['redBright'](err.message));
+        this.commandUtil.stdoutWrite(chalk[outputColor](`${results}\n`));
+        cb(err, results);
+      },
+      (diagnosticMessage: string) => {
+        this.commandUtil.stdoutWrite(chalk[outputColor](diagnosticMessage));
       }
-      this.commandUtil.stdoutWrite(chalk[command.outputColor](results));
-    };
+    );
   }
 
   private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
@@ -249,12 +257,11 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       cacheStdOut: false,
       sudoUser: command.sudoUser,
       sudoPassword: command.sudoPassword,
-      suppressResult: command.suppressOutput,
-      suppressStdErr: command.suppressOutput,
-      suppressStdOut: command.suppressOutput,
-      suppressFinalError: command.suppressFinalError,
+      suppressResult: command.suppressOutput || false,
+      suppressStdErr: command.suppressOutput || false,
+      suppressStdOut: command.suppressOutput || false,
+      suppressFinalError: command.suppressFinalError || false,
       cwd: workingDirectory
     };
   }
-
 }

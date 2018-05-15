@@ -8,7 +8,7 @@
     {
       "description"                : "[sudo] useradd nginx -s /bin/bash -m",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "suppressFinalError"         : true,
       "outputColor"                : "",
@@ -23,7 +23,7 @@
     {
       "description"                : "[sudo] Add [nopasswd] to nginx/sudoer's entry",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoPassword"               : "password",
@@ -37,7 +37,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -50,7 +50,7 @@
     {
       "description"                : "[sudo] adduser nginx sudo",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -63,7 +63,7 @@
     {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",

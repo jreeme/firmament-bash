@@ -7,7 +7,7 @@
     {
       "description"                : "[sudo] Add VirtualBox sources",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
@@ -20,7 +20,7 @@
     {
       "description"                : "[sudo] Add VirtualBox sources",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
@@ -33,7 +33,7 @@
     {
       "description"                : "Add 'set -o vi' to .bashrc",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
@@ -45,7 +45,7 @@
     {
       "description"                : "Add 'alias d='docker'' to .bashrc",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
@@ -57,7 +57,7 @@
     {
       "description"                : "Add 'alias f='firmament'' to .bashrc",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
@@ -69,7 +69,7 @@
     {
       "description"                : "Add 'set nu' to .vimrc",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
@@ -81,7 +81,7 @@
     {
       "description"                : "Create '_swapEsc.sh'",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "command"                    : "/usr/bin/env",
       "args"                       : [
@@ -93,7 +93,7 @@
     {
       "description"                : "[sudo] Add [nopasswd] to jreeme/sudoer's entry",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "sudoPassword"               : "password",
@@ -109,7 +109,7 @@
     {
       "description"                : "[sudo] Add Docker signing key",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
@@ -122,7 +122,7 @@
     {
       "description"                : "[sudo] Add VirtualBox signing key",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "/usr/bin/env",
@@ -135,7 +135,7 @@
     {
       "description"                : "[sudo] apt-get update",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -146,7 +146,7 @@
     {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",

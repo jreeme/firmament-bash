@@ -10,7 +10,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/os_config.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -23,7 +23,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/scala.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -36,7 +36,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/spark-2.0.1.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -49,7 +49,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/elasticsearch.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -62,7 +62,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/kibana.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -75,7 +75,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/mitie.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -88,7 +88,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/newman.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -101,7 +101,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/newman-research.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -114,7 +114,7 @@
     {
       "description"                : "[sudo] sourcing /vagrant/provision/pst-extraction.sh",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -127,7 +127,7 @@
     {
       "description"                : "[sudo] chown vagrant:vagrant /srv/software -R",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -141,7 +141,7 @@
     {
       "description"                : "[sudo] systemctl enable elasticsearch",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,
@@ -154,7 +154,7 @@
     {
       "description"                : "[sudo] systemctl start elasticsearch",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,

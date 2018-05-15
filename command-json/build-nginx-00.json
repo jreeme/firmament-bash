@@ -8,7 +8,7 @@
     {
       "description"                : "[sudo] wget nginx.sh --> /etc/init.d/nginx",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : false,
@@ -21,7 +21,7 @@
     {
       "description"                : "Download and expand nginx-stable source",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : false,
       "command"                    : "bash",
@@ -35,7 +35,7 @@
     {
       "description"                : "[sudo] chmod 755 /etc/init.d/nginx",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "chmod",
@@ -47,7 +47,7 @@
     {
       "description"                : "Configure NginX build",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "workingDirectory"           : "/home/nginx/nginx-1.12.2",
       "useSudo"                    : false,
@@ -60,7 +60,7 @@
     {
       "description"                : "Run make to build NginX",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "workingDirectory"           : "/home/nginx/nginx-1.12.2",
       "useSudo"                    : false,
@@ -73,7 +73,7 @@
     {
       "description"                : "Run 'make install' to install NginX to /usr/local",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "workingDirectory"           : "/home/nginx/nginx-1.12.2",
       "useSudo"                    : true,
@@ -85,7 +85,7 @@
     {
       "description"                : "[sudo] update-rc.d -f nginx defaults",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "update-rc.d",
@@ -98,7 +98,7 @@
     {
       "description"                : "[sudo] reboot",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "reboot",

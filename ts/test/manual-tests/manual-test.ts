@@ -21,7 +21,7 @@ processCommandJson.processYargsCommand(
     //input: 'glibber'
     //input: 'firmament-dev'
     //input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu-16.04-server-00.json'
-    input: '/home/jreeme/src/firmament-bash/command-json/build-and-push-docker-images-to-aws.json'
+    input: '/home/jreeme/src/firmament/firmament-bash/command-json/sleeps.json'
   }
 );
 /*processCommandJson.process(networkScriptPath, (err, result) => {

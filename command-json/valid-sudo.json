@@ -7,7 +7,7 @@
     {
       "description": "Async Group 0 Task 1",
       "suppressOutput": false,
-      "showDiagnostics": true,
+      "suppressDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "command": "node",
       "outputColor": "blue",
@@ -21,7 +21,7 @@
     {
       "description": "Async Group 0 Task 2",
       "suppressOutput": false,
-      "showDiagnostics": true,
+      "suppressDiagnostics": false,
       "showPreAndPostSpawnMessages": true,
       "command": "node",
       "outputColor": "blue",

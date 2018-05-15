@@ -9,7 +9,7 @@
     {
       "description"                : "[sudo] curl webstorm.tar.gz | tar xvf",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "outputColor"                : "",
       "useSudo"                    : true,

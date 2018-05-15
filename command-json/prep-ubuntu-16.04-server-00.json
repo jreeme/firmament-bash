@@ -8,7 +8,7 @@
     {
       "description"                : "[sudo] npm install -g yarn",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "npm",
@@ -21,7 +21,7 @@
     {
       "description"                : "apt-get install [...]",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : true,
       "command"                    : "apt-get",
@@ -41,7 +41,7 @@
     {
       "description"                : "git config --global 'user.name'",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : false,
       "command"                    : "git",
@@ -55,7 +55,7 @@
     {
       "description"                : "git config --global 'user.email'",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : false,
       "command"                    : "git",
@@ -69,7 +69,7 @@
     {
       "description"                : "usermod -aG docker <me>",
       "suppressOutput"             : false,
-      "showDiagnostics"            : false,
+      "suppressDiagnostics": true,
       "showPreAndPostSpawnMessages": true,
       "useSudo"                    : false,
       "command"                    : "/usr/bin/env",

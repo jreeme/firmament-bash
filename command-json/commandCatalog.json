@@ -1,6 +1,12 @@
 {
   "entries":[
     {
+      "name": "install-docker-machine",
+      "urls": [
+        "install-docker-machine.json"
+      ]
+    },
+    {
       "name": "firmament-dev",
       "urls": [
         "firmament-dev-00.json",

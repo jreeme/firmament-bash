@@ -25,6 +25,17 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     super();
   }
 
+  processExecutionGraphJson(json: string, cb: (err: Error, result: string) => void): void {
+    const me = this;
+    cb = me.checkCallback(cb);
+    me.safeJson.safeParse(json, (err, executionGraph) => {
+      if (me.commandUtil.callbackIfError(cb, err)) {
+        return;
+      }
+      me.execute(executionGraph, cb);
+    });
+  }
+
   processYargsCommand(argv: any) {
     const me = this;
     argv.catalogPath = argv.catalogPath || commandCatalogUrl;
@@ -95,7 +106,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     });
   }
 
-  private execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
+  execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
     const me = this;
     cb = me.checkCallback(cb);
     let graphCursor = executionGraph;

@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import kernel from '../../inversify.config';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
 import {RemoteCatalogGetter} from 'firmament-yargs';
+import {ExecutionGraph} from "../../custom-typings";
 
 let processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
 
@@ -13,17 +14,48 @@ const networkScriptPath = 'https://raw.githubusercontent.com/jreeme/firmament-ba
 const remoteCatalogGetter = kernel.get<RemoteCatalogGetter>('RemoteCatalogGetter');
 const broScriptPath = '/home/jreeme/bro/bro4.json';
 const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
+
+const buildAllDockerImages: ExecutionGraph = {
+  "description": "Build all Docker images in Parrot stack",
+  "options": {
+    "displayExecutionGraphDescription": true
+  },
+  "asynchronousCommands": [],
+  "serialSynchronizedCommands": [
+    {
+      "description": "git clone amino3-client",
+      "suppressOutput": false,
+      "suppressDiagnostics": false,
+      "suppressPreAndPostSpawnMessages": true,
+      "outputColor": "",
+      "useSudo": false,
+      "workingDirectory": ".",
+      "command": "/usr/bin/env",
+      "args": [
+        "bash",
+        "-c",
+        "ls"
+      ]
+    }
+  ]
+};
+processCommandJson.processExecutionGraphJson(JSON.stringify(buildAllDockerImages), (err, result) => {
+  const e = err;
+});
+/*processCommandJson.execute(buildAllDockerImages, (err, result) => {
+  const e = err;
+});*/
 /*remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, remoteCatalog) => {
  let e = err;
  });*/
-processCommandJson.processYargsCommand(
+/*processCommandJson.processYargsCommand(
   {
     //input: 'glibber'
     //input: 'firmament-dev'
     //input: '/home/jreeme/src/firmament-bash/command-json/prep-ubuntu-16.04-server-00.json'
     input: '/home/jreeme/src/firmament/firmament-bash/command-json/sleeps.json'
   }
-);
+);*/
 /*processCommandJson.process(networkScriptPath, (err, result) => {
  process.exit(0);
  });*/

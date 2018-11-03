@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 import path = require('path');
 import {ExecutionGraph, ShellCommand} from '../custom-typings';
 import {ExecutionGraphResolver} from "../interfaces/execution-graph-resolver";
-import {ErrorCallback} from "async";
 
 const async = require('async');
 const chalk = require('chalk');

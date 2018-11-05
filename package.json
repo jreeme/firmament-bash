@@ -1,6 +1,6 @@
 {
   "name": "firmament-bash",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Firmament module for interpreting commands in JSON files using bash",
   "main": "js/index.js",
   "typings": "js/index",
@@ -40,7 +40,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "chalk": "^2.1.0",
-    "firmament-yargs": "^1.1.11",
+    "firmament-yargs": "1.1.12",
     "inversify": "^4.13.0",
     "jsonfile": "^3.0.1",
     "lodash": "^4.17.4",

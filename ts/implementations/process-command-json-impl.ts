@@ -7,7 +7,7 @@ import {
 import * as _ from 'lodash';
 import path = require('path');
 import {ExecutionGraph, ShellCommand} from '../custom-typings';
-import {ExecutionGraphResolver} from "../interfaces/execution-graph-resolver";
+import {ExecutionGraphResolver} from '../interfaces/execution-graph-resolver';
 
 const async = require('async');
 const chalk = require('chalk');
@@ -175,8 +175,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     const me = this;
     cb = me.checkCallback(cb);
     if (!executionGraph) {
-      cb(new Error('Invalid executionGraph'), null);
-      return;
+      return cb(new Error('Invalid executionGraph'), null);
     }
     const eg = executionGraph;
     if (eg.options.displayExecutionGraphDescription) {
@@ -201,9 +200,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   }
 
   private executeAsynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
-    async.parallel(this.createSpawnFnArray(commands), (err, result) => {
-      cb(err, result);
-    });
+    async.parallel(this.createSpawnFnArray(commands), cb);
   }
 
   private executeSynchronousCommands(commands: ShellCommand[], cb: (err: Error, results: string[]) => void) {
@@ -266,6 +263,9 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       cacheStdErr: true,
       cacheStdOut: false,
       sudoUser: command.sudoUser,
+      remoteHost: command.remoteHost,
+      remoteUser: command.remoteUser,
+      remotePassword: command.remotePassword,
       sudoPassword: command.sudoPassword,
       suppressResult: command.suppressOutput || false,
       suppressStdErr: command.suppressOutput || false,

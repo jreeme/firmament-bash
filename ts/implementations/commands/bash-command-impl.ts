@@ -43,7 +43,7 @@ export class BashCommandImpl implements Command {
         desc: 'Url or path to command catalog file'
       }
     };
-    processCommand.handler = this.processCommandJson.processYargsCommand.bind(this.processCommandJson);
+    processCommand.handler = me.processCommandJson.processYargsCommand.bind(this.processCommandJson);
     me.subCommands.push(processCommand);
   }
 }

@@ -9,6 +9,9 @@ export interface ShellCommand {
   useSudo?: boolean;
   sudoUser?: string;
   sudoPassword?: string;
+  remoteHost?:string;
+  remoteUser?:string;
+  remotePassword?:string;
   command?: string;
   args?: string[];
 }

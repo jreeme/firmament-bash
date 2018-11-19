@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 import kernel from '../../inversify.config';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
-import {RemoteCatalogGetter} from 'firmament-yargs';
-import {ExecutionGraph} from "../../custom-typings";
+import {CommandUtil, RemoteCatalogGetter} from 'firmament-yargs';
+import {ExecutionGraph} from '../../custom-typings';
 
-let processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
+const processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
+const commandUtil = kernel.get<CommandUtil>('CommandUtil');
 
 const scriptPath = '/home/jreeme/src/firmament-bash/command-json/valid.json';
 const errorScriptPath = '/home/jreeme/src/firmament-bash/command-json/valid-error.json';
@@ -15,36 +16,37 @@ const remoteCatalogGetter = kernel.get<RemoteCatalogGetter>('RemoteCatalogGetter
 const broScriptPath = '/home/jreeme/bro/bro4.json';
 const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
 
-const buildAllDockerImages: ExecutionGraph = {
-  "description": "Build all Docker images in Parrot stack",
-  "options": {
+const testExecutionGraph: ExecutionGraph = {
+  description: "Build all Docker images in Parrot stack",
+  options: {
     "displayExecutionGraphDescription": true
   },
-  "asynchronousCommands": [],
-  "serialSynchronizedCommands": [
+  asynchronousCommands: [],
+  serialSynchronizedCommands: [
     {
-      "description": "git clone amino3-client",
-      "suppressOutput": false,
-      "suppressDiagnostics": false,
-      "suppressPreAndPostSpawnMessages": true,
-      "outputColor": "",
-      "useSudo": false,
-      "workingDirectory": ".",
-      "command": "/usr/bin/env",
-      "args": [
-        "bash",
-        "-c",
-        "ls"
+      description: "git clone amino3-client",
+      suppressOutput: false,
+      suppressDiagnostics: false,
+      suppressPreAndPostSpawnMessages: true,
+      outputColor: "",
+      remoteHost: "192.168.0.105",
+      remoteUser: "jreeme",
+      remotePassword: "password",
+      useSudo: false,
+      workingDirectory: ".",
+      command: "touch",
+      args: [
+        "/tmp/hello"
       ]
     }
   ]
 };
-processCommandJson.processExecutionGraphJson(JSON.stringify(buildAllDockerImages), (err, result) => {
-  const e = err;
-});
-/*processCommandJson.execute(buildAllDockerImages, (err, result) => {
+/*processCommandJson.processExecutionGraphJson(JSON.stringify(buildAllDockerImages), (err, result) => {
   const e = err;
 });*/
+processCommandJson.execute(testExecutionGraph, (err, result) => {
+  commandUtil.processExitWithError(err, 'OK');
+});
 /*remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, remoteCatalog) => {
  let e = err;
  });*/

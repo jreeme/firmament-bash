@@ -44,7 +44,7 @@ const testExecutionGraph: ExecutionGraph = {
 /*processCommandJson.processExecutionGraphJson(JSON.stringify(buildAllDockerImages), (err, result) => {
   const e = err;
 });*/
-processCommandJson.execute(testExecutionGraph, (err, result) => {
+processCommandJson.processExecutionGraph(testExecutionGraph, (err, result) => {
   commandUtil.processExitWithError(err, 'OK');
 });
 /*remoteCatalogGetter.getCatalogFromUrl(commandCatalogUrl, (err, remoteCatalog) => {

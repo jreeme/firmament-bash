@@ -1,8 +1,13 @@
 import {injectable, inject} from 'inversify';
 import {ProcessCommandJson} from '../interfaces/process-command-json';
 import {
-  CommandUtil, ForceErrorImpl, RemoteCatalogGetter,
-  RemoteCatalogEntry, SafeJson, Spawn, SpawnOptions2
+  CommandUtil,
+  ForceErrorImpl,
+  RemoteCatalogGetter,
+  RemoteCatalogEntry,
+  SafeJson,
+  Spawn,
+  SpawnOptions2
 } from 'firmament-yargs';
 import * as _ from 'lodash';
 import path = require('path');
@@ -28,10 +33,10 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     const me = this;
     cb = me.checkCallback(cb);
     me.safeJson.safeParse(json, (err, executionGraph) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
+      if(me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      me.execute(executionGraph, cb);
+      me.processExecutionGraph(executionGraph, cb);
     });
   }
 
@@ -40,16 +45,16 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     argv.catalogPath = argv.catalogPath || commandCatalogUrl;
     //Start by checking to see if argv.input is a url we can just execute and be done with it
     me.processAbsoluteUrl(argv.input, (err: Error) => {
-      if (err) {
+      if(err) {
         const parsedError = me.safeJson.safeParseSync(err.message);
-        if (parsedError.err) {
+        if(parsedError.err) {
           //This means no process launched (which means argv.input was not a execution graph
           //in a local file). Now we see if it's a graph on the web or list the graphs we know
           //about on the web.
           me.remoteCatalogGetter.getCatalogFromUrl(argv.catalogPath, (err, commandCatalog) => {
             me.commandUtil.processExitIfError(err);
             //If we got a command catalog but user didn't specify anything then list entries in catalog
-            if (!argv.input) {
+            if(!argv.input) {
               me.commandUtil.log('\nAvailable templates:\n');
               commandCatalog.entries.forEach(entry => {
                 me.commandUtil.log('> ' + entry.name);
@@ -80,42 +85,42 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   processCatalogEntry(catalogEntry: RemoteCatalogEntry, cb: (err: Error, result: string) => void) {
     const me = this;
     cb = me.checkCallback(cb);
-    if (me.checkForceError('ProcessCommandJsonImpl.processCatalogEntry', cb)) {
+    if(me.checkForceError('ProcessCommandJsonImpl.processCatalogEntry', cb)) {
       return;
     }
     me.executionGraphResolver.resolveExecutionGraphFromCatalogEntry(catalogEntry, (err, executionGraph) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
+      if(me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      me.execute(executionGraph, cb);
+      me.processExecutionGraph(executionGraph, cb);
     });
   }
 
   processAbsoluteUrl(jsonOrUri: string, cb: (err: Error, result: string) => void): void {
     const me = this;
     cb = me.checkCallback(cb);
-    if (me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
+    if(me.checkForceError('ProcessCommandJsonImpl.processAbsoluteUrl', cb)) {
       return;
     }
     me.executionGraphResolver.resolveExecutionGraph(jsonOrUri, (err, executionGraph) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
+      if(me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
-      me.execute(executionGraph, cb);
+      me.processExecutionGraph(executionGraph, cb);
     });
   }
 
-  execute(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
+  processExecutionGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
     const me = this;
     cb = me.checkCallback(cb);
     let graphCursor = executionGraph;
     const executionGraphs: ExecutionGraph[] = [];
     executionGraphs.unshift(graphCursor);
-    while (graphCursor = graphCursor.prerequisiteGraph) {
+    while(graphCursor = graphCursor.prerequisiteGraph) {
       executionGraphs.unshift(graphCursor);
     }
     me.preProcessExecutionGraphs(executionGraphs, (err: Error, fnArray: any[]) => {
-      if (me.commandUtil.callbackIfError(cb, err)) {
+      if(me.commandUtil.callbackIfError(cb, err)) {
         return;
       }
       async.series(fnArray, cb);
@@ -142,17 +147,17 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       [eg.asynchronousCommands, eg.serialSynchronizedCommands].forEach(commands => {
         commands.forEach(command => {
           command.outputColor = command.outputColor || textColors[counter++ % textColors.length];
-          if (!sudoPassword && command.sudoPassword) {
+          if(!sudoPassword && command.sudoPassword) {
             sudoPassword = command.sudoPassword;
           }
-          if (!useSudo && command.useSudo) {
+          if(!useSudo && command.useSudo) {
             useSudo = command.useSudo;
           }
         });
       });
       fnArray.push(async.apply(me.executeSingleGraph.bind(me), executionGraph));
     });
-    if (useSudo) {
+    if(useSudo) {
       //Because launching several async processes requiring a password would ask the user multiple times
       //for a password, we just do it once here to cache the password.
       me.spawn.sudoSpawnAsync(
@@ -161,7 +166,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
         () => {
         },
         (err) => {
-          if (me.commandUtil.callbackIfError(cb, err)) {
+          if(me.commandUtil.callbackIfError(cb, err)) {
             return;
           }
           cb(null, fnArray);
@@ -174,11 +179,11 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
   private executeSingleGraph(executionGraph: ExecutionGraph, cb: (err: Error, result: any) => void) {
     const me = this;
     cb = me.checkCallback(cb);
-    if (!executionGraph) {
+    if(!executionGraph) {
       return cb(new Error('Invalid executionGraph'), null);
     }
     const eg = executionGraph;
-    if (eg.options.displayExecutionGraphDescription) {
+    if(eg.options.displayExecutionGraphDescription) {
       me.commandUtil.log(chalk['green'](`Starting execution graph '${eg.description}'`));
     }
     //Use firmament-yargs:spawn services to execute commands
@@ -192,7 +197,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
     //noinspection JSUnusedLocalSymbols
     async.series(spawnFnArray, (err: Error, results: any) => {
       const msg = `Execution graph '${eg.description}' completed.\n`;
-      if (eg.options.displayExecutionGraphDescription) {
+      if(eg.options.displayExecutionGraphDescription) {
         me.commandUtil.log(chalk['green'](msg));
       }
       cb(err, msg);
@@ -227,7 +232,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       cmd,
       spawnOptions,
       (err: Error, results: string) => {
-        if (err) {
+        if(err) {
           return this.commandUtil.stdoutWrite(chalk['redBright'](err.message));
         }
         this.commandUtil.stdoutWrite(chalk[outputColor](results));
@@ -245,7 +250,7 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
 
   private buildSpawnOptions(command: ShellCommand): SpawnOptions2 {
     let workingDirectory: string;
-    if (command.workingDirectory) {
+    if(command.workingDirectory) {
       workingDirectory = command.workingDirectory;
       workingDirectory = path.isAbsolute(workingDirectory)
         ? workingDirectory

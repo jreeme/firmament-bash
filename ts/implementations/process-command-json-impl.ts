@@ -271,6 +271,8 @@ export class ProcessCommandJsonImpl extends ForceErrorImpl implements ProcessCom
       remoteHost: command.remoteHost,
       remoteUser: command.remoteUser,
       remotePassword: command.remotePassword,
+      remoteSshKeyPath: command.remoteSshKeyPath,
+      remoteSshPort: command.remoteSshPort,
       sudoPassword: command.sudoPassword,
       suppressResult: command.suppressOutput || false,
       suppressStdErr: command.suppressOutput || false,

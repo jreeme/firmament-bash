@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import kernel from '../inversify.config';
 import {expect} from 'chai';
-import {} from 'mocha';
-import {ExecutionGraphResolver} from "../interfaces/execution-graph-resolver";
-import path = require('path');
+import * as mocha from 'mocha';
+import {ExecutionGraphResolver} from '../interfaces/execution-graph-resolver';
+import * as path from 'path';
 
 describe('Testing ExecutionGraphResolver Creation/Force Error', () => {
   let executionGraphResolver: ExecutionGraphResolver;
@@ -12,6 +12,9 @@ describe('Testing ExecutionGraphResolver Creation/Force Error', () => {
   });
   afterEach(() => {
     executionGraphResolver.forceError = false;
+  });
+  mocha.it('use mocha instance to avoid linter warning', (done) => {
+    done();
   });
   it('should be created by kernel', (done) => {
     expect(executionGraphResolver).to.exist;

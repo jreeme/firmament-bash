@@ -1,17 +1,12 @@
-export interface ShellCommand {
+import {SpawnOptions2} from 'firmament-yargs';
+
+export interface ShellCommand extends SpawnOptions2 {
   description?: string;
   outputColor?: string;
   workingDirectory?: string;
   suppressOutput?: boolean;
-  suppressFinalError?: boolean,
-  suppressDiagnostics?: boolean;
   suppressPreAndPostSpawnMessages?: boolean;
   useSudo?: boolean;
-  sudoUser?: string;
-  sudoPassword?: string;
-  remoteHost?:string;
-  remoteUser?:string;
-  remotePassword?:string;
   command?: string;
   args?: string[];
 }

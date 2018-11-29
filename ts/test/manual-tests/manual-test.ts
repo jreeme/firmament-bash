@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import kernel from '../../inversify.config';
 import {ProcessCommandJson} from '../../interfaces/process-command-json';
-import {CommandUtil, RemoteCatalogGetter} from 'firmament-yargs';
-import {ExecutionGraph} from '../../custom-typings';
+import {CommandUtil, RemoteCatalogGetter, SpawnOptions2} from 'firmament-yargs';
+import {ExecutionGraph, ShellCommand} from '../../custom-typings';
 
 const processCommandJson = kernel.get<ProcessCommandJson>('ProcessCommandJson');
 const commandUtil = kernel.get<CommandUtil>('CommandUtil');
@@ -16,34 +16,46 @@ const remoteCatalogGetter = kernel.get<RemoteCatalogGetter>('RemoteCatalogGetter
 const broScriptPath = '/home/jreeme/bro/bro4.json';
 const commandCatalogUrl = '/home/jreeme/src/firmament-bash/command-json/commandCatalog.json';
 
+const touchRemotely: ShellCommand = {
+  description: "touch remotely, say hello",
+  suppressOutput: false,
+  suppressDiagnostics: false,
+  suppressPreAndPostSpawnMessages: true,
+  outputColor: "",
+  remoteHost: "192.168.104.69",
+  remoteUser: "jreeme",
+  remoteSshKeyPath: "/home/jreeme/.ssh/id_rsa",
+  //remotePassword: "password",
+  useSudo: false,
+  workingDirectory: ".",
+  command: "touch",
+  args: [
+    "/tmp/hello"
+  ]
+};
 const testExecutionGraph: ExecutionGraph = {
-  description: "Build all Docker images in Parrot stack",
+  description: "Test touch remote server",
   options: {
     "displayExecutionGraphDescription": true
   },
   asynchronousCommands: [],
-  serialSynchronizedCommands: [
-    {
-      description: "git clone amino3-client",
-      suppressOutput: false,
-      suppressDiagnostics: false,
-      suppressPreAndPostSpawnMessages: true,
-      outputColor: "",
-      remoteHost: "192.168.0.105",
-      remoteUser: "jreeme",
-      remotePassword: "password",
-      useSudo: false,
-      workingDirectory: ".",
-      command: "touch",
-      args: [
-        "/tmp/hello"
-      ]
-    }
-  ]
+  serialSynchronizedCommands: []
 };
 /*processCommandJson.processExecutionGraphJson(JSON.stringify(buildAllDockerImages), (err, result) => {
   const e = err;
 });*/
+for(let i = 0; i < 10; ++i) {
+  const tr0 = Object.assign({}, touchRemotely);
+  tr0.args = [
+    `/tmp/hello-s-${i}`
+  ];
+  testExecutionGraph.serialSynchronizedCommands.push(tr0);
+  const tr1 = Object.assign({}, touchRemotely);
+  tr1.args = [
+    `/tmp/hello-a-${i}`
+  ];
+  testExecutionGraph.asynchronousCommands.push(tr1);
+}
 processCommandJson.processExecutionGraph(testExecutionGraph, (err, result) => {
   commandUtil.processExitWithError(err, 'OK');
 });
